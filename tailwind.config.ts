@@ -16,7 +16,19 @@ module.exports = {
       },
     },
     extend: {
+      screens: {
+        "mb": "320px",
+        "lmb": "480px",
+        "tablet": "768px",
+        "lp": "1024px",
+        "lcd": "1400px"
+
+      },
       colors: {
+        pri_blue:"#00FDED",
+        pri_purple: "#1b1464",
+        pri_pink: "#ed1e79",
+        pri_yellow: "#f2b41f",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -72,5 +84,9 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"),function ({ addVariant }:{addVariant:any}) {
+    addVariant("child", "& > *");
+    addVariant("child-hover", "& > *:hover");
+    addVariant("child-active", "& > *:active");
+  },],
 }
