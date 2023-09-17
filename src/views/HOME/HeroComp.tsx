@@ -9,45 +9,42 @@ const ps = Press_Start_2P({ weight: ["400"], subsets: ["latin"] });
 
 const HeroComp = () => {
   return (
-    <section className="w-full relative">
+    <section className="relative w-full">
       <Image
         src={mainImg}
         alt={"Ezzstar Wallpaper"}
         height={1644}
         width={2850}
-        className="h-full min-h-[350px] w-full object-cover tablet:object-cover lmb:min-h-[450px] tablet:max-h-[400px] "
+        className="h-full min-h-[350px] w-full object-cover lmb:min-h-[450px] tablet:max-h-[400px] tablet:object-cover "
         priority
       />
-      <div className="h-full w-full absolute flex flex-col top-5 px-1  gap-y-4">
-        <div className="w-full flex lmb:justify-end">
-        <h1 className="max-w-[400px] tablet:max-w-[500px] lcd:max-w-[600px]  text-3xl lmb:text-5xl tablet:text-6xl lcd:text-7xl font-bold text-center tablet:text-left">
-          A NEW <span className="text-pri_yellow px-1"> WORLD </span> AWAITS YOU
-        </h1>
+      <div className="absolute top-5 flex h-full w-full flex-col gap-y-4  px-1">
+        <div className="flex w-full lmb:justify-end">
+          <h1 className="max-w-[400px] text-center text-3xl  font-bold lmb:text-5xl tablet:max-w-[500px] tablet:text-left tablet:text-6xl lcd:max-w-[600px] lcd:text-7xl">
+            A NEW <span className="px-1 text-pri_yellow"> WORLD </span> AWAITS
+            YOU
+          </h1>
         </div>
 
-        <div className="w-full flex flex-col lmb:justify-between tablet:justify-around lmb:pr-8  lmb:flex-row  lmb:mt-28 tablet:mt-20 lcd:mt-12 ">
+        <div className="flex w-full flex-col lmb:mt-28 lmb:flex-row lmb:justify-between  lmb:pr-8  tablet:mt-20 tablet:justify-around lcd:mt-12 ">
           <div className="flex  gap-x-4 lmb:flex-col lmb:gap-y-3">
-            <button className="bg-black w-fit max-w-[120px] tablet:max-w-[180px] lmb:w-full   flex flex-col tablet:flex-row items-center rounded-md px-1">
+            <button className="flex w-fit max-w-[120px] flex-col items-center   rounded-md bg-black px-1 lmb:w-full tablet:max-w-[180px] tablet:flex-row">
               <Image
                 src={chashmaImg}
                 alt="EZZSTAR logo"
                 className="h-10 w-10 tablet:h-14 tablet:w-14"
               />
-              <p
-                className={` text-white font-semibold `}
-              >
-                ezzstar.space
-              </p>
+              <p className={` font-semibold text-white `}>ezzstar.space</p>
             </button>
-            <button className="bg-black rounded-md max-w-[120px] tablet:max-w-[180px]  justify-center items-center  px-2 w-fit lmb:w-full">
-              <p className="font-extrabold tablet:text-2xl  tablet:py-2  bg-clip-text text-transparent bg-gradient-to-br from-[#E004D7] from-45%  to-[#05FBDD]">
+            <button className="w-fit max-w-[120px] items-center justify-center  rounded-md bg-black  px-2 lmb:w-full tablet:max-w-[180px]">
+              <p className="bg-gradient-to-br from-[#E004D7]  from-45%  to-[#05FBDD] bg-clip-text font-extrabold text-transparent tablet:py-2  tablet:text-2xl">
                 NFT DISPLAY
               </p>
             </button>
-            <button className="bg-black w-fit lmb:w-full max-w-[120px] tablet:max-w-[180px] flex flex-col tablet:flex-row rounded-md px-2  items-center">
+            <button className="flex w-fit max-w-[120px] flex-col items-center rounded-md bg-black px-2 lmb:w-full tablet:max-w-[180px]  tablet:flex-row">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="hovered-paths h-6 w-6 tablet:h-12 tablet:w-12 fill-white"
+                className="hovered-paths h-6 w-6 fill-white tablet:h-12 tablet:w-12"
                 enableBackground="new 0 0 512 512"
                 viewBox="0 0 512 512"
               >
@@ -60,9 +57,8 @@ const HeroComp = () => {
               <p className=" text-[10px]  font-bold ">SPAWN ON OUR DISCORD!</p>
             </button>
           </div>
-        <ClaimComp />
+          <ClaimComp />
         </div>
-
       </div>
     </section>
   );
