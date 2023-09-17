@@ -1,32 +1,90 @@
-import { supabase } from "@/lib/supabaseClient";
+import GetSessionComp from "@/components/GetSessionComp";
+import { cdnClient, client } from "@/lib/sanityClient";
 import AnimeUpdates from "@/views/HOME/AnimeUpdates";
 import Blogs from "@/views/HOME/Blogs";
 import GamesUpdates from "@/views/HOME/GamesUpdates";
-import HeroComp from "@/views/HOME/HeroComp";
 import LatestUpdates from "@/views/HOME/LatestUpdates";
-import Navbar from "@/views/Navbar/Navbar";
+import { groq } from "next-sanity";
 
 export default async function Home() {
 
-  const { data, error } = await supabase.auth.getSession();
-  console.log("Session Data",data);
-
-  return (
-    <main className="flex w-full  flex-col gap-y-10 ">
-      <p className="fixed text-2xl top-10 left-5 bg-black font-semibold p-2"></p>
-      <LatestUpdates/>
-      <GamesUpdates/>
-      <AnimeUpdates/>
-      <Blogs/>
-
-      <div className="h-[30px] w-[60%] bg-gradient-to-r from-pri_yellow to-black from-80% my-10 " />
-
-      
 
 
-      
-  
+  try {
+    const res = await client.fetch(groq`{
+      "latestBlogs": [
+        *[_type == "blogs" && category == "Blog"] | order(published_at desc) [0] {
+          title,
+          slug,
+          meta_desc,
+          displayImg,
+          published_at,
+          category,
+          "likesCount": length(likes)
+        },
+        *[_type == "blogs" && category == "Games"] | order(published_at desc) [0] {
+          title,
+          slug,
+          meta_desc,
+          displayImg,
+          published_at,
+          category,
+          "likesCount": length(likes)
+        },
+        *[_type == "blogs" && category == "Anime"] | order(published_at desc) [0] {
+          title,
+          slug,
+          meta_desc,
+          displayImg,
+          published_at,
+          category,
+          "likesCount": length(likes)
+        }
+      ],
+      "gamingBlogs": *[_type == "blogs" && category == "Games"] | order(length(likes) desc) [0...3] {
+        title,
+        slug,
+        meta_desc,
+        displayImg,
+        published_at,
+        category,
+        "likesCount": length(likes)
+      },
+      "blogs": *[_type == "blogs" && category == "Blog"] | order(length(likes) desc) [0...3] {
+        title,
+        slug,
+        meta_desc,
+        displayImg,
+        published_at,
+        category,
+        "likesCount": length(likes)
+      },
+      "animeBlogs": *[_type == "blogs" && category == "Anime"] | order(length(likes) desc) [0...3] {
+        title,
+        slug,
+        meta_desc,
+        displayImg,
+        published_at,
+        category,
+        "likesCount": length(likes)
+      }
+    }
+    `);    
 
-    </main>
-  )
+    return (
+      <main className="flex w-full  flex-col gap-y-10 ">
+
+        <GetSessionComp />
+        <LatestUpdates blogData={res.latestBlogs} />
+        <GamesUpdates blogsData={res.gamingBlogs} />
+        <AnimeUpdates blogsData={res.animeBlogs} />
+        <Blogs blogData={res.blogs} />
+
+        <div className="my-10 h-[30px] w-[60%] bg-gradient-to-r from-pri_yellow from-80% to-black " />
+        
+      </main>
+    );
+  } catch (error) {
+    console.log((error as { message: string }).message);
+  }
 }
