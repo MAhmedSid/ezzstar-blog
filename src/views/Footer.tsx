@@ -15,17 +15,17 @@ import {
 
 const Footer = () => {
   return (
-    <section className="w-full flex justify-center items-center px-2">
+    <section className="flex w-full items-center justify-center px-2">
       <Wrapper>
-        <div className="w-full flex flex-col items-center text-white tablet:flex-row tablet:justify-between">
-
-
-          <Image src={logo} alt="EZZSTAR LOGO" className="max-w-[200px] tablet:max-w-[300px]" />
-
+        <div className="flex w-full flex-col items-center text-white tablet:flex-row tablet:justify-between">
+          <Image
+            src={logo}
+            alt="EZZSTAR LOGO"
+            className="max-w-[200px] tablet:max-w-[300px]"
+          />
 
           <div className="flex flex-col gap-y-10 pb-4">
-
-            <div className="flex justify-center items-center text-2xl gap-x-8 px-5 pt-3 lmb:pt-0 lmb:px-0 lmb:text-3xl lmb:gap-x-10 tablet:text-4xl child-hover:hover:text-pri_yellow">
+            <div className="flex items-center justify-center gap-x-8 px-5 pt-3 text-2xl child-hover:hover:text-pri_yellow lmb:gap-x-10 lmb:px-0 lmb:pt-0 lmb:text-3xl tablet:text-4xl">
               <Link target="_blank" href={"https://discord.gg/Xpk25q6vRy"}>
                 <FaDiscord />{" "}
               </Link>
@@ -61,23 +61,16 @@ const Footer = () => {
               </Link>
             </div>
 
-
-
-
-            <div className="flex flex-col gap-y-3  lmb:text-lg lmb:gap-x-12 tablet:flex-row tablet:text-xl items-center tablet:gap-x-5 ">
+            <div className="flex flex-col items-center  gap-y-3 lmb:gap-x-12 lmb:text-lg tablet:flex-row tablet:gap-x-5 tablet:text-xl ">
               <div className="flex gap-x-5 child-hover:hover:text-pri_yellow">
-              <Link href={"/about"}>About us</Link>
-              <Link href={"mailto:support@ezzstar.com"}>Support</Link>
+                <Link href={"/about"}>About us</Link>
+                <Link href={"mailto:support@ezzstar.com"}>Support</Link>
               </div>
               <div className="flex gap-x-5 child-hover:hover:text-pri_yellow">
-              <a href={"/"}>Privacy Policy</a>
-              <a href={"/"}>Terms and Conditions</a>
+                <a href={"/"}>Privacy Policy</a>
+                <a href={"/"}>Terms and Conditions</a>
               </div>
             </div>
-
-
-
-
           </div>
         </div>
       </Wrapper>
