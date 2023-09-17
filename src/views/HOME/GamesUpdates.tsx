@@ -2,22 +2,31 @@ import BlogCard from "@/components/BlogCard";
 import Wrapper from "@/components/Wrapper";
 import React from "react";
 
-const GamesUpdates = () => {
+const GamesUpdates = (blogData:any) => {
+
+  const data = blogData.blogsData;
+
   return (
-    <section className="flex flex-col  w-full px-2 gap-y-10 tablet:px-5  justify-center items-center ">
+    <section className="flex w-full  flex-col items-center justify-center gap-y-10  px-2 tablet:px-5 ">
       <Wrapper>
-        <div className="flex flex-col w-full gap-y-3">
-          <h2 className="text-2xl font-bold text-center tablet:text-left">
+        <div className="flex w-full flex-col gap-y-3">
+          <h2 className="text-center text-2xl font-bold tablet:text-left">
             GAMING UPDATES
           </h2>
-          <div className=" grid grid-cols-1 tablet:grid-cols-3  gap-y-10 gap-x-10 place-items-center">
-            <BlogCard />
-            <BlogCard />
-            <BlogCard />
+          <div className=" grid grid-cols-1 place-items-center  gap-x-10 gap-y-10 tablet:grid-cols-3">
+          {data && data.map((blog : any ,i : any)=>{
+                  return(
+                  
+             (blog && <BlogCard key={blog?.slug.current} title={blog?.title} slug={blog?.slug.current} desc={blog?.meta_desc} likesCount={blog?.likesCount}  date={blog?.published_at} category={blog?.category} imgSrc={blog?.displayImg?.asset} imgAlt={blog.displayImg?.alt} />)
+                  
+                  )
+              })}
           </div>
         </div>
       </Wrapper>
-      <button className="text-lg font-semibold bg-pri_purple rounded-full px-8 py-1">View More</button>
+      <button className="rounded-full bg-pri_purple px-8 py-1 text-lg font-semibold">
+        View More
+      </button>
     </section>
   );
 };
