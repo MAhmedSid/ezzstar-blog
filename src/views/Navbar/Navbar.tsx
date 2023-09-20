@@ -10,7 +10,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { useAppDispatch, useAppSelector } from "@/store/store";
+import { useAppDispatch } from "@/store/store";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { toast } from "react-hot-toast";
 import { removeSession } from "@/store/session/sessionReducer";
@@ -38,16 +38,18 @@ const Navbar = () => {
   return (
     <header className="flex w-full items-center justify-between gap-y-2 px-6 py-4 font-medium text-white tablet:justify-center tablet:gap-x-10  lp:px-24 lp:text-lg lcd:gap-x-24">
       <nav className=" hidden gap-x-4 child-hover:text-pri_yellow tablet:flex  lp:gap-x-12 lcd:gap-x-16 child:lcd:text-lg">
-        <Link href={"/"} className={`${path === "/" && "text-pri_yellow"}`}>
+        <Link prefetch href={"/"} className={`${path === "/" && "text-pri_yellow"}`}>
           HOME
         </Link>
         <Link
+        prefetch
           href={"/gaming"}
           className={`${path === "/world" && "text-pri_yellow"}`}
         >
           GAMES
         </Link>
         <Link
+        prefetch
           href={"/anime"}
           className={`${path === "/nft" && "text-pri_yellow"}`}
         >
@@ -63,19 +65,20 @@ const Navbar = () => {
 
       <nav className=" hidden gap-x-4 child-hover:text-pri_yellow tablet:flex  lp:gap-x-12 lcd:gap-x-16 child:lcd:text-lg">
         <Link
+          prefetch
           href={"/blogs"}
           className={`${path === "/events" && "text-pri_yellow"}`}
         >
           BLOGS
         </Link>
-        <Link
-          href={"/events"}
-          className={`${path === "/merch" && "text-pri_yellow"}`}
+        <p
+          
+          className={``}
         >
           EVENTS
-        </Link>
+        </p>
         {userId === "" ? (
-          <Link href={"/account/signin/#signin"}>Sign In</Link>
+          <Link prefetch href={"/account/signin/#signin"}>Sign In</Link>
         ) : (
           <Popover>
             <PopoverTrigger>
@@ -86,10 +89,10 @@ const Navbar = () => {
             <PopoverContent>
               <div className=" rounded-md bg-gradient-to-b from-pri_yellow  to-pri_blue p-[2px]">
                 <div className="flex flex-col items-center justify-center rounded-md bg-black py-2  text-white child-hover:text-pri_yellow ">
-                  <Link href={"/account/setting/#setting"} className="text-lg">
+                  <Link prefetch href={"/account/setting/#setting"} className="text-lg">
                     Setting
                   </Link>
-                  <button onClick={handleSignout} className="text-lg">
+                  <button  onClick={handleSignout} className="text-lg">
                     LOG OUT
                   </button>
                 </div>

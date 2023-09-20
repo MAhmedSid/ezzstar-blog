@@ -2,7 +2,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import coinImg from "/public/images/Spica_coin.webp";
 import Image from "next/image";
-import { useAppSelector } from "@/store/store";
 import Countdown from "react-countdown";
 import { toast } from "react-hot-toast";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
@@ -20,20 +19,15 @@ interface IUserData {
 const ClaimComp = () => {
   const currMilli = new Date().getTime();
 
-  const router = useRouter();
   const supabase = createClientComponentClient();
   const userID = useSelector(selectUserID);
 
-  const [walletAddress, setWalletAddress] = useState("0x00000000000");
-  const [withdrawl, setWithdrawl] = useState(false);
-  const [spicaAmount, setSpicaAmount] = useState(0.0);
-  const [lastClaim, setLastClaim] = useState(0);
-  const [nextClaim, setNextClaim] = useState(0);
+  
+  const [states, setStates] = useState({walletAddress:"0x00000000000", withdrawl:false, spicaAmount:0.0 ,lastClaim:0 ,nextClaim:0, refresh:false });
 
-  const [refresh, setRefresh] = useState(false);
 
   const handleRefresh = () => {
-    setRefresh((prev) => !prev);
+    setStates({...states,refresh: !states.refresh});
   };
 
   useEffect(() => {
@@ -52,16 +46,11 @@ const ClaimComp = () => {
       }
 
       const userData: IUserData = data[0];
-      setWalletAddress(`${userData.wallet_address.substring(0, 13)}...`);
-      setSpicaAmount(userData.spica_amount === 0 ? 0.0 : userData.spica_amount);
-      setWithdrawl(userData.withdrawl);
-      setLastClaim(userData.last_claim);
-      setNextClaim(userData.last_claim + 3600);
-
+      setStates({...states, walletAddress: `${userData.wallet_address.substring(0, 13)}...` , spicaAmount:userData.spica_amount === 0 ? 0.0 : userData.spica_amount, withdrawl: userData.withdrawl,lastClaim: userData.last_claim,nextClaim:userData.last_claim + 3600  })
     };
 
     getData();
-  }, [userID, refresh]);
+  }, [userID, states.refresh]);
 
   const handleClaim = async () => {
     if (userID === "") {
@@ -72,8 +61,8 @@ const ClaimComp = () => {
     const date = new Date().getTime();
     const currSeconds = Math.round(date / 1000);
 
-    if (nextClaim !== 3600) {
-      if (currSeconds < nextClaim) {
+    if (states.nextClaim !== 3600) {
+      if (currSeconds < states.nextClaim) {
         toast.error(`You can Claim after a time period`);
         return;
       }
@@ -81,7 +70,7 @@ const ClaimComp = () => {
 
     const { data, error } = await supabase
       .from("profiles")
-      .update({ spica_amount: spicaAmount + 0.01, last_claim: currSeconds })
+      .update({ spica_amount: states.spicaAmount + 0.1, last_claim: currSeconds })
       .eq("id", userID)
       .returns();
 
@@ -99,18 +88,18 @@ const ClaimComp = () => {
       toast.error("Sign In to Withdraw $SPCA");
       return;
     }
-    if (withdrawl === true) {
+    if (states.withdrawl === true) {
       toast.error("You have already applied for Withdrawl, please wait.");
       return;
     }
-    if(spicaAmount < 50){
+    if(states.spicaAmount < 50){
       toast.error("You have less than 50 SPCA")
       return;
     }
 
     const { data, error } = await supabase
       .from("profiles")
-      .update({ withdrawl: true, spica_amount: spicaAmount - 50 })
+      .update({ withdrawl: true, spica_amount: states.spicaAmount - 50 })
       .eq("id", userID);
 
     if (error) {
@@ -118,7 +107,7 @@ const ClaimComp = () => {
       console.log(error.message);
       return;
     } else {
-      setWithdrawl(true);
+      setStates({...states,withdrawl:true});
       toast.success(
         "Successfully applied. It may take upto 24 hours to transfer $SPCA",
       );
@@ -130,7 +119,7 @@ const ClaimComp = () => {
     <div className="ml-[10vw] mr-5 mt-2 flex flex-col  justify-center gap-y-1 tablet:ml-0 tablet:mr-0">
       <div className="flex gap-x-2 text-xs tablet:text-base">
         <p className="rounded-full bg-pri_pink px-1 py-1 lp:px-2 lp:py-2">
-          {walletAddress}
+          {states.walletAddress}
         </p>
         <button
           onClick={handleWithdrawl}
@@ -145,9 +134,9 @@ const ClaimComp = () => {
           <div className=" min-h-[10px]  min-w-[60px] rounded-l-full bg-black  ">
             <div className="ml-5  mt-3 flex flex-col text-xs">
               <p>
-                {spicaAmount === 0
-                  ? `0.0${spicaAmount}`
-                  : spicaAmount.toFixed(2)}
+                {states.spicaAmount === 0
+                  ? `0.${states.spicaAmount}`
+                  : states.spicaAmount.toFixed(1)}
               </p>
               <p>SPCA</p>
             </div>
@@ -204,7 +193,7 @@ const ClaimComp = () => {
                 <Countdown
                   autoStart
                   daysInHours
-                  date={lastClaim === 0 ? currMilli + 10000 : nextClaim * 1000}
+                  date={states.lastClaim === 0 ? currMilli + 10000 : states.nextClaim * 1000}
                 />
               ) : (
                 <span className="">$SPCA</span>
@@ -217,7 +206,7 @@ const ClaimComp = () => {
 
       <div className="flex w-fit flex-col items-center  gap-y-1 rounded-md bg-black bg-opacity-70 px-2 py-1">
         <p className="text-xs tablet:text-base">
-          Claim 0.01 $SPICA every hour.
+          Claim 0.1 $SPICA every hour.
         </p>
         <p className="text-xs tablet:text-base">Sign up \ Sign in to Claim.</p>
         <p className="flex gap-x-1 text-sm tablet:text-base">

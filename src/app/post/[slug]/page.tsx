@@ -6,10 +6,13 @@ import CommentSec from "@/views/CommentSection/CommentSec";
 import { groq } from "next-sanity";
 import React from "react";
 
-
-
-const page = async ({params,searchParams}:{params:{slug:string},searchParams: any}) => {
-  
+const page = async ({
+  params,
+  searchParams,
+}: {
+  params: { slug: string };
+  searchParams: any;
+}) => {
   const cat = decodeURI(searchParams.cat);
   const slug = params.slug;
 
@@ -23,7 +26,11 @@ const page = async ({params,searchParams}:{params:{slug:string},searchParams: an
       pageContent,
       "likesCount": length(likes),
     },
-    "morePost": *[_type == "blogs" ${cat != "undefined" ? `&& category == '${cat}'`: ""} ]  | order(published_at desc)  [0...3]{
+    "commentNumber": count(*[_type == "comments" && blogSlug == '${slug}'])
+    ,
+    "morePost": *[_type == "blogs" ${
+      cat != "undefined" ? `&& category == '${cat}'` : ""
+    } ]  | order(published_at desc)  [0...3]{
       title,
       category,
       published_at,
@@ -31,12 +38,11 @@ const page = async ({params,searchParams}:{params:{slug:string},searchParams: an
       displayImg,
       "likesCount": length(likes),
     }
-  }`)
-
+  }`);
 
   const blogData = res.blogData;
+  const commentNumber = res.commentNumber;
   const morePosts = res.morePost;
-  console.log('MORE POSTS', morePosts);
 
   return (
     <>
@@ -55,13 +61,15 @@ const page = async ({params,searchParams}:{params:{slug:string},searchParams: an
                 <div className="flex justify-between ">
                   <div className="flex gap-x-4">
                     <div className="flex items-center justify-center gap-x-2">
-                      <p className="text-pri_yellow">{blogData.likesCount === 0 ? "0" : blogData.likesCount}</p>
+                      <p className="text-pri_yellow">
+                        {blogData.likesCount === 0 ? "0" : blogData.likesCount}
+                      </p>
                       <p className="text-pri_yellow">
                         {blogData.likesCount > 1 ? "Stars" : "Star"}
                       </p>
                     </div>
                     <div className="flex items-center justify-center gap-x-2">
-                      <p className="text-pri_yellow">2k</p>
+                      <p className="text-pri_yellow">{commentNumber}</p>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="h-6 w-6"
@@ -80,10 +88,13 @@ const page = async ({params,searchParams}:{params:{slug:string},searchParams: an
                     <p>6 DEC 2023</p>
                   </div>
                 </div>
-                <div  className="flex flex-col gap-x-14 gap-y-3 tablet:flex-row  ">
+                <div className="flex flex-col gap-x-14 gap-y-3 tablet:flex-row  ">
                   <div className="flex flex-col items-center gap-y-3">
                     <p>Did you like this?</p>
-                    <LikeIcon blogId={blogData?._id} slug={blogData?.slug.current}  />
+                    <LikeIcon
+                      blogId={blogData?._id}
+                      slug={blogData?.slug.current}
+                    />
                   </div>
 
                   <div className="flex flex-col items-center gap-y-3">
@@ -122,19 +133,25 @@ const page = async ({params,searchParams}:{params:{slug:string},searchParams: an
                 <section className="flex flex-col gap-y-5">
                   <h3 className="text-2xl underline">Read More</h3>
                   <div className=" grid grid-cols-1 place-items-center  gap-x-10 gap-y-10 tablet:grid-cols-2 lp:grid-cols-3 ">
-
-                    {morePosts.map((blog:any,i:any)=>{
-                      return(
-                         <BlogCard  key={blog?.slug.current} title={blog?.title} slug={blog?.slug.current} desc={blog?.meta_desc} likesCount={blog?.likesCount}  date={blog?.published_at} category={blog?.category} imgSrc={blog?.displayImg?.asset} imgAlt={blog.displayImg?.alt} /> 
-                      )
+                    {morePosts.map((blog: any, i: any) => {
+                      return (
+                        <BlogCard
+                          key={blog?.slug.current}
+                          title={blog?.title}
+                          slug={blog?.slug.current}
+                          desc={blog?.meta_desc}
+                          likesCount={blog?.likesCount}
+                          date={blog?.published_at}
+                          category={blog?.category}
+                          imgSrc={blog?.displayImg?.asset}
+                          imgAlt={blog.displayImg?.alt}
+                        />
+                      );
                     })}
                   </div>
                 </section>
 
-                <CommentSec blogId={blogData._id}/>
-
-
-
+                <CommentSec blogSlug={slug} blogId={blogData._id} />
               </div>
             </section>
 

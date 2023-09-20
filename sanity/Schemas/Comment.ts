@@ -13,6 +13,11 @@ export const comments = defineType({
         title: "Blog Id",
       }),
       defineField({
+        name: "blogSlug",
+        type: "string",
+        title: "Blog Slug",
+      }),
+      defineField({
         name: "userId",
         type: "string",
         title: "User ID",
@@ -29,15 +34,27 @@ export const comments = defineType({
         title: "Replies",
         of:[
           {
-            name: "userId",
-            type: "string",
-            title: "Replies",
-          },
-          {
-            name: "text",
-            type: "text",
-            title: "Reply Text",
-          },
+            name: 'reply',
+            title: 'Reply',
+            type: 'object',
+            fields: [
+              {
+                name: 'userId',
+                title: 'User ID',
+                type: 'string'
+              },
+              {
+                name: 'text',
+                title: 'Text',
+                type: 'text'
+              },
+              {
+                name: 'createdAt',
+                title: 'Created At',
+                type: 'datetime',
+              }
+            ]
+          }
         ]
       }),
     ]

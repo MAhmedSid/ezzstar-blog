@@ -17,7 +17,7 @@ const Blogs = async (blogData:any) => {
             {data && data.map((blog : any ,i : any)=>{
                 return(
                 
-           (blog && <BlogCover key={blog?.slug.current} title={blog?.title} slug={blog?.slug.current} desc={blog?.meta_desc} likesCount={blog?.likesCount}  date={blog?.published_at} category={blog?.category} imgSrc={blog?.displayImg?.asset} imgAlt={blog.displayImg?.alt} />)
+           (blog && <BlogCover key={blog?.slug.current} title={blog?.title} slug={blog?.slug.current} desc={blog?.meta_desc} likesCount={blog?.likesCount}  date={blog?.published_at} category={""} imgSrc={blog?.displayImg?.asset} imgAlt={blog.displayImg?.alt} />)
                 
                 )
             })}

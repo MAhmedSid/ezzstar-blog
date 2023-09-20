@@ -5,7 +5,7 @@ import { Inter } from "next/font/google";
 import Navbar from "@/views/Navbar/Navbar";
 import HeroComp from "@/views/HOME/HeroComp";
 import { Toaster } from "react-hot-toast";
-import ReduxProvider from "@/components/utils/ReduxProvider";
+import ProviderComp from "@/components/utils/ProviderComp";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,12 +26,12 @@ export default function RootLayout({
       background: '#1b1464',
       color: '#f2b41f',
     }}} />
-        <ReduxProvider>
+        <ProviderComp>
           <HeroComp />
           <Navbar />
           {children}
           <Footer />
-        </ReduxProvider>
+        </ProviderComp>
       </body>
     </html>
   );

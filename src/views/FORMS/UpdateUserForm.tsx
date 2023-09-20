@@ -3,6 +3,7 @@ import { selectUserID } from "@/store/session/sessionReducer";
 import { useAppSelector } from "@/store/store";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { X } from "lucide-react";
+import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useSelector } from "react-redux";
@@ -11,9 +12,18 @@ const UpdateForm = () => {
   const supabase = createClientComponentClient();
   const userId = useSelector(selectUserID);
 
-  const [image, setImage] = useState<null | string>(null);
-  const [username, setUsername] = useState("");
-  const [walletAddress, setWalletAddress] = useState("");
+
+
+
+  // const [image, setImage] = useState<null | string>(null);
+  // const [username, setUsername] = useState("");
+  // const [walletAddress, setWalletAddress] = useState("");
+  
+  const [states, setStates] = useState<{image:null|string,username:string,walletAddress:string}>({image:null,username:"",walletAddress:""});
+  
+
+
+
 
   useEffect(() => {
     const getData = async () => {
@@ -27,18 +37,16 @@ const UpdateForm = () => {
         return;
       }
 
-      setUsername(data[0].username);
-      setWalletAddress(data[0].wallet_address);
-      setImage(data[0].avatar_url);
+      setStates({...states,username:data[0].username ,walletAddress: data[0].wallet_address ,image:data[0].avatar_url })
     };
     getData();
   }, []);
 
   const handleChange = (e: any, type: string) => {
     if (type === "username") {
-      setUsername(e.target.value);
+      setStates({...states,username: e.target.value}) ;
     } else {
-      setWalletAddress(e.target.value);
+      setStates({...states,walletAddress: e.target.value}) ;
     }
   };
 
@@ -47,7 +55,7 @@ const UpdateForm = () => {
     const fileTypes = ["image/jpeg", "image/gif"];
     if (fileTypes.includes(selectedFile.type)) {
       const url = URL.createObjectURL(selectedFile);
-      setImage(url);
+      setStates({...states, image: url}) ;
     } else {
       toast.error(`Only .gif and .jpg files are allowed`);
     }
@@ -102,7 +110,7 @@ const UpdateForm = () => {
           .eq("id", userId);
 
         if (!error) {
-          setImage(data[0].avatar_url);
+          setStates({...states,image: data[0].avatar_url}) ;
         } else {
           toast.error(`${error.message}`);
         }
@@ -133,16 +141,17 @@ const UpdateForm = () => {
       onSubmit={handleSubmit}
       className="flex flex-col items-center gap-y-5"
     >
-      {image && (
+      {states.image && (
         <div className="relative h-[150px]    w-[150px] rounded-full">
           <button
-            onClick={() => setImage(null)}
+            onClick={() => setStates({...states,image: null})}
             className="absolute right-4 top-0 rounded-full bg-red-700 hover:bg-red-600"
           >
             <X />
           </button>
-          <img
-            src={image}
+          <Image
+            priority
+            src={states.image}
             alt=""
             className="h-full w-full rounded-full object-cover"
           />
@@ -150,10 +159,10 @@ const UpdateForm = () => {
       )}
       <label
         className={`${
-          image ? "h-0 w-0" : "min-h-[150px] w-[150px] lmb:min-h-[150px]"
+          states.image ? "h-0 w-0" : "min-h-[150px] w-[150px] lmb:min-h-[150px]"
         }  flex cursor-pointer items-center justify-center  rounded-full bg-zinc-300 text-black hover:text-pri_pink`}
       >
-        <p className={`${image && "h-0 w-0"} text-4xl `}>+</p>
+        <p className={`${states.image && "h-0 w-0"} text-4xl `}>+</p>
         <input
           placeholder="Avatar"
           name="avatar"
@@ -168,7 +177,7 @@ const UpdateForm = () => {
         placeholder="Username"
         name="username"
         type="text"
-        value={username}
+        value={states.username}
         onChange={(e) => {
           handleChange(e, "username");
         }}
@@ -180,7 +189,7 @@ const UpdateForm = () => {
         placeholder="Wallet Address"
         name="walletAddress"
         type="text"
-        value={walletAddress}
+        value={states.walletAddress}
         onChange={(e) => {
           handleChange(e, "walletAddress");
         }}

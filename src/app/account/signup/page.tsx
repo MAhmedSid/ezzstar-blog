@@ -48,7 +48,7 @@ const Page = () => {
               <div className="flex flex-col items-center justify-center gap-y-4">
                 <div className="flex flex-col gap-y-3 text-center">
                   <p>Do you have an Account?</p>
-                  <Link href={"/account/signin/#signin"} className="text-pri_yellow">
+                  <Link prefetch href={"/account/signin/#signin"} className="text-pri_yellow">
                     Sign in
                   </Link>
                 </div>

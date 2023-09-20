@@ -55,34 +55,34 @@ const MobNavMenu = () => {
         <div className=" bg-gradient-to-b from-pri_yellow  to-pri_blue p-[2px]">
           <div className="flex flex-col items-center justify-center rounded-md bg-black text-white  child-hover:text-pri_yellow ">
             <DropdownMenuItem>
-              <Link href={"/"} className="text-lg">
+              <Link prefetch href={"/"} className="text-lg">
                 HOME
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem>
-              <Link href={"/gaming"} className="text-lg">
+              <Link prefetch href={"/gaming"} className="text-lg">
                 GAMES
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem>
-              <Link href={"/anime"} className="text-lg">
+              <Link prefetch href={"/anime"} className="text-lg">
                 ANIME
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem>
-              <Link href={"/blogs"} className="text-lg">
+              <Link prefetch href={"/blogs"} className="text-lg">
                 BLOGS
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem>
-              <Link href={"/events"} className="text-lg">
+              <Link prefetch href={"/events"} className="text-lg">
                 EVENTS
               </Link>
             </DropdownMenuItem>
 
             <DropdownMenuItem>
               {userId === "" ? (
-                <Link href={"/account/signin/#signin"} className="text-lg">
+                <Link prefetch href={"/account/signin/#signin"} className="text-lg">
                   Sign In
                 </Link>
               ) : (
@@ -93,7 +93,7 @@ const MobNavMenu = () => {
                   <DropdownMenuContent>
                     <div className="w-full bg-gradient-to-b from-pri_yellow  to-pri_blue p-[2px]">
                       <div className="flex flex-col items-center  justify-center   rounded-md bg-black px-4 py-2 text-white  child-hover:text-pri_yellow">
-                        <Link href={"/account/setting/#setting"} className="text-lg">
+                        <Link prefetch href={"/account/setting/#setting"} className="text-lg">
                           Setting
                         </Link>
                         <button onClick={handleSignout} className="text-lg">

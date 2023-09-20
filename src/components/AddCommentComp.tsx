@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-const AddCommentComp = ({ blogId}:{blogId:string}) => {
+const AddCommentComp = ({blogSlug, blogId}:{blogSlug:string,blogId:string}) => {
 
     const userId = useAppSelector(selectUserID);
     const userData = useAppSelector(selectUserData);
@@ -23,7 +23,7 @@ const AddCommentComp = ({ blogId}:{blogId:string}) => {
       />
       <div>
         <p className="text-blue-500">{userData.userName}</p>
-        <AddCommentForm blogId={blogId} />
+        <AddCommentForm blogSlug={blogSlug} blogId={blogId} />
       </div>
     </div>
   ) : (

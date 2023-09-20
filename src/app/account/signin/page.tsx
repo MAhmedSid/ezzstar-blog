@@ -35,13 +35,14 @@ const page = () => {
               <div className="flex flex-col items-center justify-center gap-y-4">
                 <div className="flex flex-col gap-y-3 text-center">
                   <p>Don&apos;t have an Account?</p>
-                  <Link href={"/account/signup/#signup"} className="text-pri_yellow">
+                  <Link prefetch href={"/account/signup/#signup"} className="text-pri_yellow">
                     Sign Up
                   </Link>
                 </div>
                 <div className="flex flex-col gap-y-3 text-center">
                   <p>Forgot your Password?</p>
                   <Link
+                  prefetch
                     href={"/account/updatepassword/#up"}
                     className="text-pri_yellow"
                   >

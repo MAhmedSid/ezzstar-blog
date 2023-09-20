@@ -17,7 +17,15 @@ const useSaveSession = () => {
       try {
         const res = await supabase.auth.getSession();
         if (res.data.session) {
-          dispatch(addSession(res.data.session.user.id));
+
+          const {data,error} = await supabase.from('profiles').select("avatar_url,username").eq("id", res.data.session.user.id)
+
+          if(error){
+            dispatch(addSession({userID: res.data.session.user.id ,userName: "",avatar_url:""}));
+            setUserId(res.data.session.user.id);
+            return;
+          }
+          dispatch(addSession({userID: res.data.session.user.id ,userName: data[0].username,userImgUrl:data[0].avatar_url}));
           setUserId(res.data.session.user.id);
         }
       } catch (error) {

@@ -15,6 +15,7 @@ const BlogCover = ({
 }: IProps) => {
   return (
     <Link
+      prefetch
       href={`/post/${slug}?cat=${encodeURI(category)}`}
       className=" flex max-w-[500px] flex-col items-center  justify-center gap-y-2 rounded-lg bg-zinc-900 p-2 lp:max-w-[800px] lp:flex-row lp:gap-x-2 lcd:max-w-[1400px] hover:bg-zinc-800 transition-all duration-200"
     >
@@ -54,20 +55,7 @@ const BlogCover = ({
                 {likesCount > 1 ? "Stars" : "Star"}
               </p>
             </div>
-            <div className="flex items-center justify-center gap-x-2">
-              <p className="text-pri_yellow">2k</p>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 26 28"
-              >
-                <path
-                  stroke="#F9B920"
-                  d="M.5.535h.01L.544.5H25.5v26.227l-5.634-6.067-.148-.16H.5V.535z"
-                ></path>
-              </svg>
-            </div>
+          
           </div>
           <div className="flex flex-col items-center justify-center text-sm text-pri_yellow">
             <p>05:15 AM, SUN</p>

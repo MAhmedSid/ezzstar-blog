@@ -6,33 +6,37 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 
-const AddCommentForm = ({blogId}:{blogId:string}) => {
+const AddCommentForm = ({blogId,blogSlug}:{blogSlug:string,blogId:string}) => {
 
   const router = useRouter()
+
   const userId = useSaveSession();
 
-    const [commentText, setCommentText] = useState("");
-    const [isMutating, setIsMutating] = useState(false);
+  
+    const [states, setStates] = useState({isMutating:false,commentText:""});
+
     
     const handleAddComment = async (e:any)=>{
         e.preventDefault();
         try {
-            setIsMutating(true);
+            setStates({...states,isMutating:true});
             const res = await fetch("/api/addComment",{
                 method: "POST",
-                body: JSON.stringify({blogId, commentText, userId }),
+                body: JSON.stringify({blogSlug,blogId,  commentText: states.commentText, userId }),
                 headers:{'Content-Type': 'application/json'}
               });
                 const data = await res.json()
-                setIsMutating(false)
+                setStates({...states,isMutating:false});
                 if(res.ok){
                     toast.success("Comment Added Suxxessfully.")
-                    router.refresh()
+                    setStates({...states,commentText:""})
+                    await fetch(`/api/revalidateTag?tag=getComments`)
+                    router.refresh();
                 }
             
         } catch (error) {
             console.log((error as {message:string}).message);
-            setIsMutating(false);
+            setStates({...states,isMutating:false});
             toast.error("Adding comment Failed, Try Again.")
         }
 
@@ -51,11 +55,11 @@ const AddCommentForm = ({blogId}:{blogId:string}) => {
     className="bg-zinc-800"
     required
     minLength={5}
-    value={commentText}
-    onChange={(e)=>setCommentText(e.target.value)}
+    value={states.commentText}
+    onChange={(e)=>setStates({...states,commentText:e.target.value})}
   />
-  <button disabled={isMutating} className="w-fit">
-    {isMutating ? <Loading size="h-8 w-8" color="border-pri_yellow" /> : <SendHorizonal className="text-pri_yellow" />}
+  <button disabled={states.isMutating} className="w-fit">
+    {states.isMutating ? <Loading size="h-8 w-8" color="border-pri_yellow" /> : <SendHorizonal className="text-pri_yellow" />}
   </button>
 </form>;
 };

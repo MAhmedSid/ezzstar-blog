@@ -9,12 +9,13 @@ try {
 
     if (req.body) {
         const body = await req.json();
-        const { blogId, userId, commentText } = body;
+        const { blogId, userId, commentText, blogSlug } = body;
 
 
     
         const comment = await client.create({
             _type: "comments",
+            blogSlug,
             blogId,
             userId,
             commentText,
