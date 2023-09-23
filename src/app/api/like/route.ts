@@ -9,19 +9,17 @@ export async function PUT(req: Request, res: NextApiResponse) {
     if (req.body) {
       const body = await req.json();
       const { userId, like, blogId } = body;
-      
       if (like === false || like === null) {
-        console.log("FALSE SIDE RUNS");
         await client
-          .patch(blogId)
-          .setIfMissing({likes: []})
-          .insert('before', 'likes[0]', [{_type: 'like', userId,_key: uuidv4()}])
-          .commit();
-          return NextResponse.json(
-            { message: "Liked successfully", likeStatus: true },
-            { status: 200 },
+        .patch(blogId)
+        .setIfMissing({likes: []})
+        .insert('before', 'likes[0]', [{_type: 'like', userId,_key: uuidv4()}])
+        .commit();
+        return NextResponse.json(
+          { message: "Liked successfully", likeStatus: true },
+          { status: 200 },
           );
-      } else {
+        } else {
         await client
           .patch(blogId)
           .unset([`likes[userId == "${userId}"]`])

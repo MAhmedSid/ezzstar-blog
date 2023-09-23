@@ -92,5 +92,6 @@ module.exports = {
     addVariant("child", "& > *");
     addVariant("child-hover", "& > *:hover");
     addVariant("child-active", "& > *:active");
+    require('tailwindcss-animated')
   },],
 }

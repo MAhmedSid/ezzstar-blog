@@ -70,6 +70,7 @@
   * {
     @apply border-border;
     scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
   }
   body {
     @apply bg-background text-foreground;

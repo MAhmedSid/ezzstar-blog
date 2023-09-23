@@ -9,6 +9,8 @@ export async function PUT(req: Request, res: NextApiResponse) {
     if (req.body) {
       const body = await req.json();
       const { blogId } = body;
+
+      
       const res = await client.fetch(groq`*[_type == "comments" && blogId == '${blogId}']`)
       
           return NextResponse.json(

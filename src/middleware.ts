@@ -15,7 +15,7 @@ export async function middleware(req: NextRequest) {
   const path = req.nextUrl.pathname;
 
   // Define an array of URLs to redirect from
-  const redirectPaths = ["/auth/callback", "/account"];
+  const redirectPaths = ["/auth/callback", "/account/signin","/account/signup"];
 
   // Define an array of URLs to exclude from redirection
   const excludePaths = ["/account/setting"];

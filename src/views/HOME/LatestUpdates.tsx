@@ -9,10 +9,10 @@ const LatestUpdates = async (blogData:any) => {
     return (
       <section className="flex flex-col w-full justify-center items-center">
       <Wrapper>
-        <div className="flex flex-col gap-y-4">
+        <div className="flex flex-col gap-y-4  px-4">
           <h2 className="text-2xl font-bold text-center tablet:text-left">LATEST UPDATES</h2>
           <div className="w-full flex flex-col tablet:flex-row px-2 gap-y-2 tablet:gap-x-5 justify-center">
-            <div className="flex flex-col gap-y-3 items-center tablet:items-start ">
+          <div className="w-full flex flex-col gap-y-3 items-center tablet:items-start ">
               {data && data.map((blog : any ,i : any)=>{
                   return(
                   
@@ -21,7 +21,7 @@ const LatestUpdates = async (blogData:any) => {
                   )
               })}
             </div>
-            <div className="h-[100px] w-full tablet:h-[600px] tablet:w-[200px] bg-slate-500"></div>
+            <div className="hidden tablet:flex tablet:h-[600px] tablet:w-[200px] bg-slate-500"></div>
           </div>
         </div>
       </Wrapper>

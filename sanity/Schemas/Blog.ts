@@ -29,7 +29,7 @@ export const blogs = defineType({
         name:"meta_desc",
         type:"text",
         title:"Meta Description",
-        validation: Rule => Rule.max(400).error('Max limit is 400 characters') 
+        validation: Rule => Rule.max(200).error('Max limit is 200 characters') 
       }),
       defineField({
         name:"displayImg",

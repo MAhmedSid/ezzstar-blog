@@ -1,25 +1,19 @@
 "use client";
+import Loading from "@/components/Loading";
 import { selectUserID } from "@/store/session/sessionReducer";
 import { useAppSelector } from "@/store/store";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { X } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useSelector } from "react-redux";
 
 const UpdateForm = () => {
   const supabase = createClientComponentClient();
-  const userId = useSelector(selectUserID);
-
-
-
-
-  // const [image, setImage] = useState<null | string>(null);
-  // const [username, setUsername] = useState("");
-  // const [walletAddress, setWalletAddress] = useState("");
-  
-  const [states, setStates] = useState<{image:null|string,username:string,walletAddress:string}>({image:null,username:"",walletAddress:""});
+  const userId = useAppSelector(selectUserID);
+  const [states, setStates] = useState<{image:null|string,username:string,walletAddress:string,isMutating:boolean}>({image:null,username:"",walletAddress:"",isMutating:false});
   
 
 
@@ -27,17 +21,20 @@ const UpdateForm = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const { data, error } = await supabase
+      const {data:auth,error} = await supabase.auth.getSession();
+      if(auth.session){
+        const { data, error } = await supabase
         .from("profiles")
         .select("wallet_address ,username,avatar_url")
-        .eq("id", userId);
-
-      if (error) {
-        toast.error(`${error.message}`);
-        return;
+        .eq("id", auth.session.user.id);
+        
+        if (error) {
+          console.log(`${error.message}`);
+          return;
+        }
+        
+        setStates({...states,username:data[0].username ,walletAddress: data[0].wallet_address ,image:data[0].avatar_url })
       }
-
-      setStates({...states,username:data[0].username ,walletAddress: data[0].wallet_address ,image:data[0].avatar_url })
     };
     getData();
   }, []);
@@ -63,6 +60,7 @@ const UpdateForm = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    setStates({...states,isMutating:true})
     try {
       const formData = new FormData(e.target);
       const imageFile = formData.get("avatar") as File;
@@ -72,6 +70,7 @@ const UpdateForm = () => {
       if (imageFile && imageFile.type.split("/")[0] === "image") {
         if (imageFile.size > 250000) {
           toast.error("Image size should less than 250kb");
+          setStates({...states,isMutating:false})
           return;
         }
         const path = `${userId}.${imageFile.name.split(".").pop()}`;
@@ -81,6 +80,7 @@ const UpdateForm = () => {
 
         if (storageError) {
           toast.error(`Image Storing Issue: ${storageError.message}`);
+          setStates({...states,isMutating:false})
           return;
         }
 
@@ -99,9 +99,11 @@ const UpdateForm = () => {
           .returns();
 
         if (res.error) {
-          toast.error(`Error: ${res.error} , Try Again.`);
+          console.log(`Error: ${res.error} , Try Again.`);
+          setStates({...states,isMutating:false})
         } else {
           toast.success("Profile is updated Successfully");
+          setStates({...states,isMutating:false})
         }
 
         const { data, error } = await supabase
@@ -112,7 +114,7 @@ const UpdateForm = () => {
         if (!error) {
           setStates({...states,image: data[0].avatar_url}) ;
         } else {
-          toast.error(`${error.message}`);
+          console.log(`${error.message}`);
         }
       } else {
         const res = await supabase
@@ -125,18 +127,21 @@ const UpdateForm = () => {
           .returns();
 
         if (res.error) {
-          toast.error(`Error: ${res.error} , Try Again.`);
+          setStates({...states,isMutating:false})
+          console.log(`Error: ${res.error} , Try Again.`);
         } else {
+          setStates({...states,isMutating:false})
           toast.success("Profile is updated Successfully");
         }
       }
     } catch (error) {
+      setStates({...states,isMutating:false})
       console.log((error as { message: string }).message);
-      toast.error(`${(error as { message: string }).message}, Try Again!`);
     }
   };
 
   return (
+    <>
     <form
       onSubmit={handleSubmit}
       className="flex flex-col items-center gap-y-5"
@@ -152,7 +157,9 @@ const UpdateForm = () => {
           <Image
             priority
             src={states.image}
-            alt=""
+            width={400}
+            height={400}
+            alt="Ezzstar member image"
             className="h-full w-full rounded-full object-cover"
           />
         </div>
@@ -182,7 +189,7 @@ const UpdateForm = () => {
           handleChange(e, "username");
         }}
         className="min-h-[40px] w-full rounded-lg bg-zinc-300 px-2 py-1 text-black placeholder:text-gray-500 lmb:min-h-[50px]"
-      />
+        />
 
       <input
         required
@@ -194,14 +201,17 @@ const UpdateForm = () => {
           handleChange(e, "walletAddress");
         }}
         className="min-h-[40px] w-full rounded-lg bg-zinc-300 px-2 py-1 text-black placeholder:text-gray-500 lmb:min-h-[50px]"
-      />
-      <button
+        />
+       <button
         type="submit"
-        className="rounded-2xl bg-pri_yellow px-12 py-1 text-lg font-bold text-black lmb:px-16 lmb:text-xl"
+        disabled={states.isMutating}
+        className="flex justify-center items-center rounded-2xl bg-pri_yellow w-[200px] h-[40px] py-1 text-lg font-bold text-black lmb:text-xl hover:bg-yellow-600 transition-all duration-150 "
       >
-        Save
+        {states.isMutating ? <Loading size="h-6 w-6" color="border-black" /> :"Save"  }
       </button>
     </form>
+    <Link href={"/account/updatepassword#up"} className="text-center text-pri_yellow  hover:underline">Update Password</Link>
+        </>
   );
 };
 

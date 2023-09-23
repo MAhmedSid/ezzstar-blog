@@ -1,15 +1,15 @@
 "use client";
+import Loading from "@/components/Loading";
 import useSaveSession from "@/hooks/useSaveSession";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { EyeOff } from "lucide-react";
-import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import toast from "react-hot-toast";
 
 const SignUpForm = () => {
   const supabase = createClientComponentClient();
 
-  const [states, setStates] = useState({password:"",showPassword:false});
+  const [states, setStates] = useState({password:"",showPassword:false,isMutating:false});
 
 
   const handleChange = (e: any) => {
@@ -22,6 +22,7 @@ const SignUpForm = () => {
     e.preventDefault();
 
     try {
+      setStates({...states,isMutating:true})
       const formData = new FormData(e.target);
 
       const email = formData.get("email") as string;
@@ -40,11 +41,12 @@ const SignUpForm = () => {
         throw new Error(error.message);
       } else {
         console.log(data);
-        toast.success("Confirm Your Email Address.");
+        setStates({...states,isMutating:false})
+        toast.success("Waiting for Confirmation");
       }
     } catch (error) {
       console.log((error as { message: string }).message);
-      throw new Error((error as { message: string }).message);
+      setStates({...states,isMutating:false})
     }
   };
 
@@ -77,10 +79,12 @@ const SignUpForm = () => {
         />
       </div>
       <button
+              disabled={states.isMutating}
+
         type="submit"
-        className="rounded-2xl bg-pri_yellow px-12 py-1 text-lg font-bold text-black lmb:px-16 lmb:text-xl"
+        className="flex justify-center items-center rounded-2xl bg-pri_yellow w-[200px] h-[40px] py-1 text-lg font-bold text-black lmb:text-xl hover:bg-yellow-600 transition-all duration-150 "
       >
-        Sign Up
+        {states.isMutating ? <Loading size="h-6 w-6" color="border-black" /> :"Sign Up"  }
       </button>
     </form>
   );

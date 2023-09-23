@@ -4,24 +4,30 @@ import React, { useEffect } from "react";
 import futureImg from "/public/images/account.png";
 import Link from "next/link";
 import SignUpForm from "@/views/FORMS/SignupForm";
-import GetSessionComp from "@/components/GetSessionComp";
 import { useRouter } from "next/navigation";
-import { useSelector } from "react-redux";
-import { selectUserID } from "@/store/session/sessionReducer";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 const Page = () => {
-  const userId = useSelector(selectUserID);
   const router = useRouter();
+  const supabase = createClientComponentClient();
 
   useEffect(() => {
-    if (userId) {
-      router.push("/");
+
+    const getSession = async ()=>{
+      const {data,error} = await supabase.auth.getSession();
+      if(error){
+        console.log(error.message);
+      }
+      if (data.session) {
+        router.push("/");
+      }
     }
+    getSession();
+
   }, []);
 
   return (
     <>
-      <GetSessionComp />
       <main id="signup" className="flex h-full w-full items-center justify-center rounded-2xl px-5 py-5 text-white lmb:py-10 tablet:px-3 lp:py-20  ">
         <section className="flex w-full max-w-[500px] flex-col rounded-2xl tablet:relative tablet:max-h-[800px] tablet:max-w-[900px] tablet:flex-row ">
           <Image

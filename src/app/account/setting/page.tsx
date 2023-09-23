@@ -2,8 +2,11 @@ import Image from "next/image";
 import React from "react";
 import futureImg from "/public/images/account.png";
 import UpdateForm from "@/views/FORMS/UpdateUserForm";
+import Link from "next/link";
 
-const page = () => {
+const Page = () => {
+
+
   return (
     <main id="setting" className="flex h-full w-full items-center justify-center rounded-2xl px-5 py-5 text-white lmb:py-10 tablet:px-3 lp:py-20  ">
       <section className="flex  w-full max-w-[500px] flex-col rounded-2xl tablet:relative tablet:max-h-[800px] tablet:max-w-[900px] tablet:flex-row ">
@@ -27,4 +30,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

@@ -1,4 +1,4 @@
-import { cdnClient, client } from "@/lib/sanityClient";
+import { cdnClient } from "@/lib/sanityClient";
 import { NextApiRequest, NextApiResponse } from "next";
 import { groq } from "next-sanity";
 import { NextResponse } from "next/server";
@@ -12,6 +12,7 @@ export async function PUT(req: Request, res: NextApiResponse) {
       let length;
       if(lastLength === 0) length = 0;
       if(lastLength > 0) length = lastLength * 10;
+
      const res =  await cdnClient.fetch(groq`*[_type == "blogs" && category == '${cat}'] | order(published_at desc) [${length}...${
         length! + 10
       }] {

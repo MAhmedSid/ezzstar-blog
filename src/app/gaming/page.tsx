@@ -1,4 +1,3 @@
-import BlogCover from "@/components/BlogCover";
 import BlogList from "@/components/BlogList";
 import FetchSessionComp from "@/components/GetSessionComp";
 import Wrapper from "@/components/Wrapper";
@@ -10,11 +9,9 @@ const page = async () => {
   const totalLength = await cdnClient.fetch(
     groq`count(*[_type == "blogs" && category == 'Games'])`,
   );
-  return <>
-   <FetchSessionComp/>
-  <main className="flex flex-col w-full gap-y-10 justify-center items-center">
+  return <main className="flex flex-col w-full gap-y-10 justify-center items-center">
   <Wrapper>
-    <div className="flex flex-col gap-y-4">
+    <div className="w-full flex flex-col gap-y-4">
       <div className="h-full w-full flex flex-col tablet:flex-row px-2 gap-y-2 tablet:gap-x-5 justify-center">
         
 
@@ -28,7 +25,7 @@ const page = async () => {
     </div>
   </Wrapper>
  
-</main></>;
+</main>;
 };
 
 export default page;

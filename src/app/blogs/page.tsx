@@ -11,17 +11,13 @@ const page = async () => {
     groq`count(*[_type == "blogs" && category == 'Blog'])`,
   );
 
-  return <>
-   <FetchSessionComp/>
-  <main className="flex flex-col w-full gap-y-10 justify-center items-center">
+  return  <main className="flex flex-col w-full gap-y-10 justify-center items-center">
   <Wrapper>
-    <div className="flex flex-col gap-y-4">
-      <div className="h-full w-full flex flex-col tablet:flex-row px-2 gap-y-2 tablet:gap-x-5 justify-center">
+    <div className="w-full flex flex-col gap-y-4">
+      <div className="w-full flex flex-col tablet:flex-row px-2 gap-y-2 tablet:gap-x-5 justify-center">
         
 
          <BlogList cat="Blog" totalLength={totalLength} />
-
-   
         <div className="sticky top-10 h-[100px] w-full tablet:h-[600px] tablet:w-[200px] bg-slate-500"></div>
 
         
@@ -29,7 +25,7 @@ const page = async () => {
     </div>
   </Wrapper>
  
-</main></>;
+</main>;
 };
 
 export default page;

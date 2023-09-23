@@ -1,18 +1,25 @@
 "use client";
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { X, Menu } from "lucide-react";
+import { X, Menu, LogOut } from "lucide-react";
 import Link from "next/link";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { useAppDispatch, useAppSelector } from "@/store/store";
+import { useAppDispatch } from "@/store/store";
 import { toast } from "react-hot-toast";
 import { removeSession } from "@/store/session/sessionReducer";
 import useSaveSession from "@/hooks/useSaveSession";
+import { usePathname } from "next/navigation";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 const MobNavMenu = () => {
   const [open, setOpen] = useState(false);
@@ -28,18 +35,19 @@ const MobNavMenu = () => {
     try {
       const { error } = await supabase.auth.signOut();
       if (error) {
-        toast.error(error.message);
+        console.log(error.message);
       }
-      toast.success("You have Suxxessfully logged out.");
+      toast.success("Successfully logged out.");
       dispatch(removeSession);
       window.location.reload();
     } catch (error) {}
   };
 
   const supabase = createClientComponentClient();
-
-  const userId = useSaveSession();
   const dispatch = useAppDispatch();
+  const path = usePathname();
+  const userId = useSaveSession();
+
 
   return (
     <DropdownMenu onOpenChange={toggleMenu}>
@@ -53,53 +61,53 @@ const MobNavMenu = () => {
 
       <DropdownMenuContent>
         <div className=" bg-gradient-to-b from-pri_yellow  to-pri_blue p-[2px]">
-          <div className="flex flex-col items-center justify-center rounded-md bg-black text-white  child-hover:text-pri_yellow ">
+          <div className="flex flex-col items-center justify-center rounded-md bg-black bg-opacity-90 drop-shadow-lg text-white  child-hover:text-pri_yellow ">
             <DropdownMenuItem>
-              <Link prefetch href={"/"} className="text-lg">
+              <Link prefetch href={"/#t"} className={`${path === "/" && "text-pri_yellow "}text-lg`}>
                 HOME
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem>
-              <Link prefetch href={"/gaming"} className="text-lg">
+              <Link prefetch href={"/gaming"}className={`${path === "/gaming" && "text-pri_yellow "}text-lg`}>
                 GAMES
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem>
-              <Link prefetch href={"/anime"} className="text-lg">
+              <Link prefetch href={"/anime"} className={`${path === "/anime" && "text-pri_yellow "}text-lg`}>
                 ANIME
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem>
-              <Link prefetch href={"/blogs"} className="text-lg">
+              <Link prefetch href={"/blogs"} className={`${path === "/blogs" && "text-pri_yellow "}text-lg`}>
                 BLOGS
               </Link>
             </DropdownMenuItem>
-            <DropdownMenuItem>
-              <Link prefetch href={"/events"} className="text-lg">
-                EVENTS
-              </Link>
-            </DropdownMenuItem>
-
+           
             <DropdownMenuItem>
               {userId === "" ? (
-                <Link prefetch href={"/account/signin/#signin"} className="text-lg">
+                <Link prefetch href={"/account/signin/#signin"} className={`${path === "/account/signin" && "text-pri_yellow "}text-lg`}>
                   Sign In
                 </Link>
               ) : (
                 <DropdownMenu>
                   <DropdownMenuTrigger>
-                    <p className="text-lg">ACCOUNT</p>
+                    <p className="">ACCOUNT</p>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent>
                     <div className="w-full bg-gradient-to-b from-pri_yellow  to-pri_blue p-[2px]">
-                      <div className="flex flex-col items-center  justify-center   rounded-md bg-black px-4 py-2 text-white  child-hover:text-pri_yellow">
-                        <Link prefetch href={"/account/setting/#setting"} className="text-lg">
-                          Setting
-                        </Link>
-                        <button onClick={handleSignout} className="text-lg">
-                          Sign Out
-                        </button>
-                      </div>
+                    <div className="flex flex-col gap-y-3 items-center justify-center rounded-md bg-black py-2  text-white  ">
+                  <Link
+                    prefetch
+                    href={"/account/setting/#setting"}
+                    className={`${path === "/account/setting" && "text-pri_yellow text-lg"} hover:text-pri_yellow`}
+                  >
+                    Setting
+                  </Link>
+                  <button onClick={handleSignout} className={`flex justify-center items-center gap-x-3 text-lg text-red-700 hover:text-red-600`}>
+                    <span className="font-medium">Sign Out</span>
+                    <LogOut />
+                  </button>
+                </div>
                     </div>
                   </DropdownMenuContent>
                 </DropdownMenu>

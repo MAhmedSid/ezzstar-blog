@@ -6,77 +6,94 @@ import { toast } from "react-hot-toast";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { EyeOff } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useSelector } from "react-redux";
-import { selectUserID } from "@/store/session/sessionReducer";
 import Link from "next/link";
+import Loading from "@/components/Loading";
 
 const Page = () => {
   const router = useRouter();
   const supabase = createClientComponentClient();
 
-  
-
-  const [states, setStates] = useState({password:"",showPassword:false,isAuthenticated:false});
-
-  const userId = useSelector(selectUserID);
-
-  useEffect(() => {
-    if (userId) {
-      router.push("/");
-    }
-  }, []);
+  const [states, setStates] = useState({
+    password: "",
+    showPassword: false,
+    isAuthenticated: false,
+    isMutating: false,
+  });
 
   useEffect(() => {
-    supabase.auth.onAuthStateChange(async (event, session) => {
-      if (event == "SIGNED_IN") {
-
-        setStates({...states,isAuthenticated:true});
+    const getSession = async () => {
+      const { data, error } = await supabase.auth.getSession();
+      if (error) {
+        console.log(error.message);
       }
-    });
+      if (data.session) {
+        setStates({ ...states, isAuthenticated: true });
+      }
+    };
+    getSession();
+
+    const handleAuthStateChange = (event: string, session: any) => {
+      if (event === "SIGNED_IN") {
+        setStates({ ...states, isAuthenticated: true });
+      }
+    };
+    const authSubscription = supabase.auth.onAuthStateChange(
+      handleAuthStateChange,
+    );
+
+    return () => {
+      authSubscription.data.subscription.unsubscribe();
+    };
   }, []);
 
   const handleChange = (e: any) => {
     const target = e.target.value as string;
     const value = target.replace(/\s/g, "");
-    setStates({...states,password:value});
+    setStates({ ...states, password: value });
   };
 
   const handleSubmitEmail = async (e: any) => {
     e.preventDefault();
     try {
+      setStates({ ...states, isMutating: true });
       const formData = new FormData(e.target);
       const email = formData.get("email") as string;
       const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
         redirectTo: `${location.origin}/account/updatepassword`,
       });
       if (error) {
-        toast.error(error.message);
-        throw new Error(error.message);
+        setStates({ ...states, isMutating: false });
+        console.log(error.message);
       } else {
-        toast.success("Check your inbox");
+        setStates({ ...states, isMutating: false });
+        toast.success("Waiting for Confirmation");
       }
     } catch (error) {
-      throw new Error((error as { message: string }).message);
+      setStates({ ...states, isMutating: false });
+      console.log((error as { message: string }).message);
     }
   };
 
   const handleSubmitPassword = async (e: any) => {
     e.preventDefault();
     try {
+      setStates({ ...states, isMutating: true });
       const formData = new FormData(e.target);
       const password = formData.get("password") as string;
       const { data, error } = await supabase.auth.updateUser({
         password,
       });
       if (error) {
-        toast.error(error.message);
-        throw new Error(error.message);
+        setStates({ ...states, isMutating: false });
+        console.log(error.message);
       } else {
-        toast.success("Password Successfully Changed.");
+        setStates({ ...states, isMutating: false });
+        toast.success("Password Updated Successfully");
         router.push("/");
       }
     } catch (error) {
-      throw new Error((error as { message: string }).message);
+      setStates({ ...states, isMutating: false });
+      console.log((error as { message: string }).message);
     }
   };
 
@@ -121,15 +138,31 @@ const Page = () => {
                     className=" min-h-[40px] w-full rounded-l-lg bg-zinc-300 px-2 py-1 text-black placeholder:text-gray-500 focus:outline-none lmb:min-h-[50px]"
                   />
                   <EyeOff
-                    onClick={() => setStates({...states, showPassword: !states.showPassword})}
+                    onClick={() =>
+                      setStates({
+                        ...states,
+                        showPassword: !states.showPassword,
+                      })
+                    }
                     className="h-10 min-h-[40px] w-10 cursor-pointer rounded-r-lg bg-zinc-300 px-2 text-black lmb:min-h-[50px]"
                   />
                 </div>
                 <button
+                  disabled={states.isMutating}
                   type="submit"
-                  className="rounded-2xl bg-pri_yellow px-12 py-1 text-lg font-bold text-black lmb:px-16 lmb:text-xl"
+                  className="flex h-[40px] w-[200px] items-center justify-center rounded-2xl bg-pri_yellow py-1 text-lg font-bold text-black transition-all duration-150 hover:bg-yellow-600 lmb:text-xl "
                 >
-                  Update Password
+                  {states.isMutating ? (
+                    <Loading size="h-6 w-6" color="border-black" />
+                  ) : (
+                    "Update Password"
+                  )}
+                </button>
+                <button
+                  onClick={() => router.push("/account/setting#setting")}
+                  className="text-pri_yellow hover:underline"
+                >
+                  Update Profile
                 </button>
               </form>
             ) : (
@@ -146,16 +179,25 @@ const Page = () => {
                     className="min-h-[40px] w-full rounded-lg bg-zinc-300 px-2 py-1 text-black placeholder:text-gray-500 lmb:min-h-[50px]"
                   />
                   <button
+                    disabled={states.isMutating}
                     type="submit"
-                    className="rounded-2xl bg-pri_yellow px-12 py-1 text-lg font-bold text-black lmb:px-16 lmb:text-xl"
+                    className="flex h-[40px] w-[200px] items-center justify-center rounded-2xl bg-pri_yellow py-1 text-lg font-bold text-black transition-all duration-150 hover:bg-yellow-600 lmb:text-xl "
                   >
-                    Send mail
+                    {states.isMutating ? (
+                      <Loading size="h-6 w-6" color="border-black" />
+                    ) : (
+                      "Send Email"
+                    )}
                   </button>
                 </form>
 
                 <div className="flex flex-col gap-y-3 text-center">
                   <p>Don&apos;t want to Reset Password?</p>
-                  <Link prefetch href={"/account/signin/#signin"} className="text-pri_yellow">
+                  <Link
+                    prefetch
+                    href={"/account/signin/#signin"}
+                    className="text-pri_yellow"
+                  >
                     Sign in
                   </Link>
                 </div>

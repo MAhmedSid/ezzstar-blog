@@ -2,6 +2,7 @@
 import React from "react";
 import BlogCover from "./BlogCover";
 import { QueryFunctionContext, useInfiniteQuery } from "@tanstack/react-query";
+import Loading from "./Loading";
 
 const BlogList = ({
   cat,
@@ -22,7 +23,7 @@ const BlogList = ({
   };
 
   const { isLoading, isError, error , data, hasNextPage, fetchNextPage } =
-    useInfiniteQuery(["blogs"], 
+    useInfiniteQuery([`${cat}`], 
     getData, 
     {
       refetchOnWindowFocus:false,
@@ -38,10 +39,10 @@ const BlogList = ({
     });
 
   return (
-    <section className="flex flex-col gap-y-2">
+    <section className="w-full flex flex-col gap-y-2">
       <div className="flex flex-col items-center gap-y-3  tablet:items-start ">
         {data && data?.pages.map((blogArray: any, i: number) => (
-          <div key={blogArray && blogArray[0].slug.current}>
+          <div className="w-full flex flex-col items-center gap-y-4" key={blogArray && blogArray[0].slug.current}>
             {blogArray && blogArray.map((blog: any, i: number) => {
               return (
                 <BlogCover
@@ -63,14 +64,14 @@ const BlogList = ({
 
       <div className="flex  min-w-[300px] justify-center lp:min-w-[600px] lcd:min-w-[1000px]">
         {isLoading ? (
-          <p className=" text-2xl font-semibold text-pri_yellow">LOADING!!!</p>
+          <Loading size="h-14 w-14" color="border-pri_yellow" />
         ) : (
           <button
             disabled={!hasNextPage}
             onClick={() => fetchNextPage()}
-            className={`rounded-full  px-8 py-1 text-lg font-semibold ${hasNextPage?"bg-pri_purple":"bg-pri_purple"}`}
+            className={`rounded-full cursor-pointer  px-8 py-1 text-lg font-semibold transition-all duration-150 ${hasNextPage ? "bg-pri_purple hover:bg-indigo-900 ": "bg-slate-700 hover:bg-slate-800"}`}
           >
-            {hasNextPage ? "Load more" : "You catch up the end"}
+            {hasNextPage ? "Show more" : "All Caught Up"}
           </button>
         )}
       </div>

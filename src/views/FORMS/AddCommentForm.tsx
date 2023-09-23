@@ -1,5 +1,6 @@
 "use client"
 import Loading from "@/components/Loading";
+import { CommentButton } from "@/components/utils/Buttons";
 import useSaveSession from "@/hooks/useSaveSession";
 import { SendHorizonal } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -28,7 +29,7 @@ const AddCommentForm = ({blogId,blogSlug}:{blogSlug:string,blogId:string}) => {
                 const data = await res.json()
                 setStates({...states,isMutating:false});
                 if(res.ok){
-                    toast.success("Comment Added Suxxessfully.")
+                    toast.success("Comment added Successfully.")
                     setStates({...states,commentText:""})
                     await fetch(`/api/revalidateTag?tag=getComments`)
                     router.refresh();
@@ -45,22 +46,22 @@ const AddCommentForm = ({blogId,blogSlug}:{blogSlug:string,blogId:string}) => {
 
 
 
-  return <form onSubmit={handleAddComment} className="flex flex-col">
+  return <form onSubmit={handleAddComment} className="flex flex-col gap-y-2">
   <textarea
     placeholder="Write a Comment..."
     name="comment"
     id="comment"
-    cols={50}
-    rows={10}
-    className="bg-zinc-800"
+    className="min-h-[200px] max-h-[200px] w-full max-w-[600px] p-3 rounded-xl bg-zinc-800"
     required
     minLength={5}
     value={states.commentText}
     onChange={(e)=>setStates({...states,commentText:e.target.value})}
   />
-  <button disabled={states.isMutating} className="w-fit">
-    {states.isMutating ? <Loading size="h-8 w-8" color="border-pri_yellow" /> : <SendHorizonal className="text-pri_yellow" />}
-  </button>
+
+   <CommentButton type="submit" disabled={states.isMutating} text=""  >
+    {states.isMutating ? <Loading size="h-6 w-6" color="border-pri_yellow" /> : <SendHorizonal className="h-6 w-6" />}
+   </CommentButton>
+  
 </form>;
 };
 

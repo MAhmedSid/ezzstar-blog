@@ -8,7 +8,6 @@ import FetchSessionComp from "@/components/GetSessionComp";
 const page = () => {
   return (
     <>
-      <FetchSessionComp />
       <main id="signin" className="flex h-full w-full items-center justify-center rounded-2xl px-5 py-5 text-white lmb:py-10 tablet:px-3 lp:py-20  ">
         <section className="flex w-full max-w-[500px] flex-col rounded-2xl tablet:relative tablet:max-h-[800px] tablet:max-w-[900px] tablet:flex-row ">
           <Image

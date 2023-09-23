@@ -5,9 +5,8 @@ import Image from "next/image";
 import Countdown from "react-countdown";
 import { toast } from "react-hot-toast";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { useRouter } from "next/navigation";
-import { useSelector } from "react-redux";
 import { selectUserID } from "@/store/session/sessionReducer";
+import { useAppSelector } from "@/store/store";
 
 interface IUserData {
   wallet_address: string;
@@ -20,7 +19,7 @@ const ClaimComp = () => {
   const currMilli = new Date().getTime();
 
   const supabase = createClientComponentClient();
-  const userID = useSelector(selectUserID);
+  const userID = useAppSelector(selectUserID);
 
   
   const [states, setStates] = useState({walletAddress:"0x00000000000", withdrawl:false, spicaAmount:0.0 ,lastClaim:0 ,nextClaim:0, refresh:false });
@@ -41,7 +40,7 @@ const ClaimComp = () => {
         .eq("id", userID);
 
       if (error) {
-        toast.error(`${error.message}`);
+        console.log(`${error.message}`);
         return;
       }
 
@@ -63,7 +62,7 @@ const ClaimComp = () => {
 
     if (states.nextClaim !== 3600) {
       if (currSeconds < states.nextClaim) {
-        toast.error(`You can Claim after a time period`);
+        toast.error(`Claim after cooldown`);
         return;
       }
     }
@@ -75,10 +74,11 @@ const ClaimComp = () => {
       .returns();
 
     if (error) {
-      toast.error(`${error.message}`);
+      toast.error(`Unsuccessful deposit, Try Again Or Contact Support`);
       console.log(error.message);
       return;
     } else {
+      toast.success("Successfully deposit 0.1 $SPCA")
       handleRefresh();
     }
   };
@@ -89,11 +89,11 @@ const ClaimComp = () => {
       return;
     }
     if (states.withdrawl === true) {
-      toast.error("You have already applied for Withdrawl, please wait.");
+      toast.error("You have already applied for Withdrawl, please wait upto 24 Hours");
       return;
     }
     if(states.spicaAmount < 50){
-      toast.error("You have less than 50 SPCA")
+      toast.error("You have less $SPCA than Threshold Amount")
       return;
     }
 
@@ -103,13 +103,12 @@ const ClaimComp = () => {
       .eq("id", userID);
 
     if (error) {
-      toast.error(`${error.message}`);
       console.log(error.message);
       return;
     } else {
       setStates({...states,withdrawl:true});
       toast.success(
-        "Successfully applied. It may take upto 24 hours to transfer $SPCA",
+        "Successfully applied. It may take upto 24 hours to transfer $SPCA in your wallet",
       );
       handleRefresh();
     }

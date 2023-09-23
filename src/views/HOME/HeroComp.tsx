@@ -4,6 +4,7 @@ import mainImg from "/public/images/main.png";
 import chashmaImg from "/public/images/chashma.png";
 import { Press_Start_2P } from "next/font/google";
 import ClaimComp from "@/components/ClaimComp";
+import Link from "next/link";
 
 const ps = Press_Start_2P({ weight: ["400"], subsets: ["latin"] });
 
@@ -11,6 +12,7 @@ const HeroComp = () => {
   return (
     <section className="relative w-full">
       <Image
+        id="t"
         src={mainImg}
         alt={"Ezzstar Wallpaper"}
         height={1644}
@@ -28,20 +30,31 @@ const HeroComp = () => {
 
         <div className="flex w-full flex-col lmb:mt-28 lmb:flex-row lmb:justify-between  lmb:pr-8  tablet:mt-20 tablet:justify-around lcd:mt-12 ">
           <div className="flex  gap-x-4 lmb:flex-col lmb:gap-y-3">
-            <button className="flex w-fit max-w-[120px] flex-col items-center   rounded-md bg-black px-1 lmb:w-full tablet:max-w-[180px] tablet:flex-row">
+            <Link href={"https://ezzstar.space"} className="flex w-fit max-w-[120px] flex-col items-center   rounded-md bg-black px-1 lmb:w-full tablet:max-w-[180px] tablet:flex-row">
               <Image
                 src={chashmaImg}
                 alt="EZZSTAR logo"
                 className="h-10 w-10 tablet:h-14 tablet:w-14"
               />
               <p className={` font-semibold text-white `}>ezzstar.space</p>
-            </button>
-            <button className="w-fit max-w-[120px] items-center justify-center  rounded-md bg-black  px-2 lmb:w-full tablet:max-w-[180px]">
-              <p className="bg-gradient-to-br from-[#E004D7]  from-45%  to-[#05FBDD] bg-clip-text font-extrabold text-transparent tablet:py-2  tablet:text-2xl">
-                NFT DISPLAY
-              </p>
-            </button>
-            <button className="flex w-fit max-w-[120px] flex-col items-center rounded-md bg-black px-2 lmb:w-full tablet:max-w-[180px]  tablet:flex-row">
+            </Link>
+            <div
+              className="inline-block w-fit max-w-[120px] lmb:w-full tablet:max-w-[180px]"
+              tabIndex={0}
+              data-te-toggle="tooltip"
+              title="COMING SOON"
+            >
+              <button
+                type="button"
+                disabled={true}
+                className="h-full w-full cursor-not-allowed items-center justify-center  rounded-md bg-black  px-2 lmb:w-full tablet:max-w-[180px]"
+              >
+                <p className="bg-gradient-to-br from-[#E004D7] from-45% to-[#05FBDD] bg-clip-text font-extrabold text-transparent hover:from-slate-400 hover:to-white tablet:py-2  tablet:text-2xl">
+                  NFT DISPLAY
+                </p>
+              </button>
+            </div>
+            <Link href={"https://discord.gg/Xpk25q6vRy"} className="flex gap-x-2 w-fit max-w-[120px] flex-col items-center rounded-md bg-black px-2 lmb:w-full tablet:max-w-[180px]  tablet:flex-row">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="hovered-paths h-6 w-6 fill-white tablet:h-12 tablet:w-12"
@@ -54,8 +67,8 @@ const HeroComp = () => {
                   data-original="#000000"
                 ></path>
               </svg>
-              <p className=" text-[10px]  font-bold ">SPAWN ON OUR DISCORD!</p>
-            </button>
+              <p className="text-[10px] font-bold text-center ">SPAWN ON OUR DISCORD!</p>
+            </Link>
           </div>
           <ClaimComp />
         </div>

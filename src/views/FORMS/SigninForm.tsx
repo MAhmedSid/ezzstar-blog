@@ -1,4 +1,5 @@
 "use client";
+import Loading from "@/components/Loading";
 import { supabase } from "@/lib/supabaseClient";
 import { addSession } from "@/store/session/sessionReducer";
 import { useAppDispatch } from "@/store/store";
@@ -14,7 +15,7 @@ const SignInForm = () => {
   const router = useRouter();
 
  
-  const [states, setStates] = useState({password:"",showPassword:false});
+  const [states, setStates] = useState({password:"",showPassword:false,isMutating:false});
 
   const handleChange = (e: any) => {
     const target = e.target.value as string;
@@ -26,8 +27,9 @@ const SignInForm = () => {
     e.preventDefault();
 
     try {
+      setStates({...states,isMutating:true})
       const formData = new FormData(e.target);
-
+      
       const email = formData.get("email") as string;
       const password = formData.get("password") as string;
 
@@ -35,20 +37,20 @@ const SignInForm = () => {
         email,
         password,
       });
-
-      console.log("LOGIN ERROR", error);
-
+      
+      
       if (error) {
         toast.error(error.message);
         throw new Error(error.message);
       } else {
-        console.log("LOGIN DATA", data);
-        toast.success("YOU HAVE LOGGED IN SUXXESFULLY");
+        setStates({...states,isMutating:false})
+        toast.success("LOGGED IN SUCCESFULLY");
         dispatch(addSession(data.session.user.id));
         router.back();
       }
     } catch (error) {
       console.log((error as { message: string }).message);
+      setStates({...states,isMutating:false})
     }
   };
 
@@ -80,11 +82,14 @@ const SignInForm = () => {
           className="h-10 min-h-[40px] w-10 cursor-pointer rounded-r-lg bg-zinc-300 px-2 text-black lmb:min-h-[50px]"
         />
       </div>
+      
       <button
+              disabled={states.isMutating}
+
         type="submit"
-        className="rounded-2xl bg-pri_yellow px-12 py-1 text-lg font-bold text-black lmb:px-16 lmb:text-xl"
+        className="flex justify-center items-center rounded-2xl bg-pri_yellow w-[200px] h-[40px] py-1 text-lg font-bold text-black lmb:text-xl hover:bg-yellow-600 transition-all duration-150 "
       >
-        Sign In
+        {states.isMutating ? <Loading size="h-6 w-6" color="border-black" /> :"Sign In"  }
       </button>
     </form>
   );

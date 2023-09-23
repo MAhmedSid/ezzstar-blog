@@ -23,8 +23,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className} w-full bg-black text-white`}>
         <Toaster position="top-center" toastOptions={{duration:6000 ,style: {
-      background: '#1b1464',
+      background: '#09090b',
       color: '#f2b41f',
+      boxShadow: "2px 2px 20px #f2b41f"
     }}} />
         <ProviderComp>
           <HeroComp />

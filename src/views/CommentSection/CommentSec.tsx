@@ -11,22 +11,25 @@ const CommentSec = async ({blogId,blogSlug}:{blogSlug:string,blogId:string}) => 
       method: "PUT",
       body: JSON.stringify({ blogId }),
       headers: { "Content-Type": "application/json" },
-      next:{tags:["getComments"]}
+      next:{tags:["getComments"]},
+      cache:"no-store"
     });
     const body = await res.json();
+
     const comments = body.data;
 
    
   return (
-    <section className="flex h-full w-full flex-col">
+    <section className="flex h-full w-full flex-col gap-y-5">
       
       <AddCommentComp blogSlug={blogSlug} blogId={blogId} />
-      <section className="flex flex-col">
-        <p>{comments && comments.length} {comments.length > 1 ? "Comments": "Comment"}</p>
+      <section className="flex flex-col bg-zinc-950 p-4 gap-y-10 rounded-xl">
+        <p>{comments && comments.length} {comments && comments.length > 1 ? "Comments": "Comment"}</p>
         <div className="h-full w-full flex flex-col gap-y-8">
-          {comments.map && comments.map((comment:any,i:number)=>(
+          {comments && comments.map((comment:any,i:number)=>(
             <Comment key={comment._id} comments={comments} commentUserId={comment.userId} replies={comment?.replies} commentId={comment._id} text={comment.commentText} createdAt={comment._createdAt} blogId={blogId}  />
           ))}
+          {comments && comments.length === 0 && <p className="text-xl text-center">No Comments Yet!</p> }
         </div>
       </section>
     </section>

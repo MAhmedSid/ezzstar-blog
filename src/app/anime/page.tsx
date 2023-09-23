@@ -13,7 +13,7 @@ const page = async () => {
 
 
   return <>
-   <FetchSessionComp/>
+   {/* <FetchSessionComp/> */}
   <main className="flex flex-col w-full gap-y-10 justify-center items-center">
   <Wrapper>
     <div className="flex flex-col gap-y-4">
