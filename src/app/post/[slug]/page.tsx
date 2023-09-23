@@ -128,23 +128,23 @@ const page = async ({
 
                   <div className="w-full flex flex-col gap-y-7 ">
                   <h1 className="text-2xl font-semibold tablet:text-3xl lp:text-4xl ">
-                    {blogData.title}
+                    {blogData && blogData.title}
                   </h1>
                   <div className="flex justify-between ">
                     <div className="flex gap-x-4">
                       <div className="flex items-center justify-center gap-x-2">
                         <p className="text-pri_yellow">
-                          {blogData.likesCount === 0 ||
-                          blogData.likesCount === null
+                          {blogData && blogData.likesCount === 0 ||
+                          blogData && blogData.likesCount === null
                             ? "0"
                             : blogData.likesCount}
                         </p>
                         <p className="text-pri_yellow">
-                          {blogData.likesCount > 1 ? "Stars" : "Star"}
+                          {blogData && blogData.likesCount > 1 ? "Stars" : "Star"}
                         </p>
                       </div>
                       <div className="flex items-center justify-center gap-x-2">
-                        <p className="text-pri_yellow">{commentNumber}</p>
+                        <p className="text-pri_yellow">{commentNumber && commentNumber}</p>
                  
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -160,14 +160,14 @@ const page = async ({
 
                       </div>
                     </div>
-                    <Date date={blogData.published_at} />
+                    <Date date={blogData && blogData.published_at} />
                   </div>
                   </div>
 
 
                   <section className="w-full flex flex-col mt-14">
                     
-                    {contentArr && contentArr.map((sect:any,i:number)=>{
+                    {contentArr.length > 0 && contentArr.map((sect:any,i:number)=>{
                       return(
 
                         <div key={sect._key} className="flex w-full flex-col">
@@ -205,20 +205,20 @@ const page = async ({
                   <div className="flex flex-col items-center gap-y-3">
                     <p>Did you like this?</p>
                     <LikeIcon
-                      blogId={blogData?._id}
-                      slug={blogData?.slug.current}
+                      blogId={blogData && blogData?._id}
+                      slug={blogData && blogData?.slug.current}
                     />
                   </div>
 
                   <div className="flex flex-col items-center gap-y-3">
-                  <BlogPageShareIcons title={blogData.title} slug={blogData.slug.current} cat={blogData.category} />
+                  <BlogPageShareIcons title={blogData && blogData?.title} slug={blogData && blogData?.slug?.current} cat={blogData && blogData?.category} />
                   </div>
                 </div>
 
                 <section className="flex flex-col items-center gap-y-5 mt-20">
                   <h3 className="w-full text-2xl underline ">Read More</h3>
                   <div className="grid w-full max-w-[250px] grid-cols-1  place-items-center gap-x-10 gap-y-10  lmb:max-w-[300px] tablet:max-w-full tablet:grid-cols-2 lp:grid-cols-3">
-                    {morePosts.map((blog: any, i: any) => {
+                    {morePosts.length > 0 && morePosts.map((blog: any, i: any) => {
                       return (
                         <BlogCard
                           key={blog?.slug.current}
@@ -237,7 +237,7 @@ const page = async ({
                 </section>
 
                 <div className="w-full mt-28">
-                <CommentSec blogSlug={slug} blogId={blogData._id} />
+                <CommentSec blogSlug={slug} blogId={blogData && blogData._id} />
                 </div>
 
 
