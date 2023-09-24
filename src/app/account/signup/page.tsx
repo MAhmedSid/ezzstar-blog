@@ -7,11 +7,6 @@ import SignUpForm from "@/views/FORMS/SignupForm";
 import { useRouter } from "next/navigation";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
-export const metadata = {
-  title: 'SIGN UP - EZZSTAR',
-  description: "SIGN UP for Future Content - EZZSTAR SOCIAL PLATFORM",
-  themeColor: '#09090b',
-}
 
 
 const Page = () => {

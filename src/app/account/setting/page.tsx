@@ -2,7 +2,6 @@ import Image from "next/image";
 import React from "react";
 import futureImg from "/public/images/account.png";
 import UpdateForm from "@/views/FORMS/UpdateUserForm";
-import Link from "next/link";
 
 const Page = () => {
 
