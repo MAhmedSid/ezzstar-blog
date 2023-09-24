@@ -11,7 +11,7 @@ const CommentSec = async ({blogId,blogSlug}:{blogSlug:string,blogId:string}) => 
       method: "PUT",
       body: JSON.stringify({ blogId }),
       headers: { "Content-Type": "application/json" },
-      next:{tags:["getComments"]},
+      // next:{tags:["getComments"]},
       cache:"no-store"
     });
     const body = res && await res.json();
