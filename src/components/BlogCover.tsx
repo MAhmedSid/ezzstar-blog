@@ -20,7 +20,7 @@ const BlogCover = ({
   return (
     <Link
       prefetch
-      href={`/post/${slug}#${slug}?cat=${encodeURI(category)}`}
+      href={`/post/${slug && slug}#${slug && slug}?cat=${encodeURI(category && category)}`}
       className=" flex min-h-[430px]  w-[250px] lmb:w-[300px] flex-col gap-y-2  rounded-lg  bg-zinc-900 transition-all duration-200   hover:bg-zinc-800 tablet:h-fit tablet:min-h-[300px]  tablet:w-full tablet:max-w-[700px] tablet:flex-row lp:h-[300px] lp:max-w-[800px] lcd:min-h-0 lcd:h-[270px] lcd:max-w-[1400px]"
     >
       <div className="flex h-full w-full rounded-xl tablet:w-fit  ">
@@ -47,8 +47,8 @@ const BlogCover = ({
 
       <div className="flex h-full w-full flex-[1]  flex-col justify-between gap-y-3 px-2 pb-3 tablet:h-full tablet:w-full tablet:flex-auto tablet:py-2 tablet:pb-2 ">
         <div className="flex  w-full flex-col gap-y-3">
-          <h3 className="text-lg lmb:text-xl lp:text-2xl font-semibold ">{title}</h3>
-          <p className="text-sm lp:text-base">{desc}</p>
+          <h3 className="text-lg lmb:text-xl lp:text-2xl font-semibold ">{title && title}</h3>
+          <p className="text-sm lp:text-base">{desc && desc}</p>
         </div>
 
         <div className="flex  h-fit w-full justify-between ">
@@ -337,7 +337,7 @@ const BlogCover = ({
             </div>
           </div>
 
-          <Date date={date} />
+          <Date date={date && date } />
         </div>
       </div>
     </Link>
