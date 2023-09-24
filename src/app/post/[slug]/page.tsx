@@ -154,7 +154,7 @@ const page = async ({
     <>
       <main
         id={slug}
-        className="mt-14 flex w-full flex-col items-center justify-center gap-y-10"
+        className="pt-14 flex w-full flex-col items-center justify-center gap-y-10"
       >
         <div className="flex w-full max-w-[1300px] flex-col gap-y-4  ">
           <div className="flex h-full w-full flex-col justify-center gap-y-2 px-5  tablet:flex-row tablet:gap-x-10">
