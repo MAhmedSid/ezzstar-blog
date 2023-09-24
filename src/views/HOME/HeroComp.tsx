@@ -30,7 +30,10 @@ const HeroComp = () => {
 
         <div className="flex w-full flex-col lmb:mt-28 lmb:flex-row lmb:justify-between  lmb:pr-8  tablet:mt-20 tablet:justify-around lcd:mt-12 ">
           <div className="flex  gap-x-4 lmb:flex-col lmb:gap-y-3">
-            <Link href={"https://ezzstar.space"} className="flex w-fit max-w-[120px] flex-col items-center   rounded-md bg-black px-1 lmb:w-full tablet:max-w-[180px] tablet:flex-row">
+            <Link
+              href={"https://ezzstar.space"}
+              className="flex w-fit max-w-[120px] flex-col items-center   rounded-md bg-black px-1 lmb:w-full tablet:max-w-[180px] tablet:flex-row"
+            >
               <Image
                 src={chashmaImg}
                 alt="EZZSTAR logo"
@@ -54,7 +57,10 @@ const HeroComp = () => {
                 </p>
               </button>
             </div>
-            <Link href={"https://discord.gg/Xpk25q6vRy"} className="flex gap-x-2 w-fit max-w-[120px] flex-col items-center rounded-md bg-black px-2 lmb:w-full tablet:max-w-[180px]  tablet:flex-row">
+            <Link
+              href={"https://discord.gg/Xpk25q6vRy"}
+              className="flex w-fit max-w-[120px] flex-col items-center gap-x-2 rounded-md bg-black px-2 lmb:w-full tablet:max-w-[180px]  tablet:flex-row"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="hovered-paths h-6 w-6 fill-white tablet:h-12 tablet:w-12"
@@ -67,7 +73,9 @@ const HeroComp = () => {
                   data-original="#000000"
                 ></path>
               </svg>
-              <p className="text-[10px] font-bold text-center ">SPAWN ON OUR DISCORD!</p>
+              <p className="text-center text-[10px] font-bold ">
+                SPAWN ON OUR DISCORD!
+              </p>
             </Link>
           </div>
           <ClaimComp />

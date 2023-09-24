@@ -72,7 +72,7 @@ const Navbar = () => {
         className="  max-w-[220px]  "
       />
 
-      <nav className=" hidden gap-x-4 child-hover:text-pri_yellow tablet:flex items-center lp:gap-x-12 lcd:gap-x-16 child:lcd:text-lg">
+      <nav className=" hidden items-center gap-x-4 child-hover:text-pri_yellow tablet:flex lp:gap-x-12 lcd:gap-x-16 child:lcd:text-lg">
         <Link
           prefetch
           href={"/blogs"}
@@ -83,35 +83,44 @@ const Navbar = () => {
 
         <TooltipProvider>
           <Tooltip>
-            <TooltipTrigger><p className="cursor-not-allowed text-white">EVENTS</p></TooltipTrigger>
-            <TooltipContent >
+            <TooltipTrigger>
+              <p className="cursor-not-allowed text-white">EVENTS</p>
+            </TooltipTrigger>
+            <TooltipContent>
               <p>Coming Soon</p>
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
 
         {userId === "" ? (
-          <Link prefetch href={"/account/signin/#signin"} className={`${path === "/account/signin" && "text-pri_yellow"}`}>
+          <Link
+            prefetch
+            href={"/account/signin/#signin"}
+            className={`${path === "/account/signin" && "text-pri_yellow"}`}
+          >
             SIGN IN
           </Link>
         ) : (
           <Popover>
             <PopoverTrigger>
-              <p className="hover:text-pri_yellow">
-                ACCOUNT
-              </p>
+              <p className="hover:text-pri_yellow">ACCOUNT</p>
             </PopoverTrigger>
             <PopoverContent>
               <div className=" rounded-md bg-gradient-to-b from-pri_yellow  to-pri_blue p-[2px]">
-                <div className="flex flex-col gap-y-3 items-center justify-center rounded-md bg-black py-2  text-white  ">
+                <div className="flex flex-col items-center justify-center gap-y-3 rounded-md bg-black py-2  text-white  ">
                   <Link
                     prefetch
                     href={"/account/setting/#setting"}
-                    className={`${path === "/account/setting" && "text-pri_yellow text-lg"} hover:text-pri_yellow`}
+                    className={`${
+                      path === "/account/setting" && "text-lg text-pri_yellow"
+                    } hover:text-pri_yellow`}
                   >
                     Setting
                   </Link>
-                  <button onClick={handleSignout} className={`flex justify-center items-center gap-x-3 text-lg text-red-700 hover:text-red-600`}>
+                  <button
+                    onClick={handleSignout}
+                    className={`flex items-center justify-center gap-x-3 text-lg text-red-700 hover:text-red-600`}
+                  >
                     <span className="font-medium">Sign Out</span>
                     <LogOut />
                   </button>

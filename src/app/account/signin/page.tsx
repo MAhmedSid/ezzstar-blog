@@ -3,7 +3,14 @@ import React from "react";
 import futureImg from "/public/images/account.png";
 import Link from "next/link";
 import SignInForm from "@/views/FORMS/SigninForm";
-import FetchSessionComp from "@/components/GetSessionComp";
+
+
+export const metadata = {
+  title: 'SIGN UP - EZZSTAR',
+  description: "SIGN IN for Future Content - EZZSTAR SOCIAL PLATFORM",
+  themeColor: '#09090b',
+}
+
 
 const page = () => {
   return (

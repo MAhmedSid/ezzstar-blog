@@ -1,5 +1,4 @@
-import GetSessionComp from "@/components/GetSessionComp";
-import { cdnClient, client } from "@/lib/sanityClient";
+import { cdnClient } from "@/lib/sanityClient";
 import AnimeUpdates from "@/views/HOME/AnimeUpdates";
 import Blogs from "@/views/HOME/Blogs";
 import GamesUpdates from "@/views/HOME/GamesUpdates";

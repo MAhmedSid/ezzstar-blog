@@ -6,14 +6,20 @@ import { Provider } from "react-redux";
 import {
   QueryClient,
   QueryClientProvider,
-  useQuery,
 } from '@tanstack/react-query'
+import { GoogleAnalytics } from "nextjs-google-analytics";
+
 
 const ProviderComp = ({children}:{children:ReactNode}) => {
 
   const [queryClient] = useState(() => new QueryClient())  
   return( 
-    <QueryClientProvider client={queryClient}> <Provider store={store}>{children}</Provider></QueryClientProvider>
+    <QueryClientProvider client={queryClient}> <Provider store={store}>
+            <GoogleAnalytics trackPageViews={{ ignoreHashChange: true }} />
+
+      {children}
+      
+      </Provider></QueryClientProvider>
   )
 };
 

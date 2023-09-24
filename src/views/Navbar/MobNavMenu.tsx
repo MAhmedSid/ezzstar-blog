@@ -48,7 +48,6 @@ const MobNavMenu = () => {
   const path = usePathname();
   const userId = useSaveSession();
 
-
   return (
     <DropdownMenu onOpenChange={toggleMenu}>
       <DropdownMenuTrigger className="block tablet:hidden">
@@ -61,31 +60,53 @@ const MobNavMenu = () => {
 
       <DropdownMenuContent>
         <div className=" bg-gradient-to-b from-pri_yellow  to-pri_blue p-[2px]">
-          <div className="flex flex-col items-center justify-center rounded-md bg-black bg-opacity-90 drop-shadow-lg text-white  child-hover:text-pri_yellow ">
+          <div className="flex flex-col items-center justify-center rounded-md bg-black bg-opacity-90 text-white drop-shadow-lg  child-hover:text-pri_yellow ">
             <DropdownMenuItem>
-              <Link prefetch href={"/#t"} className={`${path === "/" && "text-pri_yellow "}text-lg`}>
+              <Link
+                prefetch
+                href={"/#t"}
+                className={`${path === "/" && "text-pri_yellow "}text-lg`}
+              >
                 HOME
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem>
-              <Link prefetch href={"/gaming"}className={`${path === "/gaming" && "text-pri_yellow "}text-lg`}>
+              <Link
+                prefetch
+                href={"/gaming"}
+                className={`${path === "/gaming" && "text-pri_yellow "}text-lg`}
+              >
                 GAMES
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem>
-              <Link prefetch href={"/anime"} className={`${path === "/anime" && "text-pri_yellow "}text-lg`}>
+              <Link
+                prefetch
+                href={"/anime"}
+                className={`${path === "/anime" && "text-pri_yellow "}text-lg`}
+              >
                 ANIME
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem>
-              <Link prefetch href={"/blogs"} className={`${path === "/blogs" && "text-pri_yellow "}text-lg`}>
+              <Link
+                prefetch
+                href={"/blogs"}
+                className={`${path === "/blogs" && "text-pri_yellow "}text-lg`}
+              >
                 BLOGS
               </Link>
             </DropdownMenuItem>
-           
+
             <DropdownMenuItem>
               {userId === "" ? (
-                <Link prefetch href={"/account/signin/#signin"} className={`${path === "/account/signin" && "text-pri_yellow "}text-lg`}>
+                <Link
+                  prefetch
+                  href={"/account/signin/#signin"}
+                  className={`${
+                    path === "/account/signin" && "text-pri_yellow "
+                  }text-lg`}
+                >
                   Sign In
                 </Link>
               ) : (
@@ -95,19 +116,25 @@ const MobNavMenu = () => {
                   </DropdownMenuTrigger>
                   <DropdownMenuContent>
                     <div className="w-full bg-gradient-to-b from-pri_yellow  to-pri_blue p-[2px]">
-                    <div className="flex flex-col gap-y-3 items-center justify-center rounded-md bg-black py-2  text-white  ">
-                  <Link
-                    prefetch
-                    href={"/account/setting/#setting"}
-                    className={`${path === "/account/setting" && "text-pri_yellow text-lg"} hover:text-pri_yellow`}
-                  >
-                    Setting
-                  </Link>
-                  <button onClick={handleSignout} className={`flex justify-center items-center gap-x-3 text-lg text-red-700 hover:text-red-600`}>
-                    <span className="font-medium">Sign Out</span>
-                    <LogOut />
-                  </button>
-                </div>
+                      <div className="flex flex-col items-center justify-center gap-y-3 rounded-md bg-black py-2  text-white  ">
+                        <Link
+                          prefetch
+                          href={"/account/setting/#setting"}
+                          className={`${
+                            path === "/account/setting" &&
+                            "text-lg text-pri_yellow"
+                          } hover:text-pri_yellow`}
+                        >
+                          Setting
+                        </Link>
+                        <button
+                          onClick={handleSignout}
+                          className={`flex items-center justify-center gap-x-3 text-lg text-red-700 hover:text-red-600`}
+                        >
+                          <span className="font-medium">Sign Out</span>
+                          <LogOut />
+                        </button>
+                      </div>
                     </div>
                   </DropdownMenuContent>
                 </DropdownMenu>

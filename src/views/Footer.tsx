@@ -15,7 +15,7 @@ import {
 
 const Footer = () => {
   return (
-    <section className="flex w-full items-center justify-center px-2">
+    <section className="flex w-full flex-col items-center justify-center px-2">
       <Wrapper>
         <div className="flex w-full flex-col items-center text-white tablet:flex-row tablet:justify-between">
           <Image
@@ -66,13 +66,12 @@ const Footer = () => {
                 <Link href={"/about"}>About us</Link>
                 <Link href={"mailto:support@ezzstar.com"}>Support</Link>
               </div>
-              <div className="flex gap-x-5 child-hover:hover:text-pri_yellow">
-                <a href={"/"}>Privacy Policy</a>
-                <a href={"/"}>Terms and Conditions</a>
-              </div>
             </div>
           </div>
         </div>
+        <p className="py-4 text-xs font-medium text-zinc-500 tablet:text-sm">
+          EZZSTAR © All Rights reserved
+        </p>
       </Wrapper>
     </section>
   );

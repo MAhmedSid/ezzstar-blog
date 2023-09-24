@@ -5,11 +5,20 @@ import { cdnClient } from "@/lib/sanityClient";
 import { groq } from "next-sanity";
 import React from "react";
 
+
+
+export const metadata = {
+  title: 'GAMING - EZZSTAR',
+  description: "True gaming with metaverse, future content",
+  themeColor: '#09090b',
+}
+
+
 const page = async () => {
   const totalLength = await cdnClient.fetch(
     groq`count(*[_type == "blogs" && category == 'Games'])`,
   );
-  return <main className="flex flex-col w-full gap-y-10 justify-center items-center">
+  return <main className="flex flex-col w-full pt-20 gap-y-10 justify-center items-center">
   <Wrapper>
     <div className="w-full flex flex-col gap-y-4">
       <div className="h-full w-full flex flex-col tablet:flex-row px-2 gap-y-2 tablet:gap-x-5 justify-center">

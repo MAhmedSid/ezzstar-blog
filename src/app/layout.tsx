@@ -10,10 +10,21 @@ import ProviderComp from "@/components/utils/ProviderComp";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "EZZSTAR",
-  description: "EZZSTAR Social Platform",
-};
-
+  title: 'SOCIAL - EZZSTAR',
+  description:
+    "Ezzstar is a company that works on research and development, video games and web3. Join the Ezzstar All Universe Social Platform to get Future Content, a virtual world powered by the SPICA token ecosystem, and explore new features and experiences. Learn more about Ezzstar's roadmap and vision for the future of gaming and web3.",
+  creator: 'EZZSTAR TEAM ',
+  authors: { name: 'M. Ahmed Siddiqui', url: 'https://mahmed.vercel.app' },
+  applicationName: 'EZZSTAR BLOG CONTENT APPLICATION',
+  keywords: ['Ezzstar', 'EZZSTAR', "EZZSTAR BLOGS", "GAMING BLOGS", "FUTURE BLOGS", "ANIME BLOGS" ,'Web 3.0 BLOGS', 'METAVERSE BLOGS', 'Spica Token'],
+  category: 'BLOG',
+  themeColor: '#09090b',
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 1,
+  }
+}
 export default function RootLayout({
   children,
 }: {
