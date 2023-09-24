@@ -49,10 +49,10 @@ const page = async ({
     }
   }`);
 
-  const blogData = res.blogData;
-  const contentArr = blogData.pageContent;
-  const commentNumber = res.commentNumber;
-  const morePosts = res.morePost;
+  const blogData = res && res.blogData;
+  const contentArr = blogData && blogData.pageContent;
+  const commentNumber = res && res.commentNumber;
+  const morePosts = res && res.morePost;
 
   const components: PortableTextComponents = {
     list: {
