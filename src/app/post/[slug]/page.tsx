@@ -236,9 +236,9 @@ const page = async ({
                   </div>
                 </section>
 
-                {/* <div className="w-full mt-28">
+                <div className="w-full mt-28">
                 <CommentSec blogSlug={slug} blogId={blogData && blogData._id} />
-                </div> */}
+                </div>
 
 
 
