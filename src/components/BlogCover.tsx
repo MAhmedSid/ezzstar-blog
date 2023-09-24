@@ -20,7 +20,7 @@ const BlogCover = ({
   return (
     <Link
       prefetch
-      href={`/post/${slug && slug}#${slug && slug}?cat=${encodeURI(category && category)}`}
+      href={`/post/${slug && encodeURIComponent(slug)}#${slug && encodeURIComponent(slug)}?cat=${encodeURI(category && category)}`}
       className=" flex min-h-[430px]  w-[250px] lmb:w-[300px] flex-col gap-y-2  rounded-lg  bg-zinc-900 transition-all duration-200   hover:bg-zinc-800 tablet:h-fit tablet:min-h-[300px]  tablet:w-full tablet:max-w-[700px] tablet:flex-row lp:h-[300px] lp:max-w-[800px] lcd:min-h-0 lcd:h-[270px] lcd:max-w-[1400px]"
     >
       <div className="flex h-full w-full rounded-xl tablet:w-fit  ">

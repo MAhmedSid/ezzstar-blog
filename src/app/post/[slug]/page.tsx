@@ -15,7 +15,7 @@ export async function generateMetadata({
 }: {
   params: { slug: string };
 }): Promise<Metadata> {
-  const slug = params.slug;
+  const slug = decodeURIComponent( params.slug);
   const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/getHeadData`, {
     method: "PUT",
     body: JSON.stringify({ slug }),
@@ -45,7 +45,7 @@ const page = async ({
   searchParams: any;
 }) => {
   const cat = decodeURI(searchParams.cat);
-  const slug = params.slug;
+  const slug = decodeURIComponent(params.slug);
 
   const res = await cdnClient.fetch(groq`{
     "blogData": *[_type == "blogs" && slug.current == '${slug}'][0]{
@@ -82,6 +82,7 @@ const page = async ({
   const commentNumber = res && res.commentNumber;
   const morePosts = res && res.morePost;
 
+  
   const components: PortableTextComponents = {
     list: {
       bullet: ({ children }) => (
@@ -168,8 +169,7 @@ const page = async ({
                       <div className="flex gap-x-4">
                         <div className="flex items-center justify-center gap-x-2">
                           <p className="text-pri_yellow">
-                            {(blogData && blogData.likesCount === 0) ||
-                            (blogData && blogData.likesCount === null)
+                            {!blogData || blogData && blogData.likesCount === 0 || blogData && blogData.likesCount === null
                               ? "0"
                               : blogData.likesCount}
                           </p>
@@ -202,7 +202,7 @@ const page = async ({
                   </div>
 
                   <section className="mt-14 flex w-full flex-col">
-                    {contentArr.length > 0 &&
+                    {contentArr && contentArr.length > 0 &&
                       contentArr.map((sect: any, i: number) => {
                         return (
                           <div key={sect._key} className="flex w-full flex-col">

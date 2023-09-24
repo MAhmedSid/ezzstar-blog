@@ -17,7 +17,7 @@ const BlogCard = ({
   return (
     <Link
       prefetch
-      href={`/post/${slug}?cat=${encodeURI(category)}`}
+      href={`/post/${slug && encodeURIComponent(slug)}?cat=${encodeURI(category)}`}
       className="flex max-w-[500px] h-[450px] lmb:h-[500px] lp:h-[530px] flex-col  rounded-xl bg-zinc-900 transition-all duration-200   hover:bg-zinc-800 lp:max-w-[300px] "
     >
       <div className="w-full ">
