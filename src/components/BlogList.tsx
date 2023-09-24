@@ -41,8 +41,8 @@ const BlogList = ({
   return (
     <section className="w-full flex flex-col gap-y-2">
       <div className="flex flex-col items-center gap-y-3  tablet:items-start ">
-        {data && data?.pages.map((blogArray: any, i: number) => (
-          <div className="w-full flex flex-col items-center gap-y-4" key={blogArray && blogArray[0].slug.current}>
+        {data && data?.pages[0][0]?.slug.current ? data?.pages.map((blogArray: any, i: number) => (
+          <div className="w-full flex flex-col items-center gap-y-4" key={blogArray[0] ? blogArray[0].slug.current : ""}>
             {blogArray && blogArray.map((blog: any, i: number) => {
               return (
                 <BlogCover
@@ -59,10 +59,16 @@ const BlogList = ({
               );
             })}
           </div>
-        ))}
+        )):
+        <div className="flex w-full  min-w-[300px] justify-center lp:min-w-[600px] lcd:min-w-[1000px]">
+      <h2 className="text-2xl tablet:text-4xl text-white font-semibold">NO POSTS YET!</h2>
+      </div> 
+        
+        }
       </div>
 
-      <div className="flex  min-w-[300px] justify-center lp:min-w-[600px] lcd:min-w-[1000px]">
+
+    {data?.pages[0][0]?.slug.current &&  <div className="flex  min-w-[300px] justify-center lp:min-w-[600px] lcd:min-w-[1000px]">
         {isLoading ? (
           <Loading size="h-14 w-14" color="border-pri_yellow" />
         ) : (
@@ -74,7 +80,9 @@ const BlogList = ({
             {hasNextPage ? "Show more" : "All Caught Up"}
           </button>
         )}
-      </div>
+      </div>}
+
+
     </section>
   );
 };
