@@ -46,15 +46,15 @@ const BlogList = ({
             {blogArray && blogArray.map((blog: any, i: number) => {
               return (
                 <BlogCover
-                  key={blog?.slug.current}
-                  title={blog?.title}
-                  slug={blog?.slug.current}
-                  desc={blog?.meta_desc}
-                  likesCount={blog?.likesCount}
-                  date={blog?.published_at}
+                  key={blog && blog?.slug.current}
+                  title={blog && blog?.title}
+                  slug={blog && blog?.slug.current}
+                  desc={blog && blog?.meta_desc}
+                  likesCount={blog && blog?.likesCount}
+                  date={blog && blog?.published_at}
                   category={""}
-                  imgSrc={blog?.displayImg?.asset}
-                  imgAlt={blog.displayImg?.alt}
+                  imgSrc={blog && blog?.displayImg?.asset}
+                  imgAlt={blog && blog.displayImg?.alt}
                 />
               );
             })}
