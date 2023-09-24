@@ -7,7 +7,7 @@ import AddCommentComp from "@/components/AddCommentComp";
 
 const CommentSec = async ({blogId,blogSlug}:{blogSlug:string,blogId:string}) => {
 
-    const res = await fetch(`/api/getComments`,{
+    const res = await fetch(`https://ezzstar.com/api/getComments`,{
       method: "PUT",
       body: JSON.stringify({ blogId }),
       headers: { "Content-Type": "application/json" },
