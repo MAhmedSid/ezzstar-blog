@@ -95,6 +95,7 @@ const page = async ({
           {children}
         </ol>
       ),
+
     },
     marks: {
       em: ({ children }) => <em className="mt-4">{children}</em>,
@@ -143,7 +144,9 @@ const page = async ({
         <h5 className="my-5 font-bold  lp:text-lg">{children}</h5>
       ),
       h6: ({ children }) => <h6 className="my-5   font-bold">{children}</h6>,
-      p: ({ children }) => <p className="my-5   ">{children}</p>,
+
+      normal: ({ children }) => <p  className="mt-5 ">{children}</p>,
+
       blockquote: ({ children }) => (
         <blockquote className="border-l-purple-500">{children}</blockquote>
       ),
@@ -205,21 +208,21 @@ const page = async ({
                     {contentArr && contentArr.length > 0 &&
                       contentArr.map((sect: any, i: number) => {
                         return (
-                          <div key={sect._key} className="flex w-full flex-col">
-                            {sect.body.length !== 0 && (
+                          <div key={sect._key} className="flex w-full flex-col ">
+                            {sect.body && sect.body.length !== 0 && (
                               <PortableText
                                 value={sect.body}
                                 components={components}
                               />
                             )}
-                            {sect.image && (
+                            {sect && sect.image && (
                               <div className="flex w-full justify-center ">
                                 <Image
                                   src={sect.image.url}
                                   width={1000}
                                   height={600}
                                   alt={sect.image.alt}
-                                  className="w-fit "
+                                  className="w-fit my-2"
                                 />
                               </div>
                             )}

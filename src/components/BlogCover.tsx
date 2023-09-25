@@ -48,7 +48,7 @@ const BlogCover = ({
       <div className="flex h-full w-full flex-[1]  flex-col justify-between gap-y-3 px-2 pb-3 tablet:h-full tablet:w-full tablet:flex-auto tablet:py-2 tablet:pb-2 ">
         <div className="flex  w-full flex-col gap-y-3">
           <h3 className="text-lg lmb:text-xl lp:text-2xl font-semibold ">{title && title}</h3>
-          <p className="text-sm lp:text-base">{desc && desc}</p>
+          <p className="text-sm lp:text-base">{desc && desc}...</p>
         </div>
 
         <div className="flex  h-fit w-full justify-between ">
