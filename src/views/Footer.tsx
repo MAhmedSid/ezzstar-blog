@@ -13,6 +13,15 @@ import {
   FaTiktok,
 } from "react-icons/fa";
 
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+
 const Footer = () => {
   return (
     <section className="flex w-full flex-col items-center justify-center px-2">
@@ -63,14 +72,65 @@ const Footer = () => {
 
             <div className="flex flex-col items-center  gap-y-3 lmb:gap-x-12 lmb:text-lg tablet:flex-row tablet:gap-x-5 tablet:text-xl ">
               <div className="flex gap-x-5 child-hover:hover:text-pri_yellow">
-                <Link href={"/about"}>About us</Link>
+                <Dialog >
+                  <DialogTrigger>About Us</DialogTrigger>
+                  <DialogContent className="h-[80vh] bg-gradient-to-b from-pri_yellow  to-pri_blue p-[2px] ">
+                    <DialogHeader className="h-[79vh] flex flex-col gap-y-4 bg-zinc-900 rounded-md p-4">
+                      <DialogTitle>ABOUT US</DialogTitle>
+                      <DialogDescription  id="about" className="h-full overflow-y-scroll p-2 flex flex-col gap-y-5 text-zinc-500  ">
+                        <p>
+                          Ezzstar is a visionary company that is shaping the
+                          future of entertainment through the creation of a
+                          vibrant metaverse. Our goal is to provide an
+                          accessible and immersive platform where people can
+                          explore, play, and connect in ways never before
+                          imagined. We have assembled a team of dedicated
+                          developers, designers, and gamers who share a deep
+                          passion for the transformative power of video games.
+                        </p>
+
+                        <p>
+                          Our platform is built on blockchain technology,
+                          ensuring true ownership and security for our users.
+                          Through the integration of cutting-edge technologies
+                          like AI and blockchain, we aim to revolutionize the
+                          gaming industry. We believe that the combination of
+                          AI-generated user content and blockchain-based gaming
+                          with NFTs will usher in a new era of gaming, where
+                          true ownership, security, and interoperability are
+                          paramount.
+                        </p>
+
+                        <p>
+                          In addition to our gaming platform, we are excited to
+                          introduce the Tag Z CyberHub, a comprehensive
+                          destination that caters to all gaming needs. From
+                          game-ready assets to motion capture services and
+                          EzzstarVT solutions, the Tag Z CyberHub empowers
+                          gamers to create and customize their own unique
+                          experiences.
+                        </p>
+
+                        <p>
+                          As we continue to grow and evolve, we remain dedicated
+                          to delivering the highest-quality gaming experience
+                          possible while fostering innovation and progress in
+                          the industry. Join us on this thrilling journey as we
+                          shape a metaverse that is vibrant, diverse, and
+                          captivating, redefining the boundaries of
+                          entertainment.
+                        </p>
+                      </DialogDescription>
+                    </DialogHeader>
+                  </DialogContent>
+                </Dialog>
                 <Link href={"mailto:support@ezzstar.com"}>Support</Link>
               </div>
             </div>
           </div>
         </div>
         <p className="py-4 text-xs font-medium text-zinc-500 tablet:text-sm">
-          EZZSTAR © All Rights reserved
+         © 2023 EzzStar All Rights reserved.
         </p>
       </Wrapper>
     </section>

@@ -89,3 +89,15 @@
   color: white;
   background: #0078D7;
 }
+
+#about::-webkit-scrollbar {
+  width: 0px;
+}
+
+#about::-webkit-scrollbar-track {
+  width: 0px;
+}
+
+#about::-webkit-scrollbar-thumb {
+  width: 0px;
+}
