@@ -8,14 +8,14 @@ import { groq } from "next-sanity";
 import Image from "next/image";
 import React from "react";
 import BlogPageShareIcons from "@/components/BlogPageShareIcons";
-import { Metadata } from "next";
+import next, { Metadata } from "next";
 
 export async function generateMetadata({
   params,
 }: {
   params: { slug: string };
 }): Promise<Metadata> {
-  const slug = decodeURIComponent( params.slug);
+  const slug = decodeURIComponent(params.slug);
   const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/getHeadData`, {
     method: "PUT",
     body: JSON.stringify({ slug }),
@@ -47,42 +47,33 @@ const page = async ({
   const cat = decodeURI(searchParams.cat);
   const slug = decodeURIComponent(params.slug);
 
-  const res = await cdnClient.fetch(groq`{
-    "blogData": *[_type == "blogs" && slug.current == '${slug}'][0]{
-  title,
-  category,
-  published_at,
-  slug,
-  _id,
-  pageContent[]{
-    ...,
-    image {
-      alt,
-      "url": asset->url
-    }
-  },
-  "likesCount": length(likes),
-},
-    "commentNumber": count(*[_type == "comments" && blogSlug == '${slug}'])
-    ,
-    "morePost": *[_type == "blogs" ${
-      cat !== "" && cat !== "undefined" ? `&& category == '${cat}'` : ""
-    } ]  | order(published_at desc)  [0...3]{
-      title,
-      category,
-      published_at,
-      slug,
-      displayImg,
-      "likesCount": length(likes),
-    }
-  }`);
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_HOST}/api/getBlogData`,
+    {
+      next: { revalidate: 86400 },
+      method: "PUT",
+      body: JSON.stringify({
+        slug,
+        cat,
+      }),
+      headers: { "Content-Type": "application/json" },
+    },
+  );
+
+  if (!response.ok) {
+    throw Error(
+      "Internal Server Error, Something Went Wrong, please Try Again Later",
+    );
+  }
+
+  const data = await response.json();
+  const res = data.data;
 
   const blogData = res && res.blogData;
   const contentArr = blogData && blogData.pageContent;
   const commentNumber = res && res.commentNumber;
   const morePosts = res && res.morePost;
 
-  
   const components: PortableTextComponents = {
     list: {
       bullet: ({ children }) => (
@@ -95,7 +86,6 @@ const page = async ({
           {children}
         </ol>
       ),
-
     },
     marks: {
       em: ({ children }) => <em className="mt-4">{children}</em>,
@@ -145,7 +135,7 @@ const page = async ({
       ),
       h6: ({ children }) => <h6 className="my-5   font-bold">{children}</h6>,
 
-      normal: ({ children }) => <p  className="mt-5 ">{children}</p>,
+      normal: ({ children }) => <p className="mt-5 ">{children}</p>,
 
       blockquote: ({ children }) => (
         <blockquote className="border-l-purple-500">{children}</blockquote>
@@ -157,7 +147,7 @@ const page = async ({
     <>
       <main
         id={slug}
-        className="pt-14 flex w-full flex-col items-center justify-center gap-y-10"
+        className="flex w-full flex-col items-center justify-center gap-y-10 pt-14"
       >
         <div className="flex w-full max-w-[1300px] flex-col gap-y-4  ">
           <div className="flex h-full w-full flex-col justify-center gap-y-2 px-5  tablet:flex-row tablet:gap-x-10">
@@ -172,7 +162,9 @@ const page = async ({
                       <div className="flex gap-x-4">
                         <div className="flex items-center justify-center gap-x-2">
                           <p className="text-pri_yellow">
-                            {!blogData || blogData && blogData.likesCount === 0 || blogData && blogData.likesCount === null
+                            {!blogData ||
+                            (blogData && blogData.likesCount === 0) ||
+                            (blogData && blogData.likesCount === null)
                               ? "0"
                               : blogData.likesCount}
                           </p>
@@ -205,10 +197,14 @@ const page = async ({
                   </div>
 
                   <section className="mt-14 flex w-full flex-col">
-                    {contentArr && contentArr.length > 0 &&
+                    {contentArr &&
+                      contentArr.length > 0 &&
                       contentArr.map((sect: any, i: number) => {
                         return (
-                          <div key={sect._key} className="flex w-full flex-col ">
+                          <div
+                            key={sect._key}
+                            className="flex w-full flex-col "
+                          >
                             {sect.body && sect.body.length !== 0 && (
                               <PortableText
                                 value={sect.body}
@@ -222,7 +218,7 @@ const page = async ({
                                   width={1000}
                                   height={600}
                                   alt={sect.image.alt}
-                                  className="w-fit my-2"
+                                  className="my-2 w-fit"
                                 />
                               </div>
                             )}
