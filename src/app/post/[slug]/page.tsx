@@ -50,7 +50,7 @@ const page = async ({
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_HOST}/api/getBlogData`,
     {
-      next: { revalidate: 3600 },
+      next: { revalidate: 60 },
       method: "PUT",
       body: JSON.stringify({
         slug,
