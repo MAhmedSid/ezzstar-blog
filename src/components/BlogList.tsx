@@ -17,6 +17,7 @@ const BlogList = ({
       method: "PUT",
       body: JSON.stringify({ cat, lastLength: pageParam }),
       headers: { "Content-Type": "application/json" },
+      next:{revalidate: 3600}
     });
     const body = await res.json();
     return body.data;
