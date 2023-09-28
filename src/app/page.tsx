@@ -1,74 +1,30 @@
-import { cdnClient } from "@/lib/sanityClient";
 import AnimeUpdates from "@/views/HOME/AnimeUpdates";
 import Blogs from "@/views/HOME/Blogs";
 import GamesUpdates from "@/views/HOME/GamesUpdates";
 import LatestUpdates from "@/views/HOME/LatestUpdates";
-import { groq } from "next-sanity";
 
 export default async function Home() {
 
 
 
   try {
-    const res = await cdnClient.fetch(groq`{
-      "latestBlogs": [
-        *[_type == "blogs" && category == "Blog"] | order(published_at desc) [0] {
-          title,
-          slug,
-          meta_desc,
-          displayImg,
-          published_at,
-          category,
-          "likesCount": length(likes)
-        },
-        *[_type == "blogs" && category == "Games"] | order(published_at desc) [0] {
-          title,
-          slug,
-          meta_desc,
-          displayImg,
-          published_at,
-          category,
-          "likesCount": length(likes)
-        },
-        *[_type == "blogs" && category == "Anime"] | order(published_at desc) [0] {
-          title,
-          slug,
-          meta_desc,
-          displayImg,
-          published_at,
-          category,
-          "likesCount": length(likes)
-        }
-      ],
-      "gamingBlogs": *[_type == "blogs" && category == "Games"] | order(length(likes) desc) [0...6] {
-        title,
-        slug,
-        meta_desc,
-        displayImg,
-        published_at,
-        category,
-        "likesCount": length(likes)
+
+    const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/getHomeData`,
+      {
+        next: { revalidate: 360 },
+        method: "GET",
       },
-      "blogs": *[_type == "blogs" && category == "Blog"] | order(length(likes) desc) [0...3] {
-        title,
-        slug,
-        meta_desc,
-        displayImg,
-        published_at,
-        category,
-        "likesCount": length(likes)
-      },
-      "animeBlogs": *[_type == "blogs" && category == "Anime"] | order(length(likes) desc) [0...6] {
-        title,
-        slug,
-        meta_desc,
-        displayImg,
-        published_at,
-        category,
-        "likesCount": length(likes)
-      }
+    );
+      
+    if (!response.ok) {
+      throw Error(
+        "Internal Server Error, Something Went Wrong, please Try Again Later",
+      );
     }
-    `);    
+  
+    const data = await response.json();
+    const res = data.data;
+    
 
     return (
       <main className="flex w-full flex-col gap-y-20 pt-20 ">
