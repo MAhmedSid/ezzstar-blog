@@ -50,7 +50,7 @@ const page = async ({
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_HOST}/api/getBlogData`,
     {
-      next: { revalidate: 86400 },
+      next: { revalidate: 3600 },
       method: "PUT",
       body: JSON.stringify({
         slug,
@@ -116,17 +116,17 @@ const page = async ({
         </h1>
       ),
       h2: ({ children }) => (
-        <h2 className="my-5 text-xl  font-bold tablet:text-2xl  lp:text-3xl">
+        <h2 className="my-5 text-2xl  font-bold tablet:text-3xl  lp:text-4xl">
           {children}
         </h2>
       ),
       h3: ({ children }) => (
-        <h3 className="my-5 text-lg  font-bold tablet:text-xl lp:text-2xl">
+        <h3 className="my-5 text-xl  font-bold tablet:text-2xl lp:text-3xl">
           {children}
         </h3>
       ),
       h4: ({ children }) => (
-        <h4 className="my-5  font-bold tablet:text-lg lp:text-xl">
+        <h4 className="my-5  font-bold tablet:text-xl lp:text-2xl">
           {children}
         </h4>
       ),

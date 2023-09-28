@@ -107,7 +107,7 @@ const MobNavMenu = () => {
                     path === "/account/signin" && "text-pri_yellow "
                   }text-lg`}
                 >
-                  Sign In
+                  SIGN IN
                 </Link>
               ) : (
                 <DropdownMenu>
