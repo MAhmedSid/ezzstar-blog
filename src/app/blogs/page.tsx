@@ -4,6 +4,11 @@ import Wrapper from "@/components/Wrapper";
 import { cdnClient } from "@/lib/sanityClient";
 import { groq } from "next-sanity";
 import React from "react";
+import adImg from "/public/images/ad.png"
+import adlandscape from "/public/images/adlandscape.png"
+import Image from "next/image";
+
+
 
 export const metadata = {
   title: "BLOGS - EZZSTAR",
@@ -23,8 +28,9 @@ const page = async () => {
         <div className="flex w-full flex-col gap-y-4">
           <div className="flex w-full flex-col justify-center gap-y-2 px-2 tablet:flex-row tablet:gap-x-5">
             <BlogList cat="Blog" totalLength={totalLength} />
-            <div className="sticky top-10 h-[100px] w-full bg-slate-500 tablet:h-[600px] tablet:w-[200px]"></div>
+            <div className="hidden tablet:flex  sticky top-10 h-[100px] w-full bg-slate-500 tablet:h-[600px] tablet:w-[200px]"><Image src={adImg} alt="ad"  className="h-full w-full"/></div>
           </div>
+          <Image src={adlandscape} alt="ad"  className="h-[100px] w-full object-cover tablet:hidden"/>
         </div>
       </Wrapper>
     </main>

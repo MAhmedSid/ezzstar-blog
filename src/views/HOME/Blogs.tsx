@@ -1,6 +1,9 @@
 import BlogCover from "@/components/BlogCover";
 import Wrapper from "@/components/Wrapper";
+import Image from "next/image";
 import React from "react";
+import adImg from "/public/images/ad.png"
+
 
 const Blogs = async (blogData: any) => {
   const data = blogData.blogData;
@@ -13,7 +16,7 @@ const Blogs = async (blogData: any) => {
             BLOGS
           </h2>
           <div className="flex w-full flex-col justify-center gap-y-2 px-2 tablet:flex-row tablet:gap-x-5">
-            <div className="hidden bg-slate-500 tablet:flex tablet:h-[600px] tablet:w-[200px]"></div>
+            <div className="hidden bg-slate-500 tablet:flex tablet:h-[600px] tablet:w-[200px]"><Image src={adImg} alt="ad"  className="h-full w-full"/></div>
             <div className="flex w-full flex-col items-center gap-y-3 tablet:items-start ">
               {data &&
                 data.map((blog: any, i: any) => {

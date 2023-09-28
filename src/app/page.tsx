@@ -32,11 +32,11 @@ export default async function Home() {
       <main className="flex w-full flex-col gap-y-20 pt-20 ">
 
         <LatestUpdates blogData={res.latestBlogs} />
-        <div className="h-[150px] w-full   bg-slate-500"></div>
+        <div className="h-[150px] w-full   bg-slate-500"><Image src={adlandscape} alt="ad" className="w-full h-full object-cover"/></div>
         <GamesUpdates blogsData={res.gamingBlogs} />
-        <div className="h-[150px] w-full   bg-slate-500"><Image src={adlandscape} alt="ad" className="w-full h-full"/></div>
+        <div className="h-[150px] w-full   bg-slate-500"><Image src={adlandscape} alt="ad" className="w-full h-full object-cover"/></div>
         <AnimeUpdates blogsData={res.animeBlogs} />
-        <div className="h-[150px] w-full   bg-slate-500"></div>
+        <div className="h-[150px] w-full   bg-slate-500"><Image src={adlandscape} alt="ad" className="w-full h-full object-cover"/></div>
         <Blogs blogData={res.blogs} />
 
         <div className="my-10 h-[30px] w-[60%] bg-gradient-to-r from-pri_yellow from-80% to-black " />

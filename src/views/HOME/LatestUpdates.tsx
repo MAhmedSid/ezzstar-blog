@@ -1,6 +1,9 @@
 import BlogCover from "@/components/BlogCover";
 import Wrapper from "@/components/Wrapper";
 import React from "react";
+import adImg from "/public/images/ad.png"
+import Image from "next/image";
+
 
 const LatestUpdates = async (blogData: any) => {
   const data = blogData.blogData;
@@ -33,7 +36,7 @@ const LatestUpdates = async (blogData: any) => {
                   );
                 })}
             </div>
-            <div className="hidden bg-slate-500 tablet:flex tablet:h-[600px] tablet:w-[200px]"></div>
+            <div className="hidden bg-slate-500 tablet:flex tablet:h-[600px] tablet:w-[200px]"><Image src={adImg} alt="ad"  className="h-full w-full"/></div>
           </div>
         </div>
       </Wrapper>
