@@ -2,6 +2,8 @@ import AnimeUpdates from "@/views/HOME/AnimeUpdates";
 import Blogs from "@/views/HOME/Blogs";
 import GamesUpdates from "@/views/HOME/GamesUpdates";
 import LatestUpdates from "@/views/HOME/LatestUpdates";
+import adlandscape from "/public/images/adlandscape.png"
+import Image from "next/image";
 
 export default async function Home() {
 
@@ -32,7 +34,7 @@ export default async function Home() {
         <LatestUpdates blogData={res.latestBlogs} />
         <div className="h-[150px] w-full   bg-slate-500"></div>
         <GamesUpdates blogsData={res.gamingBlogs} />
-        <div className="h-[150px] w-full   bg-slate-500"></div>
+        <div className="h-[150px] w-full   bg-slate-500"><Image src={adlandscape} alt="ad" className="w-full h-full"/></div>
         <AnimeUpdates blogsData={res.animeBlogs} />
         <div className="h-[150px] w-full   bg-slate-500"></div>
         <Blogs blogData={res.blogs} />

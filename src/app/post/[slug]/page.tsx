@@ -9,6 +9,7 @@ import Image from "next/image";
 import React from "react";
 import BlogPageShareIcons from "@/components/BlogPageShareIcons";
 import next, { Metadata } from "next";
+import adImg from "/public/images/ad.png"
 
 export async function generateMetadata({
   params,
@@ -20,6 +21,7 @@ export async function generateMetadata({
     method: "PUT",
     body: JSON.stringify({ slug }),
     headers: { "Content-Type": "application/json" },
+    next:{revalidate: 360}
   });
 
   if (!res.ok) {
@@ -277,7 +279,7 @@ const page = async ({
               </div>
             </section>
 
-            <div className="sticky top-20 hidden h-[100px] w-full bg-slate-500 tablet:flex tablet:h-[600px] tablet:w-[200px]"></div>
+            <div className="sticky top-20 hidden h-[100px] w-full bg-slate-500 tablet:flex tablet:h-[600px] tablet:w-[200px]"><Image src={adImg} alt="ad"  className="h-full w-full"/></div>
           </div>
         </div>
       </main>
