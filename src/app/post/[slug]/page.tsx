@@ -1,14 +1,12 @@
 import BlogCard from "@/components/BlogCard";
 import Date from "@/components/Date";
 import LikeIcon from "@/components/LikeIcon";
-import { cdnClient } from "@/lib/sanityClient";
 import CommentSec from "@/views/CommentSection/CommentSec";
 import { PortableText, PortableTextComponents } from "@portabletext/react";
-import { groq } from "next-sanity";
 import Image from "next/image";
 import React from "react";
 import BlogPageShareIcons from "@/components/BlogPageShareIcons";
-import next, { Metadata } from "next";
+import { Metadata } from "next";
 import adImg from "/public/images/ad.png"
 
 export async function generateMetadata({
