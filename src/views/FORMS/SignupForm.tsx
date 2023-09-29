@@ -24,12 +24,24 @@ const SignUpForm = () => {
     e.preventDefault();
 
     try {
+      console.log("Form Submitted");
       setStates({ ...states, isMutating: true });
       const formData = new FormData(e.target);
 
       const email = formData.get("email") as string;
       const password = formData.get("password") as string;
-
+      const {data:data1,error:error1} = await supabase.from("profiles").select("email").eq("email", email);
+      if(error1){
+        toast.error("Something Wrong, Try Again.")
+        setStates({ ...states, isMutating: false });
+        return;
+      }
+      if(data1[0].email === email){
+        
+        toast.error("Email is already in use ( confirm email/reset password )")
+        setStates({ ...states, isMutating: false });
+        return;
+      }
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
