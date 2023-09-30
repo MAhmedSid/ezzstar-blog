@@ -44,9 +44,13 @@ const page = async ({
   params: { slug: string };
   searchParams: any;
 }) => {
-  const cat = decodeURI(searchParams.cat);
+
+  const cat = decodeURI(searchParams.cat && searchParams.cat);
   const slug = decodeURIComponent(params.slug);
 
+  try {
+    
+ 
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_HOST}/api/getBlogData`,
     {
@@ -54,7 +58,7 @@ const page = async ({
       method: "PUT",
       body: JSON.stringify({
         slug,
-        cat,
+        cat: cat ? cat : "",
       }),
       headers: { "Content-Type": "application/json" },
     },
@@ -146,7 +150,7 @@ const page = async ({
   return (
     <>
       <main
-        id={slug}
+        id={slug && slug}
         className="flex w-full flex-col items-center justify-center gap-y-10 pt-14"
       >
         <div className="flex w-full max-w-[1300px] flex-col gap-y-4  ">
@@ -233,7 +237,7 @@ const page = async ({
                     <p>Did you like this?</p>
                     <LikeIcon
                       blogId={blogData && blogData?._id}
-                      slug={blogData && blogData?.slug.current}
+                      slug={blogData && blogData?.slug}
                     />
                   </div>
 
@@ -253,9 +257,9 @@ const page = async ({
                       morePosts.map((blog: any, i: any) => {
                         return (
                           <BlogCard
-                            key={blog?.slug.current}
+                            key={blog?.slug}
                             title={blog?.title}
-                            slug={blog?.slug.current}
+                            slug={blog?.slug}
                             desc={blog?.meta_desc}
                             likesCount={blog?.likesCount}
                             date={blog?.published_at}
@@ -283,6 +287,9 @@ const page = async ({
       </main>
     </>
   );
+} catch (error) {
+    console.log((error as {message:string}).message);
+}
 };
 
 export default page;

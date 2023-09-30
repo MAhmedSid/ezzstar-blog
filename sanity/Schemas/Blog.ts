@@ -12,7 +12,7 @@ export const blogs = defineType({
         name: "title",
         type: "string",
         title: "Title",
-        validation: Rule => Rule.max(120).error('Max limit is 120 characters')
+        validation: Rule => Rule.max(70).error('Max limit is 70 characters')
       }),
       defineField({
         name: "slug",

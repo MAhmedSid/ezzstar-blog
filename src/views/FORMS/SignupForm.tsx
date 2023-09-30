@@ -24,7 +24,6 @@ const SignUpForm = () => {
     e.preventDefault();
 
     try {
-      console.log("Form Submitted");
       setStates({ ...states, isMutating: true });
       const formData = new FormData(e.target);
 

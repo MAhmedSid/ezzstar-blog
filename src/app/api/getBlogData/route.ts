@@ -9,12 +9,13 @@ export async function PUT(req: Request, res: NextApiResponse) {
       const body = await req.json();
       const { slug ,cat} = body;
 
+      console.log(cat,"CATEGORY");
       const res = await client.fetch(groq`{
         "blogData": *[_type == "blogs" && slug.current == '${slug}'][0]{
       title,
       category,
       published_at,
-      slug,
+      "slug": slug.current,
       _id,
       pageContent[]{
         ...,
@@ -33,7 +34,7 @@ export async function PUT(req: Request, res: NextApiResponse) {
           title,
           category,
           published_at,
-          slug,
+                "slug": slug.current,
           displayImg,
           "likesCount": length(likes),
         }
