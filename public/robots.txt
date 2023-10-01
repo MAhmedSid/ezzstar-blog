@@ -1,0 +1,10 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://ezzstar.com
+
+# Sitemaps
+Sitemap: https://ezzstar.com/sitemap.xml
+Sitemap: https://ezzstar.com/server-sitemap.xml
