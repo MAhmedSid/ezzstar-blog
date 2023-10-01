@@ -28,14 +28,16 @@ const SignUpForm = () => {
       const formData = new FormData(e.target);
 
       const email = formData.get("email") as string;
+      console.log(email,": EMAIL");
       const password = formData.get("password") as string;
       const {data:data1,error:error1} = await supabase.from("profiles").select("email").eq("email", email);
+      console.log("EMAIL CHECK:",error1);
       if(error1){
         toast.error("Something Wrong, Try Again.")
         setStates({ ...states, isMutating: false });
         return;
       }
-      if(data1[0].email === email){
+      if(data1[0]?.email === email){
         
         toast.error("Email is already in use ( confirm email/reset password )")
         setStates({ ...states, isMutating: false });
@@ -72,7 +74,7 @@ const SignUpForm = () => {
         required
         placeholder="Email"
         name="email"
-        type="text"
+        type="email"
         className="min-h-[40px] w-full rounded-lg bg-zinc-300 px-2 py-1 text-black placeholder:text-gray-500 lmb:min-h-[50px]"
       />
 
