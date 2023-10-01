@@ -45,7 +45,7 @@ const page = async ({
   searchParams: any;
 }) => {
 
-  const cat = decodeURI(searchParams.cat && searchParams.cat);
+  const cat = decodeURIComponent(searchParams.cat && searchParams.cat);
   const slug = decodeURIComponent(params.slug);
 
   try {

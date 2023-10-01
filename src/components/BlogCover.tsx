@@ -3,8 +3,6 @@ import React from "react";
 import { urlFor } from "@/lib/utils";
 import Link from "next/link";
 import Date from "./Date";
-import { Vast_Shadow } from "next/font/google";
-
 
 
 const BlogCover = ({
@@ -20,7 +18,7 @@ const BlogCover = ({
   return (
     <Link
       prefetch
-      href={`/post/${slug && encodeURIComponent(slug)}#${slug && encodeURIComponent(slug)}?cat=${encodeURI(category && category)}`}
+      href={`/post/${slug && encodeURIComponent(slug)}#${slug && encodeURIComponent(slug)}?cat=${encodeURIComponent(category && category)}`}
       className=" flex h-fit  w-[250px] lmb:w-[300px] flex-col gap-y-2  rounded-lg  bg-zinc-900 transition-all duration-200   hover:bg-zinc-800 tablet:h-fit   tablet:w-full  tablet:flex-row lp:h-fit lp:max-w-[800px]  lcd:h-fit lcd:max-w-[1400px]"
     >
       <div className="flex h-full w-full tablet:w-[240px] lp:w-[280px] lcd:w-[320px] rounded-xl   ">
