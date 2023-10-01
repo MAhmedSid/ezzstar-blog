@@ -28,10 +28,8 @@ const SignUpForm = () => {
       const formData = new FormData(e.target);
 
       const email = formData.get("email") as string;
-      console.log(email,": EMAIL");
       const password = formData.get("password") as string;
       const {data:data1,error:error1} = await supabase.from("profiles").select("email").eq("email", email);
-      console.log("EMAIL CHECK:",error1);
       if(error1){
         toast.error("Something Wrong, Try Again.")
         setStates({ ...states, isMutating: false });
@@ -50,12 +48,10 @@ const SignUpForm = () => {
           emailRedirectTo: `${location.origin}/auth/callback`,
         },
       });
-      console.log("error", error);
       if (error) {
         toast.error(error.message);
         throw new Error(error.message);
       } else {
-        console.log(data);
         setStates({ ...states, isMutating: false });
         toast.success("Waiting for Confirmation");
       }
