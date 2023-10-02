@@ -5,7 +5,7 @@ import LatestUpdates from "@/views/HOME/LatestUpdates";
 import adlandscape from "/public/images/adlandscape.png"
 import Image from "next/image";
 
-export const revalidate = 3600 ;
+// export const revalidate = 3600 ;
 
 export default async function Home() {
 
@@ -15,7 +15,8 @@ export default async function Home() {
 
     const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/getHomeData`,
       {
-        next:{revalidate: 3600},
+        // next:{revalidate: 3600},
+        cache:"no-cache",
         method: "GET",
       },
     );
