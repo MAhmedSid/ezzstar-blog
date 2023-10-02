@@ -13,7 +13,7 @@ export default async function Home() {
 
     const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/getHomeData`,
       {
-        next: { revalidate: 360 },
+        next:{revalidate: 3600},
         method: "GET",
       },
     );

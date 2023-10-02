@@ -10,7 +10,7 @@ export async function PUT(req: Request, res: NextApiResponse) {
       const { slug ,cat} = body;
 
       console.log(cat,"CATEGORY");
-      const res = await client.fetch(groq`{
+      const res = await cdnClient.fetch(groq`{
         "blogData": *[_type == "blogs" && slug.current == '${slug}'][0]{
       title,
       category,
