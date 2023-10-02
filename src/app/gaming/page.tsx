@@ -1,6 +1,6 @@
 import BlogList from "@/components/BlogList";
 import Wrapper from "@/components/Wrapper";
-import { cdnClient } from "@/lib/sanityClient";
+import { cdnClient, client } from "@/lib/sanityClient";
 import { groq } from "next-sanity";
 import React from "react";
 import adImg from "/public/images/ad.png"
@@ -17,7 +17,7 @@ export const metadata = {
 
 
 const page = async () => {
-  const totalLength = await cdnClient.fetch(
+  const totalLength = await client.fetch(
     groq`count(*[_type == "blogs" && category == 'Games'])`,
   );
   return <main className="flex flex-col w-full pt-20 gap-y-10 justify-center items-center">

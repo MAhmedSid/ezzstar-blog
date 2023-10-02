@@ -1,7 +1,7 @@
 import BlogList from "@/components/BlogList";
 import FetchSessionComp from "@/components/GetSessionComp";
 import Wrapper from "@/components/Wrapper";
-import { cdnClient } from "@/lib/sanityClient";
+import { cdnClient, client } from "@/lib/sanityClient";
 import { groq } from "next-sanity";
 import Image from "next/image";
 import React from "react";
@@ -18,7 +18,7 @@ export const metadata = {
 };
 
 const page = async () => {
-  const totalLength = await cdnClient.fetch(
+  const totalLength = await client.fetch(
     groq`count(*[_type == "blogs" && category == 'Anime'])`,
   );
 
