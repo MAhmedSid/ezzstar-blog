@@ -59,7 +59,7 @@ const Page = () => {
       const formData = new FormData(e.target);
       const email = formData.get("email") as string;
       const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${location.origin}/account/updatepassword`,
+        redirectTo: `${location.origin}/account/updatepassword#up`,
       });
       if (error) {
         setStates({ ...states, isMutating: false });

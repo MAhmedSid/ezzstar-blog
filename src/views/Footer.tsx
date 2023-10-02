@@ -124,7 +124,7 @@ const Footer = () => {
                     </DialogHeader>
                   </DialogContent>
                 </Dialog>
-                <Link href={"mailto:support@ezzstar.com"}>Support</Link>
+                <Link target="_blank" href={"mailto:support@ezzstar.space"}>Support</Link>
               </div>
             </div>
           </div>
