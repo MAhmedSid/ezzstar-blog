@@ -1,5 +1,5 @@
 
-import { cdnClient, client } from "@/lib/sanityClient";
+import { client } from "@/lib/sanityClient";
 import { NextApiResponse } from "next";
 import { groq } from "next-sanity";
 import { NextResponse } from "next/server";
