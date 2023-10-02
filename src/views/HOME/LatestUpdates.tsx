@@ -11,11 +11,13 @@ const LatestUpdates = async (blogData: any) => {
   return (
     <section className="flex w-full flex-col items-center justify-center">
       <Wrapper>
-        <div className="flex flex-col gap-y-4  px-4">
+        <div className="flex w-full flex-col gap-y-4  px-4">
+
           <h2 className="text-center text-2xl font-bold tablet:text-left">
             LATEST UPDATES
           </h2>
           <div className="flex w-full flex-col justify-center gap-y-2 px-2 tablet:flex-row tablet:gap-x-5">
+
             <div className="flex w-full flex-col items-center gap-y-3 tablet:items-start ">
               {data &&
                 data.map((blog: any, i: any) => {
