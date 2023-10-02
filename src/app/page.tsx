@@ -5,6 +5,8 @@ import LatestUpdates from "@/views/HOME/LatestUpdates";
 import adlandscape from "/public/images/adlandscape.png"
 import Image from "next/image";
 
+export const revalidate = 3600 ;
+
 export default async function Home() {
 
 

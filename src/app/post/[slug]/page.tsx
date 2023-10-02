@@ -54,7 +54,7 @@ const page = async ({
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_HOST}/api/getBlogData`,
     {
-      cache:"no-cache",
+      cache:"no-store",
       method: "PUT",
       body: JSON.stringify({
         slug,
