@@ -21,12 +21,17 @@ const ClaimComp = () => {
   const supabase = createClientComponentClient();
   const userID = useAppSelector(selectUserID);
 
-  
-  const [states, setStates] = useState({walletAddress:"0x00000000000", withdrawl:false, spicaAmount:0.0 ,lastClaim:0 ,nextClaim:0, refresh:false });
-
+  const [states, setStates] = useState({
+    walletAddress: "0x00000000000",
+    withdrawl: false,
+    spicaAmount: 0.0,
+    lastClaim: 0,
+    nextClaim: 0,
+    refresh: false,
+  });
 
   const handleRefresh = () => {
-    setStates({...states,refresh: !states.refresh});
+    setStates({ ...states, refresh: !states.refresh });
   };
 
   useEffect(() => {
@@ -43,11 +48,18 @@ const ClaimComp = () => {
         console.log(`${error.message}`);
         return;
       }
-
       const userData: IUserData = data[0];
-      setStates({...states, walletAddress: `${userData.wallet_address.substring(0, 13)}...` , spicaAmount:userData.spica_amount === 0 ? 0.0 : userData.spica_amount, withdrawl: userData.withdrawl,lastClaim: userData.last_claim,nextClaim:userData.last_claim + 3600  })
+      setStates({
+        ...states,
+        walletAddress: userData.wallet_address
+          ? `${userData.wallet_address?.substring(0, 13)}...`
+          : "0x00000000000",
+        spicaAmount: userData.spica_amount === 0 ? 0.0 : userData.spica_amount,
+        withdrawl: userData.withdrawl,
+        lastClaim: userData.last_claim,
+        nextClaim: userData.last_claim + 3600,
+      });
     };
-
     getData();
   }, [userID, states.refresh]);
 
@@ -59,7 +71,6 @@ const ClaimComp = () => {
 
     const date = new Date().getTime();
     const currSeconds = Math.round(date / 1000);
-
     if (states.nextClaim !== 3600) {
       if (currSeconds < states.nextClaim) {
         toast.error(`Claim after cooldown`);
@@ -69,7 +80,10 @@ const ClaimComp = () => {
 
     const { data, error } = await supabase
       .from("profiles")
-      .update({ spica_amount: states.spicaAmount + 0.1, last_claim: currSeconds })
+      .update({
+        spica_amount: states.spicaAmount + 0.1,
+        last_claim: currSeconds,
+      })
       .eq("id", userID)
       .returns();
 
@@ -78,7 +92,7 @@ const ClaimComp = () => {
       console.log(error.message);
       return;
     } else {
-      toast.success("Successfully deposit 0.1 $SPCA")
+      toast.success("Successfully deposit 0.1 $SPCA");
       handleRefresh();
     }
   };
@@ -89,11 +103,13 @@ const ClaimComp = () => {
       return;
     }
     if (states.withdrawl === true) {
-      toast.error("You have already applied for Withdrawl, please wait upto 24 Hours");
+      toast.error(
+        "You have already applied for Withdrawl, please wait upto 24 Hours",
+      );
       return;
     }
-    if(states.spicaAmount < 50){
-      toast.error("You have less $SPCA than Threshold Amount")
+    if (states.spicaAmount < 50) {
+      toast.error("You have less $SPCA than Threshold Amount");
       return;
     }
 
@@ -106,7 +122,7 @@ const ClaimComp = () => {
       console.log(error.message);
       return;
     } else {
-      setStates({...states,withdrawl:true});
+      setStates({ ...states, withdrawl: true });
       toast.success(
         "Successfully applied. It may take upto 24 hours to transfer $SPCA in your wallet",
       );
@@ -192,7 +208,11 @@ const ClaimComp = () => {
                 <Countdown
                   autoStart
                   daysInHours
-                  date={states.lastClaim === 0 ? currMilli + 10000 : states.nextClaim * 1000}
+                  date={
+                    states.lastClaim === 0
+                      ? currMilli + 10000
+                      : states.nextClaim * 1000
+                  }
                 />
               ) : (
                 <span className="">$SPCA</span>
@@ -204,9 +224,7 @@ const ClaimComp = () => {
       </div>
 
       <div className="flex w-fit flex-col items-center  gap-y-1 rounded-md bg-black bg-opacity-70 px-2 py-1">
-        <p className="text-xs tablet:text-base">
-          Claim 0.1 $SPICA every hour.
-        </p>
+        <p className="text-xs tablet:text-base">Claim 0.1 $SPICA every hour.</p>
         <p className="text-xs tablet:text-base">Sign up \ Sign in to Claim.</p>
         <p className="flex gap-x-1 text-sm tablet:text-base">
           <span className="text-[#54e8b6]"> Withdraw Threshold:</span>
