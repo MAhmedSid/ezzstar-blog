@@ -13,7 +13,7 @@ export async function PUT(req: Request, res: NextApiResponse) {
       if(lastLength === 0) length = 0;
       if(lastLength > 0) length = lastLength * 10;
 
-     const res =  await client.fetch(groq`*[_type == "blogs" && category == '${cat}'] | order(published_at desc) [${length}...${
+     const res =  await client.fetch(groq`*[_type == "blogs" && category == '${cat}'  && !(_id in path("drafts.**"))] | order(published_at desc) [${length}...${
         length! + 10
       }] {
       title,

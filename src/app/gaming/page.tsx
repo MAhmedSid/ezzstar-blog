@@ -18,7 +18,7 @@ export const metadata = {
 
 const page = async () => {
   const totalLength = await client.fetch(
-    groq`count(*[_type == "blogs" && category == 'Games'])`,
+    groq`count(*[_type == "blogs" && category == 'Games'  && !(_id in path("drafts.**"))])`,
   );
   return <main className="flex flex-col w-full pt-20 gap-y-10 justify-center items-center">
   <Wrapper>

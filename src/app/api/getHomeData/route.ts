@@ -9,7 +9,7 @@ export async function GET(req: Request, res: NextApiResponse) {
     if (req.method == "GET") {
       const res = await client.fetch(groq`{
         "latestBlogs": [
-          *[_type == "blogs" && category == "Blog"] | order(published_at desc) [0] {
+          *[_type == "blogs" && category == "Blog"  && !(_id in path("drafts.**"))] | order(published_at desc) [0] {
             title,
             slug,
             meta_desc,
@@ -18,7 +18,7 @@ export async function GET(req: Request, res: NextApiResponse) {
             category,
             "likesCount": length(likes)
           },
-          *[_type == "blogs" && category == "Games"] | order(published_at desc) [0] {
+          *[_type == "blogs" && category == "Games"  && !(_id in path("drafts.**"))] | order(published_at desc) [0] {
             title,
             slug,
             meta_desc,
@@ -27,7 +27,7 @@ export async function GET(req: Request, res: NextApiResponse) {
             category,
             "likesCount": length(likes)
           },
-          *[_type == "blogs" && category == "Anime"] | order(published_at desc) [0] {
+          *[_type == "blogs" && category == "Anime"  && !(_id in path("drafts.**"))] | order(published_at desc) [0] {
             title,
             slug,
             meta_desc,
@@ -37,7 +37,7 @@ export async function GET(req: Request, res: NextApiResponse) {
             "likesCount": length(likes)
           }
         ],
-        "gamingBlogs": *[_type == "blogs" && category == "Games"] | order(length(likes) desc) [0...6] {
+        "gamingBlogs": *[_type == "blogs" && category == "Games"]  && !(_id in path("drafts.**")) | order(length(likes) desc) [0...6] {
           title,
           slug,
           meta_desc,
@@ -46,7 +46,7 @@ export async function GET(req: Request, res: NextApiResponse) {
           category,
           "likesCount": length(likes)
         },
-        "blogs": *[_type == "blogs" && category == "Blog"] | order(length(likes) desc) [0...3] {
+        "blogs": *[_type == "blogs" && category == "Blog"  && !(_id in path("drafts.**"))] | order(length(likes) desc) [0...3] {
           title,
           slug,
           meta_desc,
@@ -55,7 +55,7 @@ export async function GET(req: Request, res: NextApiResponse) {
           category,
           "likesCount": length(likes)
         },
-        "animeBlogs": *[_type == "blogs" && category == "Anime"] | order(length(likes) desc) [0...6] {
+        "animeBlogs": *[_type == "blogs" && category == "Anime"  && !(_id in path("drafts.**"))] | order(length(likes) desc) [0...6] {
           title,
           slug,
           meta_desc,

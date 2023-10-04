@@ -10,7 +10,7 @@ export async function PUT(req: Request, res: NextApiResponse) {
       const { slug } = body;
 
       const res =
-        await cdnClient.fetch(groq`*[_type == "blogs" && slug.current == '${slug}'] [0]  {
+        await cdnClient.fetch(groq`*[_type == "blogs" && slug.current == '${slug}'  && !(_id in path("drafts.**"))] [0]  {
       title,
       meta_desc
         }`);
