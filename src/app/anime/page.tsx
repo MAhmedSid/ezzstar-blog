@@ -18,7 +18,7 @@ export const metadata = {
 };
 
 const page = async () => {
-  const totalLength = await client.fetch(
+  const totalLength = await cdnClient.fetch(
     groq`count(*[_type == "blogs" && category == 'Anime'  && !(_id in path("drafts.**"))])`,
   );
 

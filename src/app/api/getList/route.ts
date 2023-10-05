@@ -1,4 +1,4 @@
-import { client } from "@/lib/sanityClient";
+import { client,cdnClient } from "@/lib/sanityClient";
 import { NextApiRequest, NextApiResponse } from "next";
 import { groq } from "next-sanity";
 import { NextResponse } from "next/server";
@@ -13,7 +13,7 @@ export async function PUT(req: Request, res: NextApiResponse) {
       if(lastLength === 0) length = 0;
       if(lastLength > 0) length = lastLength * 10;
 
-     const res =  await client.fetch(groq`*[_type == "blogs" && category == '${cat}'  && !(_id in path("drafts.**"))] | order(published_at desc) [${length}...${
+     const res =  await cdnClient.fetch(groq`*[_type == "blogs" && category == '${cat}'  && !(_id in path("drafts.**"))] | order(published_at desc) [${length}...${
         length! + 10
       }] {
       title,

@@ -1,5 +1,5 @@
 
-import { client } from "@/lib/sanityClient";
+import { client , cdnClient } from "@/lib/sanityClient";
 import { NextApiResponse } from "next";
 import { groq } from "next-sanity";
 import { NextResponse } from "next/server";
@@ -7,7 +7,7 @@ import { NextResponse } from "next/server";
 export async function GET(req: Request, res: NextApiResponse) {
   try {
     if (req.method == "GET") {
-      const res = await client.fetch(groq`{
+      const res = await cdnClient.fetch(groq`{
         "latestBlogs": [
           *[_type == "blogs" && category == "Blog"  && !(_id in path("drafts.**"))] | order(published_at desc) [0] {
             title,
