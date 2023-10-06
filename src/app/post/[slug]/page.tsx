@@ -9,33 +9,33 @@ import BlogPageShareIcons from "@/components/BlogPageShareIcons";
 import { Metadata } from "next";
 import adImg from "/public/images/ad.png"
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
-}): Promise<Metadata> {
-  const slug = decodeURIComponent(params.slug);
-  const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/getHeadData`, {
-    method: "POST",
-    body: JSON.stringify({ slug }),
-    headers: { "Content-Type": "application/json" },
-    next:{revalidate: 3600}
-  });
+// export async function generateMetadata({
+//   params,
+// }: {
+//   params: { slug: string };
+// }): Promise<Metadata> {
+//   const slug = decodeURIComponent(params.slug);
+//   const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/getHeadData`, {
+//     method: "POST",
+//     body: JSON.stringify({ slug }),
+//     headers: { "Content-Type": "application/json" },
+//     next:{revalidate: 3600}
+//   });
 
-  if (!res.ok) {
-    return {
-      title: "Post - EZZSTAR",
-      description: `trending updates of Metaverse, Gaming , Web3.0 from future by EZZSTAR`,
-    };
-  }
-  const body = await res.json();
-  return {
-    title: body.data.title ? body.data.title + " - EZZSTAR" : "Post - EZZSTAR",
-    description: body.data.meta_desc
-      ? body.data.meta_desc
-      : `trending updates of Metaverse, Gaming , Web3.0 from future by EZZSTAR`,
-  };
-}
+//   if (!res.ok) {
+//     return {
+//       title: "Post - EZZSTAR",
+//       description: `trending updates of Metaverse, Gaming , Web3.0 from future by EZZSTAR`,
+//     };
+//   }
+//   const body = await res.json();
+//   return {
+//     title: body.data.title ? body.data.title + " - EZZSTAR" : "Post - EZZSTAR",
+//     description: body.data.meta_desc
+//       ? body.data.meta_desc
+//       : `trending updates of Metaverse, Gaming , Web3.0 from future by EZZSTAR`,
+//   };
+// }
 
 const page = async ({
   params,
