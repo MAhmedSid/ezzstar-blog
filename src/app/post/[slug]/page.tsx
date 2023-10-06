@@ -19,7 +19,7 @@ export async function generateMetadata({
     method: "PUT",
     body: JSON.stringify({ slug }),
     headers: { "Content-Type": "application/json" },
-    next:{revalidate: 360}
+    next:{revalidate: 3600}
   });
 
   if (!res.ok) {
