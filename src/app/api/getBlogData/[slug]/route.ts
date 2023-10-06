@@ -10,7 +10,7 @@ export async function POST(req: Request,{ params }: { params: { slug: string } }
       const body = await req.json();
       const {cat} = body;
 
-      const res = await client.fetch(groq`{
+      const res = await cdnClient.fetch(groq`{
         "blogData": *[_type == "blogs" && slug.current == '${slug}'][0]{
       title,
       category,
