@@ -52,11 +52,10 @@ const page = async ({
     
  
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_HOST}/api/getBlogData`,
+    `${process.env.NEXT_PUBLIC_HOST}/api/getBlogData/${encodeURIComponent(slug)}`,
     {
       method: "POST",
       body: JSON.stringify({
-        slug,
         cat: cat ? cat : "",
       }),
       headers: { "Content-Type": "application/json" },

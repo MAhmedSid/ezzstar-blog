@@ -8,9 +8,9 @@ const token = process.env.NEXT_PUBLIC_SANITY_CLIENT_TOKEN
 export const client = createClient({
     projectId,
     dataset,
+    token,
     apiVersion: "2023-07-17",
     useCdn: false, 
-    token
   })
 
 

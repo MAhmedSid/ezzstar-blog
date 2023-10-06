@@ -3,11 +3,12 @@ import { NextApiResponse } from "next";
 import { groq } from "next-sanity";
 import { NextResponse } from "next/server";
 
-export async function POST(req: Request, res: NextApiResponse) {
+export async function POST(req: Request,{ params }: { params: { slug: string } }){
   try {
     if (req.body) {
+      const slug = decodeURIComponent(params.slug)
       const body = await req.json();
-      const { slug ,cat} = body;
+      const {cat} = body;
 
       const res = await client.fetch(groq`{
         "blogData": *[_type == "blogs" && slug.current == '${slug}'][0]{
