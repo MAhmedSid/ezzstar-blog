@@ -3,7 +3,7 @@ import { NextApiResponse } from "next";
 import { groq } from "next-sanity";
 import { NextResponse } from "next/server";
 
-export async function PUT(req: Request, res: NextApiResponse) {
+export async function POST(req: Request, res: NextApiResponse) {
   try {
     if (req.body) {
       const body = await req.json();

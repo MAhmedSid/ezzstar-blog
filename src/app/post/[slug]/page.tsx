@@ -16,7 +16,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const slug = decodeURIComponent(params.slug);
   const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/getHeadData`, {
-    method: "PUT",
+    method: "POST",
     body: JSON.stringify({ slug }),
     headers: { "Content-Type": "application/json" },
     next:{revalidate: 3600}
@@ -54,13 +54,13 @@ const page = async ({
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_HOST}/api/getBlogData`,
     {
-      next: {revalidate: 3600 },
-      method: "PUT",
+      method: "POST",
       body: JSON.stringify({
         slug,
         cat: cat ? cat : "",
       }),
       headers: { "Content-Type": "application/json" },
+      next: {revalidate: 3600 },
     },
   );
 
