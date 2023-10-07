@@ -123,7 +123,7 @@ const page = async ({
     // body: JSON.stringify({
       //   cat: cat ? cat : "",
       // }),
-      // headers: { "Content-Type": "application/json" },
+      headers: {     "Transfer-Encoding": "chunked"    },
       // next: {revalidate: 3600 },
       method: "GET",
     },
