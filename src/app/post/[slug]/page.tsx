@@ -114,39 +114,38 @@ const page = async ({
     },
   };
 
-  // const cat = decodeURIComponent(searchParams.cat && searchParams.cat);
-  // const slug = decodeURIComponent(params.slug);
+  const cat = decodeURIComponent(searchParams.cat && searchParams.cat);
+  const slug = decodeURIComponent(params.slug);
 
 
   try {
      
-  // const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/getBlogData/${encodeURIComponent(slug)}`,{
-  //     method: "POST",
-  //     body: JSON.stringify({
-  //       cat: cat ? cat : "",
-  //     }),
-  //     headers: { "Content-Type": "application/json" },
-  //     next: {revalidate: 3600 },
-  //   },
-  // );
+  const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/getBlogData/${encodeURIComponent(slug)}`,{
+      method: "GET",
+      // body: JSON.stringify({
+      //   cat: cat ? cat : "",
+      // }),
+      headers: { "Content-Type": "application/json" },
+      next: {revalidate: 3600 },
+    },
+  );
 
-  // if (!response.ok) {
-  //   throw Error(
-  //     "Internal Server Error, Something Went Wrong, please Try Again Later",
-  //   );
-  // }
-  // const data = await response.json();
-  // const res = data.data;
+  if (!response.ok) {
+    throw Error(
+      "Internal Server Error, Something Went Wrong, please Try Again Later",
+    );
+  }
+  const data = await response.json();
+  const res = data.data;
 
-  // const blogData = res && res.blogData;
-  //  const contentArr = blogData && blogData.pageContent;
-  //  const commentNumber = res && res.commentNumber;
-  //  const morePosts = res && res.morePost;
+  const blogData = res && res.blogData;
+   const contentArr = blogData && blogData.pageContent;
+   const commentNumber = res && res.commentNumber;
+   const morePosts = res && res.morePost;
 
   return (
     <>
-    <p>404 NOT FOUND</p>
-      {/* <main
+      <main
         id={slug && slug}
         className="flex w-full flex-col items-center justify-center gap-y-10 pt-14"
       >
@@ -281,7 +280,7 @@ const page = async ({
             <div className="sticky top-20 hidden h-[100px] w-full bg-slate-500 tablet:flex tablet:h-[600px] tablet:w-[200px]"><Image src={adImg} alt="ad"  className="h-full w-full"/></div>
           </div>
         </div>
-      </main> */}
+      </main>
     </>
   );
 } catch (error) {
