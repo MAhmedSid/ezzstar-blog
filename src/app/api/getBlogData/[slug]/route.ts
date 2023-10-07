@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 
 export async function GET(req: Request,{ params }: { params: { slug: string } }){
   try {
-    if (req.body) {
+    
       const slug = decodeURIComponent(params.slug)
       // const body = await req.json();
       // const {cat} = body;
@@ -44,10 +44,6 @@ export async function GET(req: Request,{ params }: { params: { slug: string } })
         },
         { status: 200 },
       );
-
-    } else {
-      return NextResponse.json({ message: "Bad request" }, { status: 400 });
-    }
   } catch (error) {
     return NextResponse.json(
       { message: (error as { message: string }).message },
