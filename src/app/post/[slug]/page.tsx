@@ -48,6 +48,10 @@ const page = async ({
   const cat = decodeURIComponent(searchParams.cat && searchParams.cat);
   const slug = decodeURIComponent(params.slug);
 
+let blogData:any;
+ let  contentArr:any
+  let  commentNumber:any; 
+  let  morePosts:any;
   try {
      
   const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/getBlogData/${encodeURIComponent(slug)}`,{
@@ -66,13 +70,15 @@ const page = async ({
     );
   }
   const data = await response.json();
-  console.log("DATA DATA DATA")
   const res = data.data;
 
-  const blogData = res && res.blogData;
-  const contentArr = blogData && blogData.pageContent;
-  const commentNumber = res && res.commentNumber;
-  const morePosts = res && res.morePost;
+  blogData = res && res.blogData;
+   contentArr = blogData && blogData.pageContent;
+   commentNumber = res && res.commentNumber;
+   morePosts = res && res.morePost;
+} catch (error) {
+  console.log((error as {message:string}).message);
+}
 
   const components: PortableTextComponents = {
     list: {
@@ -283,9 +289,7 @@ const page = async ({
       </main>
     </>
   );
-} catch (error) {
-    console.log((error as {message:string}).message);
-}
+
 };
 
 export default page;
