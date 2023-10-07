@@ -125,7 +125,7 @@ const page = async ({
       // body: JSON.stringify({
       //   cat: cat ? cat : "",
       // }),
-      headers: { "Content-Type": "application/json" },
+      // headers: { "Content-Type": "application/json" },
       next: {revalidate: 3600 },
     },
   );
