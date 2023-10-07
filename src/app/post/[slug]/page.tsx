@@ -51,7 +51,7 @@ const page = async ({
   try {
     
  
-  const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/getBlogData/${encodeURIComponent(slug)}`,{
+  const response = await fetch(`https://ezzstar.com/api/getBlogData/${encodeURIComponent(slug)}`,{
       method: "POST",
       body: JSON.stringify({
         cat: cat ? cat : "",
