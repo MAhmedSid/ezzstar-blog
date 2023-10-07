@@ -49,12 +49,11 @@ const page = async ({
   const slug = decodeURIComponent(params.slug);
 
   try {
-    
- 
+     
   const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/getBlogData/${encodeURIComponent(slug)}`,{
       method: "POST",
       body: JSON.stringify({
-        cat: "Games",
+        cat: cat ? cat : "",
       }),
       headers: { "Content-Type": "application/json" },
       next: {revalidate: 3600 },
@@ -66,8 +65,8 @@ const page = async ({
       "Internal Server Error, Something Went Wrong, please Try Again Later",
     );
   }
-
   const data = await response.json();
+  console.log("DATA DATA DATA")
   const res = data.data;
 
   const blogData = res && res.blogData;

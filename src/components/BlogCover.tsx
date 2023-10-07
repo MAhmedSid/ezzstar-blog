@@ -17,7 +17,6 @@ const BlogCover = ({
 }: IProps) => {
   return (
     <Link
-      prefetch
       href={`/post/${slug && encodeURIComponent(slug)}#${slug && encodeURIComponent(slug)}?cat=${category ? encodeURIComponent(
         category
       ):encodeURIComponent(

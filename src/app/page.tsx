@@ -18,13 +18,13 @@ export default async function Home() {
         method: "GET",
       },
     );
-      
     if (!response.ok) {
       throw Error(
         "Internal Server Error, Something Went Wrong, please Try Again Later",
-      );
-    }
-  
+        );
+      }
+      
+      console.log("HOME PAGE",response);
     const data = await response.json();
     const res = data.data;
     
