@@ -117,10 +117,7 @@ const page = async ({
   const cat = decodeURIComponent(searchParams.cat && searchParams.cat);
   const slug = decodeURIComponent(params.slug);
 
-let blogData:any;
- let  contentArr:any
-  let  commentNumber:any; 
-  let  morePosts:any;
+
   try {
      
   const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/getBlogData/${encodeURIComponent(slug)}`,{
@@ -141,15 +138,10 @@ let blogData:any;
   const data = await response.json();
   const res = data.data;
 
-  blogData = res && res.blogData;
-   contentArr = blogData && blogData.pageContent;
-   commentNumber = res && res.commentNumber;
-   morePosts = res && res.morePost;
-} catch (error) {
-  console.log((error as {message:string}).message);
-}
-
- 
+  const blogData = res && res.blogData;
+   const contentArr = blogData && blogData.pageContent;
+   const commentNumber = res && res.commentNumber;
+   const morePosts = res && res.morePost;
 
   return (
     <>
@@ -291,6 +283,9 @@ let blogData:any;
       </main>
     </>
   );
+} catch (error) {
+  console.log((error as {message:string}).message);
+}
 
 };
 
