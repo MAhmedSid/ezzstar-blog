@@ -45,41 +45,6 @@ const page = async ({
   searchParams: any;
 }) => {
 
-  const cat = decodeURIComponent(searchParams.cat && searchParams.cat);
-  const slug = decodeURIComponent(params.slug);
-
-let blogData:any;
- let  contentArr:any
-  let  commentNumber:any; 
-  let  morePosts:any;
-  try {
-     
-  const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/getBlogData/${encodeURIComponent(slug)}`,{
-      method: "POST",
-      body: JSON.stringify({
-        cat: cat ? cat : "",
-      }),
-      headers: { "Content-Type": "application/json" },
-      next: {revalidate: 3600 },
-    },
-  );
-
-  if (!response.ok) {
-    throw Error(
-      "Internal Server Error, Something Went Wrong, please Try Again Later",
-    );
-  }
-  const data = await response.json();
-  const res = data.data;
-
-  blogData = res && res.blogData;
-   contentArr = blogData && blogData.pageContent;
-   commentNumber = res && res.commentNumber;
-   morePosts = res && res.morePost;
-} catch (error) {
-  console.log((error as {message:string}).message);
-}
-
   const components: PortableTextComponents = {
     list: {
       bullet: ({ children }) => (
@@ -148,6 +113,43 @@ let blogData:any;
       ),
     },
   };
+
+  const cat = decodeURIComponent(searchParams.cat && searchParams.cat);
+  const slug = decodeURIComponent(params.slug);
+
+let blogData:any;
+ let  contentArr:any
+  let  commentNumber:any; 
+  let  morePosts:any;
+  try {
+     
+  const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/getBlogData/${encodeURIComponent(slug)}`,{
+      method: "POST",
+      body: JSON.stringify({
+        cat: cat ? cat : "",
+      }),
+      headers: { "Content-Type": "application/json" },
+      next: {revalidate: 3600 },
+    },
+  );
+
+  if (!response.ok) {
+    throw Error(
+      "Internal Server Error, Something Went Wrong, please Try Again Later",
+    );
+  }
+  const data = await response.json();
+  const res = data.data;
+
+  blogData = res && res.blogData;
+   contentArr = blogData && blogData.pageContent;
+   commentNumber = res && res.commentNumber;
+   morePosts = res && res.morePost;
+} catch (error) {
+  console.log((error as {message:string}).message);
+}
+
+ 
 
   return (
     <>

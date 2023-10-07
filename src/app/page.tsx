@@ -24,7 +24,6 @@ export default async function Home() {
         );
       }
       
-      console.log("HOME PAGE",response);
     const data = await response.json();
     const res = data.data;
     

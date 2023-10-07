@@ -16,13 +16,17 @@ const BlogCover = ({
   imgAlt,
 }: IProps) => {
   return (
-    <Link
-      href={`/post/${slug && encodeURIComponent(slug)}#${slug && encodeURIComponent(slug)}?cat=${category ? encodeURIComponent(
-        category
-      ):encodeURIComponent(
-        "")}`}
-      className=" flex h-fit  w-[250px] lmb:w-[300px] flex-col gap-y-2  rounded-lg  bg-zinc-900 transition-all duration-200   hover:bg-zinc-800 tablet:h-fit   tablet:w-full  tablet:flex-row lp:h-fit lp:max-w-[800px]  lcd:h-fit lcd:max-w-[1400px]"
+    <Link href={{ pathname: `${process.env.NEXT_PUBLIC_HOST}/post/${slug}`, query: { cat: category } }} 
+    className=" flex h-fit  w-[250px] lmb:w-[300px] flex-col gap-y-2  rounded-lg  bg-zinc-900 transition-all duration-200   hover:bg-zinc-800 tablet:h-fit   tablet:w-full  tablet:flex-row lp:h-fit lp:max-w-[800px]  lcd:h-fit lcd:max-w-[1400px]"
     >
+{/* 
+    // <Link
+    //   href={`/post/${slug && encodeURIComponent(slug)}#${slug && encodeURIComponent(slug)}&cat=${category ? encodeURIComponent(
+    //     category
+    //   ):encodeURIComponent(
+    //     "")}`}
+    //   className=" flex h-fit  w-[250px] lmb:w-[300px] flex-col gap-y-2  rounded-lg  bg-zinc-900 transition-all duration-200   hover:bg-zinc-800 tablet:h-fit   tablet:w-full  tablet:flex-row lp:h-fit lp:max-w-[800px]  lcd:h-fit lcd:max-w-[1400px]"
+    // > */}
       <div className="flex h-full w-full tablet:w-[240px] lp:w-[280px] lcd:w-[320px] rounded-xl   ">
         <div className="relative flex h-full w-full">
           {category && (
