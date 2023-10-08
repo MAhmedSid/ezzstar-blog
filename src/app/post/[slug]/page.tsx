@@ -6,7 +6,6 @@ import { PortableText, PortableTextComponents } from "@portabletext/react";
 import Image from "next/image";
 import React from "react";
 import BlogPageShareIcons from "@/components/BlogPageShareIcons";
-import { Metadata } from "next";
 import adImg from "/public/images/ad.png"
 
 // export async function generateMetadata({
