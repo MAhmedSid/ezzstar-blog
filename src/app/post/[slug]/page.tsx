@@ -7,34 +7,33 @@ import Image from "next/image";
 import React from "react";
 import BlogPageShareIcons from "@/components/BlogPageShareIcons";
 import adImg from "/public/images/ad.png"
+import { Metadata } from "next";
 
-// export async function generateMetadata({
-//   params,
-// }: {
-//   params: { slug: string };
-// }): Promise<Metadata> {
-//   const slug = decodeURIComponent(params.slug);
-//   const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/getHeadData`, {
-//     method: "POST",
-//     body: JSON.stringify({ slug }),
-//     headers: { "Content-Type": "application/json" },
-//     next:{revalidate: 3600}
-//   });
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
+  const decodedSlug = decodeURIComponent(params.slug);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/getHeadData/${decodedSlug}`, {
+    method: "GET",
+    next:{revalidate: 3600}
+  });
 
-//   if (!res.ok) {
-//     return {
-//       title: "Post - EZZSTAR",
-//       description: `trending updates of Metaverse, Gaming , Web3.0 from future by EZZSTAR`,
-//     };
-//   }
-//   const body = await res.json();
-//   return {
-//     title: body.data.title ? body.data.title + " - EZZSTAR" : "Post - EZZSTAR",
-//     description: body.data.meta_desc
-//       ? body.data.meta_desc
-//       : `trending updates of Metaverse, Gaming , Web3.0 from future by EZZSTAR`,
-//   };
-// }
+  if (!res.ok) {
+    return {
+      title: "Post - EZZSTAR",
+      description: `trending updates of Metaverse, Gaming , Web3.0 from future by EZZSTAR`,
+    };
+  }
+  const body = await res.json();
+  return {
+    title: body.data?.title ? body.data.title + " - EZZSTAR" : "Post - EZZSTAR",
+    description: body.data?.meta_desc
+      ? body.data?.meta_desc
+      : `trending updates of Metaverse, Gaming , Web3.0 from future by EZZSTAR`,
+  };
+}
 
 const page = async ({
   params,
@@ -81,22 +80,22 @@ const page = async ({
     block: {
       // Ex. 1: customizing common block types
       h1: ({ children }) => (
-        <h1 className="my-5 text-2xl font-bold tablet:text-3xl lp:text-4xl">
+        <h1 className="mt-5 mb-3 text-2xl font-bold tablet:text-3xl lp:text-4xl">
           {children}
         </h1>
       ),
       h2: ({ children }) => (
-        <h2 className="my-5 text-2xl  font-bold tablet:text-3xl  lp:text-4xl">
+        <h2 className="mt-5 mb-3 text-2xl  font-bold tablet:text-3xl  lp:text-4xl">
           {children}
         </h2>
       ),
       h3: ({ children }) => (
-        <h3 className="my-5 text-xl  font-bold tablet:text-2xl lp:text-3xl">
+        <h3 className="mt-5 mb-3 text-xl  font-bold tablet:text-2xl lp:text-3xl">
           {children}
         </h3>
       ),
       h4: ({ children }) => (
-        <h4 className="my-5  font-bold tablet:text-xl lp:text-2xl">
+        <h4 className="mt-5 mb-3  font-bold tablet:text-xl lp:text-2xl">
           {children}
         </h4>
       ),
@@ -105,7 +104,7 @@ const page = async ({
       ),
       h6: ({ children }) => <h6 className="my-5   font-bold">{children}</h6>,
 
-      normal: ({ children }) => <p className="mt-5 ">{children}</p>,
+      normal: ({ children }) => <p className="my-2 ">{children}</p>,
 
       blockquote: ({ children }) => (
         <blockquote className="border-l-purple-500">{children}</blockquote>
@@ -114,12 +113,12 @@ const page = async ({
   };
 
   const cat = decodeURIComponent(searchParams.cat && searchParams.cat);
-  const slug = decodeURIComponent(params.slug);
+  const decodedSlug = decodeURIComponent(params.slug);
 
 
   try {
 
-  const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/getBlogData/${encodeURIComponent(slug)}`,{
+  const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/getBlogData/${encodeURIComponent(decodedSlug)}`,{
     body: JSON.stringify({
         cat: cat ? cat : "",
       }),
@@ -145,7 +144,7 @@ const page = async ({
   return (
     <>
       <main
-        id={slug && slug}
+        id={decodedSlug && decodedSlug}
         className="flex w-full flex-col items-center justify-center gap-y-10 pt-14"
       >
         <div className="flex w-full max-w-[1300px] flex-col gap-y-4  ">
@@ -154,7 +153,7 @@ const page = async ({
               <div className="flex h-full w-full flex-col  gap-y-3">
                 <div className="mt-20 flex flex-col">
                   <div className="flex w-full flex-col gap-y-7 ">
-                    <h1 className="text-2xl font-semibold tablet:text-3xl lp:text-4xl ">
+                    <h1 className="text-2xl font-extrabold tablet:text-3xl lp:text-4xl ">
                       {blogData && blogData.title}
                     </h1>
                     <div className="flex justify-between ">
@@ -232,14 +231,14 @@ const page = async ({
                     <p>Did you like this?</p>
                     <LikeIcon
                       blogId={blogData && blogData?._id}
-                      slug={blogData && blogData?.slug}
+                      slug={blogData && blogData?.decodedSlug}
                     />
                   </div>
 
                   <div className="flex flex-col items-center gap-y-3">
                     <BlogPageShareIcons
                       title={blogData && blogData?.title}
-                      slug={blogData && blogData?.slug?.current}
+                      slug={blogData && blogData?.decodedSlug?.current}
                       cat={blogData && blogData?.category}
                     />
                   </div>
@@ -252,9 +251,9 @@ const page = async ({
                       morePosts.map((blog: any, i: any) => {
                         return (
                           <BlogCard
-                            key={blog?.slug}
+                            key={blog?.decodedSlug}
                             title={blog?.title}
-                            slug={blog?.slug}
+                            slug={blog?.decodedSlug}
                             desc={blog?.meta_desc}
                             likesCount={blog?.likesCount}
                             date={blog?.published_at}
@@ -269,7 +268,7 @@ const page = async ({
 
                 <div className="mt-28 w-full">
                   <CommentSec
-                    blogSlug={slug}
+                    blogSlug={decodedSlug}
                     blogId={blogData && blogData._id}
                   />
                 </div>

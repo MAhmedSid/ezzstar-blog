@@ -37,7 +37,7 @@ export async function GET(req: Request, res: NextApiResponse) {
             "likesCount": length(likes)
           }
         ],
-        "gamingBlogs": *[_type == "blogs" && category == "Games"]  && !(_id in path("drafts.**")) | order(length(likes) desc) [0...6] {
+        "gamingBlogs": *[_type == "blogs" && category == "Games"  && !(_id in path("drafts.**"))] | order(length(likes) desc) [0...6] {
           title,
           slug,
           meta_desc,
