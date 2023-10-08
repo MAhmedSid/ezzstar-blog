@@ -120,12 +120,11 @@ const page = async ({
 
   try {
   const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/getBlogData/${encodeURIComponent(slug)}`,{
-    // body: JSON.stringify({
-      //   cat: cat ? cat : "",
-      // }),
-      headers: {     "Transfer-Encoding": "chunked"    },
+    body: JSON.stringify({
+        cat: cat ? cat : "",
+      }),
       // next: {revalidate: 3600 },
-      method: "GET",
+      method: "POST",
     },
   );
 
