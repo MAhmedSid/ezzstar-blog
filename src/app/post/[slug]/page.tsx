@@ -282,7 +282,7 @@ const page = async ({
     </>
   );
 } catch (error) {
-  console.log((error as {message:string}).message);
+  console.log("ERROR FROM BLOG POST : ",error);
 }
 
 };
