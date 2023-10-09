@@ -129,7 +129,7 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <p className="py-4 text-xs font-medium text-zinc-500 tablet:text-sm">
+        <p className="py-4 text-sm font-medium text-zinc-500 ">
          © 2023 EzzStar All Rights reserved.
         </p>
       </Wrapper>

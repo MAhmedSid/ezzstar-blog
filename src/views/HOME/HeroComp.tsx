@@ -2,11 +2,8 @@ import Image from "next/image";
 import React from "react";
 import mainImg from "/public/images/main.png";
 import chashmaImg from "/public/images/chashma.png";
-import { Press_Start_2P } from "next/font/google";
 import ClaimComp from "@/components/ClaimComp";
 import Link from "next/link";
-
-const ps = Press_Start_2P({ weight: ["400"], subsets: ["latin"] });
 
 const HeroComp = () => {
   return (
@@ -17,10 +14,10 @@ const HeroComp = () => {
         alt={"Ezzstar Wallpaper"}
         height={1644}
         width={2850}
-        className="h-full min-h-[350px] w-full object-cover lmb:min-h-[450px] tablet:max-h-[400px] tablet:object-cover "
+        className="h-full min-h-[360px] w-full object-cover lmb:min-h-[450px] tablet:max-h-[400px] tablet:object-cover "
         priority
       />
-      <div className="absolute top-5 flex h-full w-full flex-col gap-y-4  px-1">
+      <div className="absolute top-2 flex h-full w-full flex-col gap-y-4  px-1">
         <div className="flex w-full lmb:justify-end">
           <h1 className="max-w-[400px] text-center text-3xl  font-bold lmb:text-5xl tablet:max-w-[500px] tablet:text-left tablet:text-6xl lcd:max-w-[600px] lcd:text-7xl">
             A NEW <span className="px-1 text-pri_yellow"> WORLD </span> AWAITS
@@ -28,7 +25,7 @@ const HeroComp = () => {
           </h1>
         </div>
 
-        <div className="flex w-full flex-col lmb:mt-28 lmb:flex-row lmb:justify-between  lmb:pr-8  tablet:mt-20 tablet:justify-around lcd:mt-12 ">
+        <div className="flex w-full flex-col lmb:mt-28 lmb:flex-row   lmb:pr-8  tablet:mt-20 tablet:justify-around lcd:mt-12 ">
           <div className="flex  gap-x-4 lmb:flex-col lmb:gap-y-3">
             <Link
               href={"https://ezzstar.space"}

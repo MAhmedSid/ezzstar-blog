@@ -116,7 +116,7 @@ const MobNavMenu = () => {
                   </DropdownMenuTrigger>
                   <DropdownMenuContent>
                     <div className="w-full bg-gradient-to-b from-pri_yellow  to-pri_blue p-[2px]">
-                      <div className="flex flex-col items-center justify-center gap-y-3 rounded-md bg-black py-2  text-white  ">
+                      <div className="flex flex-col items-center justify-center gap-y-4 rounded-md bg-black py-2  text-white  ">
                         <Link
                           prefetch
                           href={"/account/setting/#setting"}

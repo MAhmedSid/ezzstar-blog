@@ -131,8 +131,8 @@ const ClaimComp = () => {
   };
 
   return (
-    <div className="ml-[10vw] mr-5 mt-2 flex flex-col  justify-center gap-y-1 tablet:ml-0 tablet:mr-0">
-      <div className="flex gap-x-2 text-xs tablet:text-base">
+    <div className="ml-[10vw]  mr-5 mt-2 flex flex-col  justify-center gap-y-1 tablet:ml-0 tablet:mr-0">
+      <div className="flex gap-x-2 text-sm tablet:text-base py-3">
         <p className="rounded-full bg-pri_pink px-1 py-1 lp:px-2 lp:py-2">
           {states.walletAddress}
         </p>
@@ -147,13 +147,14 @@ const ClaimComp = () => {
       <div className="relative flex">
         <div className="flex">
           <div className=" min-h-[10px]  min-w-[60px] rounded-l-full bg-black  ">
-            <div className="ml-5  mt-3 flex flex-col text-xs">
-              <p>
+            <div className="ml-5  mt-3 flex flex-col text-sm">
+              <p className="max-w-[15px] leading-tight">
                 {states.spicaAmount === 0
                   ? `0.${states.spicaAmount}`
                   : states.spicaAmount.toFixed(1)}
+                   {" "}spca
               </p>
-              <p>SPCA</p>
+          
             </div>
           </div>
           <svg
@@ -181,9 +182,9 @@ const ClaimComp = () => {
                 alt="SPICA COIN IMAGE"
                 className="h-12 w-12 rounded-full hover:animate-spin-slow"
               />
-              <div className="flex flex-col pr-1 text-xs font-semibold hover:text-pri_pink">
-                <p>CLAIM</p>
-                <p>SPICA</p>
+              <div className="flex flex-col pr-1 text-sm font-semibold hover:text-pri_pink">
+                <p>claim</p>
+                <p>$spca</p>
               </div>
             </button>
           </div>
@@ -224,8 +225,8 @@ const ClaimComp = () => {
       </div>
 
       <div className="flex w-fit flex-col items-center  gap-y-1 rounded-md bg-black bg-opacity-70 px-2 py-1">
-        <p className="text-xs tablet:text-base">Claim 0.1 $SPICA every hour.</p>
-        <p className="text-xs tablet:text-base">Sign up \ Sign in to Claim.</p>
+        <p className="text-sm tablet:text-base">Claim 0.1 $SPICA every hour.</p>
+        <p className="text-sm tablet:text-base">Sign up \ Sign in to Claim.</p>
         <p className="flex gap-x-1 text-sm tablet:text-base">
           <span className="text-[#54e8b6]"> Withdraw Threshold:</span>
           <span className="font-bold text-pri_pink ">50 $SPCA</span>
