@@ -4,7 +4,6 @@ import { urlFor } from "@/lib/utils";
 import Link from "next/link";
 import Date from "./Date";
 
-
 const BlogCover = ({
   imgSrc,
   category,
@@ -29,6 +28,8 @@ const BlogCover = ({
           )}
           <Image
             priority
+            placeholder="blur"
+            blurDataURL={"/public/images/placeholder.png"}
             src={
               imgSrc
                 ? urlFor(imgSrc).width(600).height(400).url()

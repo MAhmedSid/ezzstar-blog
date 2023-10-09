@@ -32,6 +32,7 @@ const HeroComp = () => {
               className="flex w-fit max-w-[120px] flex-col items-center   rounded-md bg-black px-1 lmb:w-full tablet:max-w-[180px] tablet:flex-row"
             >
               <Image
+                priority
                 src={chashmaImg}
                 alt="EZZSTAR logo"
                 className="h-10 w-10 tablet:h-14 tablet:w-14"
