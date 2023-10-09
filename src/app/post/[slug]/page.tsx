@@ -8,12 +8,12 @@ import React from "react";
 import BlogPageShareIcons from "@/components/BlogPageShareIcons";
 import adImg from "/public/images/ad.png"
 import { Metadata } from "next";
-import { Hind_Madurai, Lato } from "next/font/google";
+import { Hind_Madurai, Lato, Lora, Poppins } from "next/font/google";
 
 
 
-const lato = Lato({weight:['300','400'],subsets:["latin"]})
-const hind = Hind_Madurai({weight:['700'],subsets:["latin"]})
+const poppins = Poppins({weight:['300','400'],subsets:["latin"]})
+const lora = Lora({weight:['700'],subsets:["latin"]})
 
 export async function generateMetadata({
   params,
@@ -86,31 +86,31 @@ const page = async ({
     block: {
       // Ex. 1: customizing common block types
       h1: ({ children }) => (
-        <h1 className={`${hind.className} mt-5 mb-3 text-2xl font-bold tablet:text-3xl lp:text-4xl`}>
+        <h1 className={`${lora.className} mt-5 mb-3 text-2xl font-bold tablet:text-3xl lp:text-4xl  !leading-[2rem] lmb:!leading-[3rem] tracking-wider`}>
           {children}
         </h1>
       ),
       h2: ({ children }) => (
-        <h2 className={`${hind.className} mt-5 mb-3 text-2xl  font-bold tablet:text-3xl  lp:text-4xl`}>
+        <h2 className={`${lora.className} mt-5 mb-3 text-2xl  font-bold tablet:text-3xl  lp:text-4xl  !leading-[2rem] lmb:!leading-[3rem] tracking-wider`}>
           {children}
         </h2>
       ),
       h3: ({ children }) => (
-        <h3 className={`${hind.className} mt-5 mb-3 text-xl  font-bold tablet:text-2xl lp:text-3xl`}>
+        <h3 className={`${lora.className} mt-5 mb-3 text-xl  font-bold tablet:text-2xl lp:text-3xl  !leading-[2rem] lmb:!leading-[3rem] tracking-wider`}>
           {children}
         </h3>
       ),
       h4: ({ children }) => (
-        <h4 className={`${hind.className} mt-5 mb-3  font-bold tablet:text-xl lp:text-2xl`}>
+        <h4 className={`${lora.className} mt-5 mb-3  font-bold tablet:text-xl lp:text-2xl  !leading-[2rem] lmb:!leading-[3rem] tracking-wider`}>
           {children}
         </h4>
       ),
       h5: ({ children }) => (
-        <h5 className={`${hind.className} my-5 font-bold  lp:text-lg`}>{children}</h5>
+        <h5 className={`${lora.className} my-5 font-bold  lp:text-lg  !leading-[2rem] lmb:!leading-[3rem] tracking-wider`}>{children}</h5>
       ),
-      h6: ({ children }) => <h6 className={`${hind.className} my-5   font-bold`}>{children}</h6>,
+      h6: ({ children }) => <h6 className={`${lora.className} my-5   font-bold`}>{children}</h6>,
 
-      normal: ({ children }) => <p className="my-2 lcd:text-lg leading-relaxed">{children}</p>,
+      normal: ({ children }) => <p className={`${poppins.className} my-2 lcd:text-lg leading-loose lcd:leading-9`}>{children}</p>,
 
       blockquote: ({ children }) => (
         <blockquote className="border-l-purple-500">{children}</blockquote>
@@ -159,7 +159,7 @@ const page = async ({
               <div className="flex h-full w-full flex-col  gap-y-3">
                 <div className="mt-20 flex flex-col">
                   <div className="flex w-full flex-col gap-y-7 ">
-                    <h1 className="text-3xl tracking-wide font-extrabold lmb:text-4xl lcd:text-5xl leading-relaxed ">
+                    <h1 className={`${lora.className} text-3xl tracking-wider font-extrabold lmb:text-4xl lcd:text-5xl !leading-[3rem] lmb:!leading-[4rem]  `}>
                       {blogData && blogData.title}
                     </h1>
                     <div className="flex justify-between ">
