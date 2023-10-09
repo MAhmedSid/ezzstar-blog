@@ -30,7 +30,7 @@ export async function POST(req: Request,{ params }: { params: { slug: string } }
         ,
         "morePost": *[_type == "blogs" ${
           cat !== "" && cat !== "undefined" ? `&& category == '${cat}'` : ""
-        } ]  | order(published_at desc)  [0...3]{
+        }  && !(_id in path("drafts.**"))]  | order(published_at desc)  [0...3]{
           title,
           category,
           published_at,

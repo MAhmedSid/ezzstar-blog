@@ -42,7 +42,7 @@ const LikeIcon = ({
         const res = await client.fetch(groq`*[_type == "blogs" && slug.current == '${slug}'][0]{
           "likeStatus": '${userID}' in likes[].userId ,
         }`)
-        setIsLiked(res.likeStatus);
+        setIsLiked(res?.likeStatus);
 
 
       } catch (error) {
@@ -50,7 +50,6 @@ const LikeIcon = ({
       }
     }
     getLikeStatus();
-
   },[])
 
 

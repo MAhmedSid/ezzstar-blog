@@ -9,7 +9,7 @@ export async function GET(req: Request, res: NextApiResponse) {
     if (req.method == "GET") {
       const res = await cdnClient.fetch(groq`{
         "latestBlogs": [
-          *[_type == "blogs" && category == "Blog"  && !(_id in path("drafts.**"))] | order(published_at desc) [0] {
+          *[_type == "blogs" && category == "Anime"  && !(_id in path("drafts.**"))] | order(published_at desc) [0] {
             title,
             slug,
             meta_desc,
@@ -27,7 +27,7 @@ export async function GET(req: Request, res: NextApiResponse) {
             category,
             "likesCount": length(likes)
           },
-          *[_type == "blogs" && category == "Anime"  && !(_id in path("drafts.**"))] | order(published_at desc) [0] {
+          *[_type == "blogs" && category == "Blog"  && !(_id in path("drafts.**"))] | order(published_at desc) [0] {
             title,
             slug,
             meta_desc,

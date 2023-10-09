@@ -8,6 +8,12 @@ import React from "react";
 import BlogPageShareIcons from "@/components/BlogPageShareIcons";
 import adImg from "/public/images/ad.png"
 import { Metadata } from "next";
+import { Hind_Madurai, Lato } from "next/font/google";
+
+
+
+const lato = Lato({weight:['300','400'],subsets:["latin"]})
+const hind = Hind_Madurai({weight:['700'],subsets:["latin"]})
 
 export async function generateMetadata({
   params,
@@ -80,31 +86,31 @@ const page = async ({
     block: {
       // Ex. 1: customizing common block types
       h1: ({ children }) => (
-        <h1 className="mt-5 mb-3 text-2xl font-bold tablet:text-3xl lp:text-4xl">
+        <h1 className={`${hind.className} mt-5 mb-3 text-2xl font-bold tablet:text-3xl lp:text-4xl`}>
           {children}
         </h1>
       ),
       h2: ({ children }) => (
-        <h2 className="mt-5 mb-3 text-2xl  font-bold tablet:text-3xl  lp:text-4xl">
+        <h2 className={`${hind.className} mt-5 mb-3 text-2xl  font-bold tablet:text-3xl  lp:text-4xl`}>
           {children}
         </h2>
       ),
       h3: ({ children }) => (
-        <h3 className="mt-5 mb-3 text-xl  font-bold tablet:text-2xl lp:text-3xl">
+        <h3 className={`${hind.className} mt-5 mb-3 text-xl  font-bold tablet:text-2xl lp:text-3xl`}>
           {children}
         </h3>
       ),
       h4: ({ children }) => (
-        <h4 className="mt-5 mb-3  font-bold tablet:text-xl lp:text-2xl">
+        <h4 className={`${hind.className} mt-5 mb-3  font-bold tablet:text-xl lp:text-2xl`}>
           {children}
         </h4>
       ),
       h5: ({ children }) => (
-        <h5 className="my-5 font-bold  lp:text-lg">{children}</h5>
+        <h5 className={`${hind.className} my-5 font-bold  lp:text-lg`}>{children}</h5>
       ),
-      h6: ({ children }) => <h6 className="my-5   font-bold">{children}</h6>,
+      h6: ({ children }) => <h6 className={`${hind.className} my-5   font-bold`}>{children}</h6>,
 
-      normal: ({ children }) => <p className="my-2 ">{children}</p>,
+      normal: ({ children }) => <p className="my-2 lcd:text-lg leading-relaxed">{children}</p>,
 
       blockquote: ({ children }) => (
         <blockquote className="border-l-purple-500">{children}</blockquote>
@@ -153,7 +159,7 @@ const page = async ({
               <div className="flex h-full w-full flex-col  gap-y-3">
                 <div className="mt-20 flex flex-col">
                   <div className="flex w-full flex-col gap-y-7 ">
-                    <h1 className="text-2xl font-extrabold tablet:text-3xl lp:text-4xl ">
+                    <h1 className="text-3xl tracking-wide font-extrabold lmb:text-4xl lcd:text-5xl leading-relaxed ">
                       {blogData && blogData.title}
                     </h1>
                     <div className="flex justify-between ">
@@ -231,14 +237,14 @@ const page = async ({
                     <p>Did you like this?</p>
                     <LikeIcon
                       blogId={blogData && blogData?._id}
-                      slug={blogData && blogData?.decodedSlug}
+                      slug={blogData && blogData?.slug}
                     />
                   </div>
 
                   <div className="flex flex-col items-center gap-y-3">
                     <BlogPageShareIcons
                       title={blogData && blogData?.title}
-                      slug={blogData && blogData?.decodedSlug?.current}
+                      slug={blogData && blogData?.slug?.current}
                       cat={blogData && blogData?.category}
                     />
                   </div>
@@ -251,9 +257,9 @@ const page = async ({
                       morePosts.map((blog: any, i: any) => {
                         return (
                           <BlogCard
-                            key={blog?.decodedSlug}
+                            key={blog?.slug}
                             title={blog?.title}
-                            slug={blog?.decodedSlug}
+                            slug={blog?.slug}
                             desc={blog?.meta_desc}
                             likesCount={blog?.likesCount}
                             date={blog?.published_at}
