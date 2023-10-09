@@ -39,7 +39,7 @@ export default async function Home() {
         <div className="h-[150px] w-full   bg-slate-500"><Image src={adlandscape} alt="ad" className="w-full h-full object-cover"/></div>
         <Blogs blogData={res.blogs} />
 
-        <div className="my-10 h-[30px] w-[60%] bg-gradient-to-r from-pri_yellow from-80% to-black " />
+        <div className="my-10 h-[30px] w-[60%] bg-gradient-to-r from-pri_yellow from-80% to-[#0b0b0b] " />
         
       </main>
     );
