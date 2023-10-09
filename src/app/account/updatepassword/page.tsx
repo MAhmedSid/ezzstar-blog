@@ -21,7 +21,7 @@ const Page = () => {
   });
 
   useEffect(() => {
-    const getSession = async () => {
+    ;(async function(){
       const { data, error } = await supabase.auth.getSession();
       if (error) {
         console.log(error.message);
@@ -29,8 +29,7 @@ const Page = () => {
       if (data.session) {
         setStates({ ...states, isAuthenticated: true });
       }
-    };
-    getSession();
+    })()
 
     const handleAuthStateChange = (event: string, session: any) => {
       if (event === "SIGNED_IN") {

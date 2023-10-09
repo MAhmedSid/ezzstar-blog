@@ -53,7 +53,7 @@ const Comment = ({
   });
 
   useEffect(() => {
-    const getData = async () => {
+    ;(async function(){
       const { data, error } = await supabase
         .from("profiles")
         .select("username,avatar_url")
@@ -69,9 +69,7 @@ const Comment = ({
         username: data[0]?.username,
         imgUrl: data[0]?.avatar_url,
       });
-    };
-
-    getData();
+    })()
   }, []);
 
   const handleDelete = async (e: any) => {

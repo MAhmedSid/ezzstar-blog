@@ -15,7 +15,7 @@ const Page = () => {
 
   useEffect(() => {
 
-    const getSession = async ()=>{
+   ;(async function(){
       const {data,error} = await supabase.auth.getSession();
       if(error){
         console.log(error.message);
@@ -23,8 +23,7 @@ const Page = () => {
       if (data.session) {
         router.push("/");
       }
-    }
-    getSession();
+    })()
 
   }, []);
 

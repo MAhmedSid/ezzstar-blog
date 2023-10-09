@@ -27,7 +27,7 @@ const LikeIcon = ({
 
   useEffect(()=>{
 
-    const getLikeStatus = async()=>{
+    ;(async function(){
       try {
 
         const {data} = await supabase.auth.getSession();
@@ -48,8 +48,7 @@ const LikeIcon = ({
       } catch (error) {
         console.log((error as {message:string}).message);
       }
-    }
-    getLikeStatus();
+    })()
   },[])
 
 

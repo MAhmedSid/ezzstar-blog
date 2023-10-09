@@ -35,7 +35,7 @@ const ClaimComp = () => {
   };
 
   useEffect(() => {
-    const getData = async () => {
+    ;(async function(){
       if (!userID) {
         return;
       }
@@ -59,8 +59,7 @@ const ClaimComp = () => {
         lastClaim: userData.last_claim,
         nextClaim: userData.last_claim + 3600,
       });
-    };
-    getData();
+    })()
   }, [userID, states.refresh]);
 
   const handleClaim = async () => {

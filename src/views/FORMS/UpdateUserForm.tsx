@@ -20,7 +20,7 @@ const UpdateForm = () => {
   }>({ image: null, username: "", walletAddress: "", isMutating: false });
 
   useEffect(() => {
-    const getData = async () => {
+    ;(async function(){
       const { data: auth, error } = await supabase.auth.getSession();
       if (auth.session) {
         const { data, error } = await supabase
@@ -40,8 +40,7 @@ const UpdateForm = () => {
           image: data[0].avatar_url,
         });
       }
-    };
-    getData();
+    })()
   }, []);
 
   const handleChange = (e: any, type: string) => {
