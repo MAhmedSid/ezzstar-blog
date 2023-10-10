@@ -6,7 +6,7 @@ export async function GET(request: Request) {
 
     const URL = "https://ezzstar.com"
   
-    const blogsArr = await client.fetch(groq` *[_type == "blogs"]{"slug":slug.current,_updatedAt}`);
+    const blogsArr = await client.fetch(groq` *[_type == "blogs"  && !(_id in path("drafts.**"))]{"slug":slug.current,_updatedAt}`);
 
     const posts: ISitemapField[] = blogsArr.map((blog:any,i:number) => ({
         loc: `${URL}/post/${blog.slug}`,

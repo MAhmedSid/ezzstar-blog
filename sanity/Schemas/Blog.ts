@@ -12,7 +12,10 @@ export const blogs = defineType({
         name: "title",
         type: "string",
         title: "Title",
-        validation: Rule => Rule.max(70).error('Max limit is 70 characters')
+        validation: Rule => [
+          Rule.required().error('Title is required'),
+          Rule.max(70).error('Title should not exceed more than 70 characters. Shorter titles are usually better')
+        ], 
       }),
       defineField({
         name: "slug",
@@ -22,14 +25,19 @@ export const blogs = defineType({
           source: "title",
           maxLength: 200,
           slugify: (input) =>
-            input.toLowerCase().replace(/\s+/g, "-").slice(0, 200),
+            input.toLowerCase().replace(/[\s"']/g, "-").slice(0, 200),
         },
+        validation: Rule => Rule.required().error('Slug is required')
       }),
       defineField({
         name:"meta_desc",
         type:"text",
         title:"Meta Description",
-        validation: Rule => Rule.max(200).error('Max limit is 200 characters') 
+        validation: Rule => [
+          Rule.min(60).warning('Longer Meta Description are usually better'),
+          Rule.required().error('Meta Description is required'),
+          Rule.max(200).error('Meta description should not exceed more than 200 characters') 
+        ],
       }),
       defineField({
         name:"displayImg",
@@ -54,7 +62,8 @@ export const blogs = defineType({
                 "Anime",
                 "Blog",
             ]
-        }
+        },
+        validation: Rule => Rule.required().error('Category is required')
       }),
       defineField({
         name:"published_at",
@@ -91,10 +100,23 @@ export const blogs = defineType({
                     name: 'alt',
                     type: 'string',
                     title: 'Alternative text',
-                    validation: Rule => Rule.required().error('Alt text is required for accessibility')
+                    validation: Rule => Rule.required().error('Alt text is required for ranking and accessibility')
                   }
                 ]
               },
+              {
+                name:"tweetUrls",
+                title:"Twitter Tweets URLs",
+                type: 'array',
+                description:"Copy the Tweet Link and paste in the URL box.",
+                of: [
+                  {
+                    name: "twitterPostUrl",
+                    type: "url",
+                    title: "Twitter Post URL",
+                  }
+                ]
+              }
             ],
           },
         ],
