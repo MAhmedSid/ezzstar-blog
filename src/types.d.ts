@@ -7,4 +7,5 @@ interface IProps {
   slug: string;
   desc: string;
   likesCount: number;
+  showCat: boolean
 }

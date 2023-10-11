@@ -8,7 +8,7 @@ import React from "react";
 import BlogPageShareIcons from "@/components/BlogPageShareIcons";
 import adImg from "/public/images/ad.png";
 import { Metadata } from "next";
-import { Hind_Madurai, Lato, Lora, Poppins } from "next/font/google";
+import { Lora, Poppins } from "next/font/google";
 import TwitterPreview from "@/components/TwitterPreview";
 
 const poppins = Poppins({ weight: ["300", "400"], subsets: ["latin"] });
@@ -296,6 +296,7 @@ const page = async ({
                               likesCount={blog?.likesCount}
                               date={blog?.published_at}
                               category={blog?.category}
+                              showCat={false}
                               imgSrc={blog?.displayImg?.asset}
                               imgAlt={blog.displayImg?.alt}
                             />

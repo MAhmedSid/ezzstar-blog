@@ -17,12 +17,14 @@ const Reply = ({
   replyUserId,
   commentId,
   createdAt,
+  blogId
 }: {
   createdAt: string;
   commentId: string;
   replyKey: string;
   text: string;
   replyUserId: string;
+  blogId:string
 }) => {
   const router = useRouter();
   const supabase = createClientComponentClient();
@@ -67,7 +69,7 @@ const Reply = ({
       const data = await res.json();
       if (res.ok === true) {
         toast.success("Reply Deleted");
-        await fetch(`/api/revalidateTag?tag=getComments`);
+        await fetch(`/api/revalidateTag?tag=getComments${blogId}`);
         router.refresh();
       }
       setStates({ ...states, isDeleting: false });

@@ -86,7 +86,7 @@ const Comment = ({
       if (res.ok === true) {
         toast.success("Comment Deleted");
         setLoading({ ...loading, isDeleting: false });
-        await fetch(`/api/revalidateTag?tag=getComments`);
+        await fetch(`/api/revalidateTag?tag=getComments${blogId}`);
         router.refresh();
       }
     } catch (error) {
@@ -115,7 +115,7 @@ const Comment = ({
       if (res.ok === true) {
         toast.success("Your thoughts got saved.");
         setStates({ ...states, replyText: "", showForm: !states.showForm });
-        await fetch(`/api/revalidateTag?tag=getComments`);
+        await fetch(`/api/revalidateTag?tag=getComments${blogId}`);
         router.refresh();
       }
       setLoading({ ...loading, isAdding: false });
@@ -210,7 +210,7 @@ const Comment = ({
                     </svg>
                   </button>
                 ) : (
-                  <Link href={"/account/signin"} className=" text-blue-600">
+                  <Link href={"/account/signin#signin"} className=" text-blue-600">
                     Login to Reply
                   </Link>
                 )}
@@ -318,6 +318,7 @@ const Comment = ({
                         text={reply.text}
                         createdAt={reply.createdAt}
                         commentId={commentId}
+                        blogId={blogId}
                       />
                     ))
                   ) : (

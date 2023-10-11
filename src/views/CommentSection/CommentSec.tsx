@@ -1,17 +1,13 @@
 import Image from "next/image";
 import React from "react";
 import Comment from "./Comment";
-import { client } from "@/lib/sanityClient";
-import { groq } from "next-sanity";
 import AddCommentComp from "@/components/AddCommentComp";
 
 const CommentSec = async ({blogId,blogSlug}:{blogSlug:string,blogId:string}) => {
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/getComments`,{
-      method: "PUT",
-      body: JSON.stringify({ blogId }),
-      headers: { "Content-Type": "application/json" },
-      next:{tags:["getComments"]},
+    const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/getComments/${blogId}`,{
+      method: "GET",
+      next:{tags:[`getComments${blogId}`]},
       cache:"no-store"
     });
     const body = res && await res.json();

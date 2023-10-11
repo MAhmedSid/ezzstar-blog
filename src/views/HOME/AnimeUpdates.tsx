@@ -27,6 +27,7 @@ const AnimeUpdates = (blogData: any) => {
                       likesCount={blog?.likesCount}
                       date={blog?.published_at}
                       category={blog?.category}
+                      showCat={false}
                       imgSrc={blog?.displayImg?.asset}
                       imgAlt={blog.displayImg?.alt}
                     />

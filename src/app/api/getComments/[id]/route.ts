@@ -3,13 +3,12 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { groq } from "next-sanity";
 import { NextResponse } from "next/server";
 
-
-export async function PUT(req: Request, res: NextApiResponse) {
+ 
+export async function GET(req: Request,{ params }: { params: { id: string } }) {
   try {
-    if (req.body) {
-      const body = await req.json();
-      const { blogId } = body;
+    if (req.method === "GET") {
 
+      const blogId = params.id;
       
       const res = await client.fetch(groq`*[_type == "comments" && blogId == '${blogId}']`)
       

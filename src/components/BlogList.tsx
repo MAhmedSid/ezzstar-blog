@@ -63,7 +63,8 @@ const BlogList = ({
                       desc={blog && blog?.meta_desc}
                       likesCount={blog && blog?.likesCount}
                       date={blog && blog?.published_at}
-                      category={""}
+                      category={blog?.category}
+                      showCat={false}
                       imgSrc={blog && blog?.displayImg?.asset}
                       imgAlt={blog && blog.displayImg?.alt}
                     />

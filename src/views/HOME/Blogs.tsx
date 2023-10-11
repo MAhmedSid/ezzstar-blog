@@ -32,7 +32,8 @@ const Blogs = async (blogData: any) => {
                         desc={blog?.meta_desc}
                         likesCount={blog?.likesCount}
                         date={blog?.published_at}
-                        category={""}
+                        category={blog?.category}
+                        showCat={false}
                         imgSrc={blog?.displayImg?.asset}
                         imgAlt={blog.displayImg?.alt}
                       />
