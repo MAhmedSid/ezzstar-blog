@@ -10,6 +10,10 @@ import ProviderComp from "@/components/utils/ProviderComp";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://ezzstar.com'),
+  openGraph: {
+    images: '/opengraph-image.png',
+  },
   title: 'SOCIAL - EZZSTAR',
   description:
     "Ezzstar is a company that works on research and development, video games and web3. Join the Ezzstar All Universe Social Platform to get Future Content, a virtual world powered by the SPICA token ecosystem, and explore new features and experiences. Learn more about Ezzstar's roadmap and vision for the future of gaming and web3.",
