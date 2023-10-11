@@ -8,26 +8,7 @@ export async function GET(req: Request, res: NextApiResponse) {
   try {
     if (req.method == "GET") {
       const res = await cdnClient.fetch(groq`{
-        "latestBlogs": [
-          *[_type == "blogs" && category == "Anime"  && !(_id in path("drafts.**"))] | order(published_at desc) [0] {
-            title,
-            slug,
-            meta_desc,
-            displayImg,
-            published_at,
-            category,
-            "likesCount": length(likes)
-          },
-          *[_type == "blogs" && category == "Games"  && !(_id in path("drafts.**"))] | order(published_at desc) [0] {
-            title,
-            slug,
-            meta_desc,
-            displayImg,
-            published_at,
-            category,
-            "likesCount": length(likes)
-          },
-          *[_type == "blogs" && category == "Blog"  && !(_id in path("drafts.**"))] | order(published_at desc) [0] {
+        "latestBlogs": *[_type == "blogs" && !(_id in path("drafts.**"))] | order(published_at desc) [0...3] {
             title,
             slug,
             meta_desc,
@@ -36,7 +17,7 @@ export async function GET(req: Request, res: NextApiResponse) {
             category,
             "likesCount": length(likes)
           }
-        ],
+      ,
         "gamingBlogs": *[_type == "blogs" && category == "Games"  && !(_id in path("drafts.**"))] | order(length(likes) desc) [0...6] {
           title,
           slug,

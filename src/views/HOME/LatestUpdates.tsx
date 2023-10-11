@@ -5,8 +5,8 @@ import adImg from "/public/images/ad.png"
 import Image from "next/image";
 
 
-const LatestUpdates = async (blogData: any) => {
-  const data = blogData.blogData;
+const LatestUpdates = async ({blogData}: {blogData:any}) => {
+  const data = blogData;
 
   return (
     <section className="flex w-full flex-col items-center justify-center">
