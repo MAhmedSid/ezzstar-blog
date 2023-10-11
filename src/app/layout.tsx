@@ -13,6 +13,7 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://ezzstar.com'),
   openGraph: {
     images: '/opengraph-image.png',
+    url:"https://ezzstar.com",
   },
   title: 'SOCIAL - EZZSTAR',
   description:
