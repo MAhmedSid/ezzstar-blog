@@ -1,6 +1,13 @@
 import { createMiddlewareClient } from "@supabase/auth-helpers-nextjs";
 import { NextRequest, NextResponse } from "next/server";
 
+export const config = {
+  // Use the default runtime instead of the edge runtime
+  // runtime: 'nodejs',
+  matcher: ['/account/:path*'],
+
+}
+
 // A custom middleware function that checks if the user is logged in
 // and redirects them from certain URLs to the home page
 export async function middleware(req: NextRequest) {

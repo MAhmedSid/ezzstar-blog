@@ -26,7 +26,6 @@ export default async function Home() {
       
     const data = await response.json();
     const res = data.data;
-// console.log("RESPONSE FROM PAGE",res.latestBlogs);
 
     return (
       <main className="flex w-full flex-col gap-y-20 pt-20 ">
