@@ -69,7 +69,7 @@ const Reply = ({
       const data = await res.json();
       if (res.ok === true) {
         toast.success("Reply Deleted");
-        await fetch(`/api/revalidateTag?tag=getComments${blogId}`);
+        await fetch(`/api/revalidateTag?tag=getComments`);
         router.refresh();
       }
       setStates({ ...states, isDeleting: false });

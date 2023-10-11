@@ -39,7 +39,7 @@ const AddCommentForm = ({
       if (res.ok) {
         toast.success("Comment added Successfully.");
         setStates({ ...states, commentText: "" });
-        const res = await fetch(`/api/revalidateTag?tag=getComments${blogId}`);
+        const res = await fetch(`/api/revalidateTag?tag=getComments`);
         const body = await res.json();
         console.log(body,"DATA REVALIDATION AFTER ADDING COMMENT");
         router.refresh();
