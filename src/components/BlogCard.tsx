@@ -17,7 +17,7 @@ const BlogCard = ({
 }: IProps) => {
   return (
     <Link prefetch href={{ pathname: `${process.env.NEXT_PUBLIC_HOST}/post/${slug}`, query: { cat: category }}} as={`${process.env.NEXT_PUBLIC_HOST}/post/${slug}?cat=${category}#${slug}`} 
-      className="flex h-[370px] w-[250px] flex-col rounded-xl bg-zinc-900  transition-all duration-200 hover:bg-zinc-800 lmb:w-[300px] lmb:h-[390px] tablet:h-[390px] tablet:w-[240px] lp:h-[390px] lp:w-[300px] "
+      className="flex h-[370px] w-[250px] flex-col rounded-xl bg-zinc-900  transition-all duration-200 hover:bg-zinc-800 lmb:w-[300px] lmb:h-[390px] tablet:h-[390px] tablet:w-full tablet:max-w-[340px] lp:h-[390px] lp:w-full "
     >
       <div className="w-full ">
         <div className="flex w-full items-center justify-center">

@@ -37,7 +37,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} w-full bg-[#0b0b0b] text-white`}>
+      <body className={`${inter.className} w-full bg-[#0b0b0b] text-[#e7decc]`}>
         <Toaster position="top-center" toastOptions={{duration:6000 ,style: {
       background: '#09090b',
       color: '#f2b41f',

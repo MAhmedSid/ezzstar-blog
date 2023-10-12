@@ -45,17 +45,17 @@ const Page = () => {
     };
   }, []);
 
-  const handleChange = (e: any) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const target = e.target.value as string;
     const value = target.replace(/\s/g, "");
     setStates({ ...states, password: value });
   };
 
-  const handleSubmitEmail = async (e: any) => {
+  const handleSubmitEmail = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       setStates({ ...states, isMutating: true });
-      const formData = new FormData(e.target);
+      const formData = new FormData(e.target as HTMLFormElement);
       const email = formData.get("email") as string;
       const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
         redirectTo: `${location.origin}/account/updatepassword#up`,
@@ -73,11 +73,11 @@ const Page = () => {
     }
   };
 
-  const handleSubmitPassword = async (e: any) => {
+  const handleSubmitPassword = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       setStates({ ...states, isMutating: true });
-      const formData = new FormData(e.target);
+      const formData = new FormData(e.target as HTMLFormElement);
       const password = formData.get("password") as string;
       const { data, error } = await supabase.auth.updateUser({
         password,

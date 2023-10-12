@@ -20,7 +20,7 @@ const AddCommentForm = ({
 
   const [states, setStates] = useState({ isMutating: false, commentText: "" });
 
-  const handleAddComment = async (e: any) => {
+  const handleAddComment = async (e:  React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       setStates({ ...states, isMutating: true });

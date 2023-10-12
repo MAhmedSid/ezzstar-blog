@@ -43,30 +43,31 @@ const UpdateForm = () => {
     })()
   }, []);
 
-  const handleChange = (e: any, type: string) => {
-    if (type === "username") {
-      setStates({ ...states, username: e.target.value });
-    } else {
-      setStates({ ...states, walletAddress: e.target.value });
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      setStates({ ...states, [e.target.name]: e.target.value });
+  };
+
+  const uploadImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+    try {
+      const selectedFile = e.target.files &&  e.target?.files[0] as File;
+      const fileTypes = ["image/jpeg", "image/gif"];
+      if (fileTypes.includes(selectedFile!.type)) {
+        const url = URL.createObjectURL(selectedFile!);
+        setStates({ ...states, image: url });
+      } else {
+        toast.error(`Only .gif and .jpg files are allowed`);
+      }
+    } catch (error) {
+      toast.error("Error when uploading Image, Try Again Please.")
+      
     }
   };
 
-  const uploadImage = (e: any) => {
-    const selectedFile = e.target.files[0];
-    const fileTypes = ["image/jpeg", "image/gif"];
-    if (fileTypes.includes(selectedFile.type)) {
-      const url = URL.createObjectURL(selectedFile);
-      setStates({ ...states, image: url });
-    } else {
-      toast.error(`Only .gif and .jpg files are allowed`);
-    }
-  };
-
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setStates({ ...states, isMutating: true });
     try {
-      const formData = new FormData(e.target);
+      const formData = new FormData(e.target as HTMLFormElement);
       const imageFile = formData.get("avatar") as File;
       const walletAddress = formData.get("walletAddress");
       const username = formData.get("username");
@@ -191,9 +192,7 @@ const UpdateForm = () => {
           name="username"
           type="text"
           value={states.username}
-          onChange={(e) => {
-            handleChange(e, "username");
-          }}
+          onChange={handleChange}
           className="min-h-[40px] w-full rounded-lg bg-zinc-300 px-2 py-1 text-black placeholder:text-gray-500 lmb:min-h-[50px]"
         />
 
@@ -203,9 +202,7 @@ const UpdateForm = () => {
           name="walletAddress"
           type="text"
           value={states.walletAddress}
-          onChange={(e) => {
-            handleChange(e, "walletAddress");
-          }}
+          onChange={handleChange}
           className="min-h-[40px] w-full rounded-lg bg-zinc-300 px-2 py-1 text-black placeholder:text-gray-500 lmb:min-h-[50px]"
         />
         <button

@@ -20,18 +20,18 @@ const SignInForm = () => {
     isMutating: false,
   });
 
-  const handleChange = (e: any) => {
+  const handleChange = (e:  React.ChangeEvent<HTMLInputElement>) => {
     const target = e.target.value as string;
     const value = target.replace(/\s/g, "");
     setStates({ ...states, password: value });
   };
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e:  React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
       setStates({ ...states, isMutating: true });
-      const formData = new FormData(e.target);
+      const formData = new FormData(e.target as HTMLFormElement);
 
       const email = formData.get("email") as string;
       const password = formData.get("password") as string;
