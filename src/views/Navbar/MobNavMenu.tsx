@@ -60,7 +60,7 @@ function MobNavMenu(){
 
       <DropdownMenuContent>
         <div className=" bg-gradient-to-b from-pri_yellow  to-pri_blue p-[2px]">
-          <div className="flex flex-col items-center justify-center rounded-md bg-[#0b0b0b] bg-opacity-90 text-[#e7decc] drop-shadow-lg  child-hover:text-pri_yellow ">
+          <div className="flex flex-col items-center justify-center rounded-md bg-[#0b0b0b] bg-opacity-90 text-[#fcf8ed] drop-shadow-lg  child-hover:text-pri_yellow ">
             <DropdownMenuItem>
               <Link
                 prefetch
@@ -116,7 +116,7 @@ function MobNavMenu(){
                   </DropdownMenuTrigger>
                   <DropdownMenuContent>
                     <div className="w-full bg-gradient-to-b from-pri_yellow  to-pri_blue p-[2px]">
-                      <div className="flex flex-col items-center justify-center gap-y-4 rounded-md bg-[#0b0b0b] py-2  text-[#e7decc]  ">
+                      <div className="flex flex-col items-center justify-center gap-y-4 rounded-md bg-[#0b0b0b] py-2  text-[#fcf8ed]  ">
                         <Link
                           prefetch
                           href={"/account/setting/#setting"}

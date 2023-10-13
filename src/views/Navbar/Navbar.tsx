@@ -41,7 +41,7 @@ function Navbar(){
   };
 
   return (
-    <header className="sticky top-0 z-50 flex w-full items-center justify-between gap-y-2 bg-[#0b0b0b] bg-opacity-70 px-6 py-4 font-medium text-[#e7decc] backdrop-blur-md tablet:justify-center tablet:gap-x-10  lp:px-24 lp:text-lg lcd:gap-x-24">
+    <header className="sticky top-0 z-50 flex w-full items-center justify-between gap-y-2 bg-[#0b0b0b] bg-opacity-70 px-6 py-4 font-medium text-[#fcf8ed] backdrop-blur-md tablet:justify-center tablet:gap-x-10  lp:px-24 lp:text-lg lcd:gap-x-24">
       <nav className=" hidden gap-x-4 child-hover:text-pri_yellow tablet:flex  lp:gap-x-12 lcd:gap-x-16 child:lcd:text-lg">
         <Link
           prefetch
@@ -84,7 +84,7 @@ function Navbar(){
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger>
-              <p className="cursor-not-allowed text-white">EVENTS</p>
+              <p className="cursor-not-allowed text-[#fcf8ed]">EVENTS</p>
             </TooltipTrigger>
             <TooltipContent>
               <p>Coming Soon</p>
@@ -107,7 +107,7 @@ function Navbar(){
             </PopoverTrigger>
             <PopoverContent>
               <div className=" rounded-md bg-gradient-to-b from-pri_yellow  to-pri_blue p-[2px]">
-                <div className="flex flex-col items-center justify-center gap-y-3 rounded-md bg-[#0b0b0b] py-2  text-[#e7decc]  ">
+                <div className="flex flex-col items-center justify-center gap-y-3 rounded-md bg-[#0b0b0b] py-2  text-[#fcf8ed]  ">
                   <Link
                     prefetch
                     href={"/account/setting/#setting"}
