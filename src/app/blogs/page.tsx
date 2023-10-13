@@ -17,7 +17,7 @@ export const metadata = {
   themeColor: "#09090b",
 };
 
-const page = async () => {
+async function page()    {
   const totalLength = await client.fetch(
     groq`count(*[_type == "blogs" && category == 'Blog'  && !(_id in path("drafts.**"))])`,
   );

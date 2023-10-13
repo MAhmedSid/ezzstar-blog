@@ -16,7 +16,7 @@ export const metadata = {
 }
 
 
-const page = async () => {
+async function page()    {
   const totalLength = await cdnClient.fetch(
     groq`count(*[_type == "blogs" && category == 'Games'  && !(_id in path("drafts.**"))])`,
   );

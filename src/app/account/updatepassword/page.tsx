@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Loading from "@/components/Loading";
 
-const Page = () => {
+function Page()  {
   const router = useRouter();
   const supabase = createClientComponentClient();
 

@@ -17,7 +17,7 @@ export const metadata = {
   themeColor: "#09090b",
 };
 
-const page = async () => {
+async function page()   {
   const totalLength = await cdnClient.fetch(
     groq`count(*[_type == "blogs" && category == 'Anime'  && !(_id in path("drafts.**"))])`,
   );

@@ -11,7 +11,7 @@ export const metadata = {
 }
 
 
-const page = () => {
+function page()   {
   return (
     <>
       <main id="signin" className="flex h-full w-full items-center justify-center rounded-2xl px-5 py-5 text-white lmb:py-10 tablet:px-3 lp:py-20  ">

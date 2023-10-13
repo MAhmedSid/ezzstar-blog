@@ -21,7 +21,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-const MobNavMenu = () => {
+function MobNavMenu(){
   const [open, setOpen] = useState(false);
   const toggleMenu = () => {
     if (open) {

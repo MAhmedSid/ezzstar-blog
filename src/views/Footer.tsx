@@ -22,7 +22,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-const Footer = () => {
+function  Footer(){
   return (
     <section className="flex w-full flex-col items-center justify-center px-2">
       <Wrapper>

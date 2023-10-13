@@ -43,13 +43,7 @@ export async function generateMetadata({
   };
 }
 
-const page = async ({
-  params,
-  searchParams,
-}: {
-  params: { slug: string };
-  searchParams: any;
-}) => {
+async function page({params,searchParams,}: {params: { slug: string };searchParams: any;}){
   const components: PortableTextComponents = {
     list: {
       bullet: ({ children }) => (

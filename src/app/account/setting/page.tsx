@@ -3,7 +3,7 @@ import React from "react";
 import futureImg from "/public/images/account.png";
 import UpdateForm from "@/views/FORMS/UpdateUserForm";
 
-const Page = () => {
+function Page()  {
 
 
   return (

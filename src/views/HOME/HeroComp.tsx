@@ -5,7 +5,7 @@ import chashmaImg from "/public/images/chashma.png";
 import ClaimComp from "@/components/ClaimComp";
 import Link from "next/link";
 
-const HeroComp = () => {
+function HeroComp(){
   return (
     <section className="relative w-full">
       <Image

@@ -4,7 +4,7 @@ import { PrimaryButton } from "@/components/utils/Buttons";
 import Link from "next/link";
 import React from "react";
 
-const AnimeUpdates = (blogData: any) => {
+function AnimeUpdates (blogData: any){
   const data = blogData.blogsData;
 
   return (

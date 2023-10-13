@@ -5,7 +5,7 @@ import React from "react";
 import adImg from "/public/images/ad.png"
 
 
-const Blogs = async (blogData: any) => {
+async function Blogs(blogData: any){
   const data = blogData.blogData;
 
   return (

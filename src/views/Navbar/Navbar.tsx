@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/tooltip";
 import { LogOut } from "lucide-react";
 
-const Navbar = () => {
+function Navbar(){
   const supabase = createClientComponentClient();
   const dispatch = useAppDispatch();
   const path = usePathname();

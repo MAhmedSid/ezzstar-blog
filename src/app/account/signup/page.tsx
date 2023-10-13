@@ -9,7 +9,7 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 
 
-const Page = () => {
+function Page()  {
   const router = useRouter();
   const supabase = createClientComponentClient();
 

@@ -5,7 +5,7 @@ import adImg from "/public/images/ad.png"
 import Image from "next/image";
 
 
-const LatestUpdates = async ({blogData}: {blogData:any}) => {
+function LatestUpdates({blogData}: {blogData:any}){
   const data = blogData;
 
   return (
