@@ -2,6 +2,9 @@ import { cdnClient, client } from '@/lib/sanityClient';
 import { groq } from 'next-sanity';
 import { getServerSideSitemap , ISitemapField} from  'next-sitemap';
 
+
+export const dynamic = 'force-dynamic'
+
 export async function GET(request: Request) {
 
     const URL = "https://ezzstar.com"
