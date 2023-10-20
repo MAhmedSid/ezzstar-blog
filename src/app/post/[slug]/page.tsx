@@ -6,7 +6,6 @@ import { PortableText, PortableTextComponents } from "@portabletext/react";
 import Image from "next/image";
 import React from "react";
 import BlogPageShareIcons from "@/components/BlogPageShareIcons";
-import adImg from "/public/images/ad.png";
 import { Metadata } from "next";
 import { Lora, Poppins } from "next/font/google";
 import TwitterPreview from "@/components/TwitterPreview";
@@ -31,6 +30,7 @@ export async function generateMetadata({
     },
   );
 
+
   if (!res.ok) {
     return {
       title: "Post - EZZSTAR",
@@ -38,11 +38,28 @@ export async function generateMetadata({
     };
   }
   const body = await res.json();
+  const ogImageUrl = body?.data?.og?.image?.url;
+  const ogImageDimensions = body?.data?.og?.image?.dimensions;
   return {
     title: body.data?.title ? body.data.title + " - EZZSTAR" : "Post - EZZSTAR",
     description: body.data?.meta_desc
       ? body.data?.meta_desc
       : `trending updates of Metaverse, Gaming , Web3.0 from future by EZZSTAR`,
+      openGraph:{
+        title: body.data?.title ? body.data.title + " - EZZSTAR" : "Post - EZZSTAR",
+        description: body.data?.meta_desc  ? body.data?.meta_desc
+        : `trending updates of Metaverse, Gaming , Web3.0 from future by EZZSTAR`,
+        type:"website",
+        locale:"en_US",
+        images:[
+          {
+            url: ogImageUrl ? ogImageUrl : "https://www.ezzstar.com/opengraph-image.png",
+            width: ogImageDimensions.width ?  ogImageDimensions.width : 600,
+            height: ogImageDimensions.height ?  ogImageDimensions.height : 1200,
+            alt:"Post - EzzStar"
+          }
+        ]
+      }
   };
 }
 

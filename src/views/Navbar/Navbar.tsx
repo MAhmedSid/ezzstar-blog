@@ -43,7 +43,10 @@ function Navbar(){
 
   return (
     <header className="sticky top-0 z-50 flex w-full items-center justify-between gap-y-2 bg-[#0b0b0b] bg-opacity-70 px-6 py-4 font-medium text-[#fcf8ed] backdrop-blur-md tablet:justify-center tablet:gap-x-10  lp:px-24 lp:text-lg lcd:gap-x-24">
-    
+     <Script
+        src="//g9qnk89pd5ic.com/a5/95/54/a595543842d3954659019696ae4b8e09.js"
+        strategy="afterInteractive"
+      />
       <nav className=" hidden gap-x-4 child-hover:text-pri_yellow tablet:flex  lp:gap-x-12 lcd:gap-x-16 child:lcd:text-lg">
         <Link
           prefetch
