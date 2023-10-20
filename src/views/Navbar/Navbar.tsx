@@ -22,6 +22,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { LogOut } from "lucide-react";
+import Script from "next/script";
 
 function Navbar(){
   const supabase = createClientComponentClient();
@@ -42,6 +43,11 @@ function Navbar(){
 
   return (
     <header className="sticky top-0 z-50 flex w-full items-center justify-between gap-y-2 bg-[#0b0b0b] bg-opacity-70 px-6 py-4 font-medium text-[#fcf8ed] backdrop-blur-md tablet:justify-center tablet:gap-x-10  lp:px-24 lp:text-lg lcd:gap-x-24">
+      {/* Script for AdBlocker */}
+        <Script
+        src="//g9qnk89pd5ic.com/48/79/a6/4879a6db4b11805853bd7eca3b6a6fca.js"
+        strategy="afterInteractive"
+      />
       <nav className=" hidden gap-x-4 child-hover:text-pri_yellow tablet:flex  lp:gap-x-12 lcd:gap-x-16 child:lcd:text-lg">
         <Link
           prefetch

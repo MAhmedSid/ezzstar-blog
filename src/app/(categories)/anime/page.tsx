@@ -1,14 +1,12 @@
 import BlogList from "@/components/BlogList";
-import FetchSessionComp from "@/components/GetSessionComp";
 import Wrapper from "@/components/Wrapper";
 import { cdnClient, client } from "@/lib/sanityClient";
 import { groq } from "next-sanity";
-import Image from "next/image";
 import React from "react";
-import adlandscape from "/public/images/adlandscape.png"
 
-import adImg from "/public/images/ad.png"
-
+import Ad300x250 from "@/components/ADS/Ad300x250";
+import Ad160x600 from "@/components/ADS/Ad160x600";
+import Ad320x50 from "@/components/ADS/Ad320x50";
 
 export const metadata = {
   title: "ANIME - EZZSTAR",
@@ -17,7 +15,7 @@ export const metadata = {
   themeColor: "#09090b",
 };
 
-async function page()   {
+async function page() {
   const totalLength = await cdnClient.fetch(
     groq`count(*[_type == "blogs" && category == 'Anime'  && !(_id in path("drafts.**"))])`,
   );
@@ -27,17 +25,29 @@ async function page()   {
       <main className="flex w-full flex-col items-center justify-center gap-y-10 pt-20">
         <Wrapper>
           <div className="flex flex-col gap-y-4">
+            {/* This AD will show in mobiles */}
+
+            <div className="flex w-full justify-center object-cover tablet:hidden">
+              <Ad320x50 />
+            </div>
             <div className="flex h-full w-full flex-col justify-center gap-y-2 px-2 tablet:flex-row tablet:gap-x-5">
               <BlogList cat="Anime" totalLength={totalLength} />
 
-              <div className="hidden tablet:flex  sticky top-10 h-[100px] w-full bg-slate-500 tablet:h-[600px] tablet:w-[200px]"><Image src={adImg} alt="ad"  className="h-full w-full"/></div>
+              {/* This AD will show in big screens */}
+              <div className="sticky top-20  hidden h-[100px] w-full tablet:flex tablet:h-[600px] tablet:w-[200px]">
+                <Ad160x600 />
+              </div>
             </div>
-            <Image src={adlandscape} alt="ad"  className="h-[100px] w-full object-cover tablet:hidden"/>
+
+            {/* This AD will show in mobiles */}
+            <div className="flex w-full justify-center object-cover tablet:hidden">
+              <Ad300x250 />
+            </div>
           </div>
         </Wrapper>
       </main>
     </>
   );
-};
+}
 
 export default page;

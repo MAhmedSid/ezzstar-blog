@@ -24,6 +24,8 @@ import {
 
 function  Footer(){
   return (
+    <>
+              <div className="my-10 h-[30px] w-[60%] bg-gradient-to-r from-pri_yellow from-80% to-[#0b0b0b] mt-32" />
     <section className="flex w-full flex-col items-center justify-center px-2">
       <Wrapper>
         <div className="flex w-full flex-col items-center text-white tablet:flex-row tablet:justify-between">
@@ -77,7 +79,7 @@ function  Footer(){
                   <DialogContent className="h-[80vh] bg-gradient-to-b from-pri_yellow  to-pri_blue p-[2px] ">
                     <DialogHeader className="h-[79vh] flex flex-col gap-y-4 bg-zinc-900 rounded-md p-4">
                       <DialogTitle>ABOUT US</DialogTitle>
-                      <DialogDescription  id="about" className="h-full overflow-y-scroll p-2 flex flex-col gap-y-5 text-zinc-500  ">
+                      <DialogDescription  id="about" className="h-full overflow-y-scroll p-2 flex flex-col gap-y-5 text-zinc-300  ">
                         <p>
                           Ezzstar is a visionary company that is shaping the
                           future of entertainment through the creation of a
@@ -134,6 +136,7 @@ function  Footer(){
         </p>
       </Wrapper>
     </section>
+                </>
   );
 };
 

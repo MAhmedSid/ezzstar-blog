@@ -39,52 +39,47 @@ const BlogList = ({
   return (
     <section className="flex w-full flex-col gap-y-2">
       <div className="flex flex-col items-center gap-y-3  tablet:items-start ">
-        {isLoading ?
-                <div className="flex  min-w-[300px] justify-center lp:min-w-[600px] lcd:min-w-[1000px]">
-                    <Loading size="h-14 w-14" color="border-pri_yellow" />
-                </div>
-        : 
-
-        (data && data?.pages[0][0]?.slug.current ? (
+        {isLoading ? (
+          <div className="flex  min-w-[300px] justify-center lp:min-w-[600px] lcd:min-w-[1000px]">
+            <Loading size="h-14 w-14" color="border-pri_yellow" />
+          </div>
+        ) : data && data?.pages[0][0]?.slug.current ? (
           <>
-          {data?.pages.map((blogArray: any, i: number) => (
-            
-            <div
-              className="flex w-full flex-col items-center gap-y-4"
-              key={blogArray[0] ? blogArray[0].slug.current : ""}
+            {data?.pages.map((blogArray: any, i: number) => (
+              <div
+                className="flex w-full flex-col items-center gap-y-4"
+                key={blogArray[0] ? blogArray[0].slug.current : ""}
+              >
+                {blogArray &&
+                  blogArray.map((blog: any, i: number) => {
+                    return (
+                      <BlogCover
+                        key={blog && blog?.slug.current}
+                        title={blog && blog?.title}
+                        slug={blog && blog?.slug.current}
+                        desc={blog && blog?.meta_desc}
+                        likesCount={blog && blog?.likesCount}
+                        date={blog && blog?.published_at}
+                        category={blog?.category}
+                        showCat={false}
+                        imgSrc={blog && blog?.displayImg?.asset}
+                        imgAlt={blog && blog.displayImg?.alt}
+                      />
+                    );
+                  })}
+              </div>
+            ))}
+            <button
+              disabled={!hasNextPage}
+              onClick={() => fetchNextPage()}
+              className={`m-auto cursor-pointer  rounded-full  px-8 py-1 text-lg font-semibold transition-all duration-150 ${
+                hasNextPage
+                  ? "bg-pri_purple hover:bg-indigo-900 "
+                  : "bg-slate-700 hover:bg-slate-800"
+              }`}
             >
-              {blogArray &&
-                blogArray.map((blog: any, i: number) => {
-                  return (
-                    <BlogCover
-                      key={blog && blog?.slug.current}
-                      title={blog && blog?.title}
-                      slug={blog && blog?.slug.current}
-                      desc={blog && blog?.meta_desc}
-                      likesCount={blog && blog?.likesCount}
-                      date={blog && blog?.published_at}
-                      category={blog?.category}
-                      showCat={false}
-                      imgSrc={blog && blog?.displayImg?.asset}
-                      imgAlt={blog && blog.displayImg?.alt}
-                    />
-                  );
-                })}
-            </div>
-             
-            
-          ))}
-          <button
-          disabled={!hasNextPage}
-          onClick={() => fetchNextPage()}
-          className={`cursor-pointer rounded-full  m-auto  px-8 py-1 text-lg font-semibold transition-all duration-150 ${
-            hasNextPage
-            ? "bg-pri_purple hover:bg-indigo-900 "
-            : "bg-slate-700 hover:bg-slate-800"
-          }`}
-          >
-          {hasNextPage ? "Show more" : "All Caught Up"}
-        </button>
+              {hasNextPage ? "Show more" : "All Caught Up"}
+            </button>
           </>
         ) : (
           <div className="flex w-full  min-w-[300px] justify-center lp:min-w-[600px] lcd:min-w-[1000px]">
@@ -92,20 +87,8 @@ const BlogList = ({
               NO POSTS YET!
             </h2>
           </div>
-        ))
-        }
-       
+        )}
       </div>
-
-      {/* {data?.pages[0][0]?.slug.current && (
-        <div className="flex  min-w-[300px] justify-center lp:min-w-[600px] lcd:min-w-[1000px]">
-          {isLoading ? (
-                <Loading size="h-14 w-14" color="border-pri_yellow" />
-          ) : (
-          
-          )}
-        </div>
-      )} */}
     </section>
   );
 };

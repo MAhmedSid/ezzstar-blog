@@ -10,6 +10,9 @@ import adImg from "/public/images/ad.png";
 import { Metadata } from "next";
 import { Lora, Poppins } from "next/font/google";
 import TwitterPreview from "@/components/TwitterPreview";
+import Ad728x90 from "@/components/ADS/Ad728x90";
+import Ad160x600 from "@/components/ADS/Ad160x600";
+import Ad300x250 from "@/components/ADS/Ad300x250";
 
 const poppins = Poppins({ weight: ["300", "400"], subsets: ["latin"] });
 const lora = Lora({ weight: ["700"], subsets: ["latin"] });
@@ -43,7 +46,13 @@ export async function generateMetadata({
   };
 }
 
-async function page({params,searchParams,}: {params: { slug: string };searchParams: any;}){
+async function page({
+  params,
+  searchParams,
+}: {
+  params: { slug: string };
+  searchParams: any;
+}) {
   const components: PortableTextComponents = {
     list: {
       bullet: ({ children }) => (
@@ -170,6 +179,9 @@ async function page({params,searchParams,}: {params: { slug: string };searchPara
           id={decodedSlug && decodedSlug}
           className="flex w-full flex-col items-center justify-center gap-y-10 pt-14"
         >
+          <div className="tablet:hidden">
+            <Ad300x250 />
+          </div>
           <div className="flex w-full max-w-[1300px] flex-col gap-y-4  ">
             <div className="flex h-full w-full flex-col justify-center gap-y-2 px-5  tablet:flex-row tablet:gap-x-10">
               <section className="w-full">
@@ -299,7 +311,13 @@ async function page({params,searchParams,}: {params: { slug: string };searchPara
                     </div>
                   </section>
 
-                  <div className="mt-28 w-full">
+                  <div className="mt-28 flex w-full flex-col items-center gap-y-20">
+                    <div className="lp:hidden">
+                      <Ad300x250 />
+                    </div>
+                    <div className="hidden lp:flex">
+                      <Ad728x90 showMob={false} />
+                    </div>
                     <CommentSec
                       blogSlug={decodedSlug}
                       blogId={blogData && blogData._id}
@@ -308,8 +326,8 @@ async function page({params,searchParams,}: {params: { slug: string };searchPara
                 </div>
               </section>
 
-              <div className="sticky top-20 hidden h-[100px] w-full bg-slate-500 tablet:flex tablet:h-[600px] tablet:w-[200px]">
-                <Image src={adImg} alt="ad" className="h-full w-full" />
+              <div className="sticky top-20 hidden h-[100px] w-full bg-slate-700 tablet:flex tablet:h-[600px] tablet:w-[160px]">
+                <Ad160x600 />
               </div>
             </div>
           </div>
@@ -319,6 +337,6 @@ async function page({params,searchParams,}: {params: { slug: string };searchPara
   } catch (error) {
     console.log("ERROR FROM BLOG POST : ", error);
   }
-};
+}
 
 export default page;
