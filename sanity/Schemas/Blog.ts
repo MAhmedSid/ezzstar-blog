@@ -25,7 +25,7 @@ export const blogs = defineType({
           source: "title",
           maxLength: 200,
           slugify: (input) =>
-            input.toLowerCase().replace(/[\s"'?]/g, "-").slice(0, 200),
+            input.toLowerCase().replace(/[\s"'?!@#$%^&*()_+=;:]/g, "-").slice(0, 200),
         },
         validation: Rule => Rule.required().error('Slug is required')
       }),
