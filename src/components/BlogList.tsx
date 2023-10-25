@@ -75,7 +75,7 @@ const BlogList = ({
               className={`m-auto cursor-pointer  rounded-full  px-8 py-1 text-lg font-semibold transition-all duration-150 ${
                 hasNextPage
                   ? "bg-pri_purple hover:bg-indigo-900 "
-                  : "bg-slate-700 hover:bg-slate-800"
+                  : "bg-slate-700 text-gray-400 "
               }`}
             >
               {hasNextPage ? "Show more" : "All Caught Up"}

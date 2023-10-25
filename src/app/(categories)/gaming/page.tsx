@@ -1,11 +1,8 @@
 import BlogList from "@/components/BlogList";
 import Wrapper from "@/components/Wrapper";
-import { cdnClient, client } from "@/lib/sanityClient";
-import { groq } from "next-sanity";
+
 import React from "react";
-import adImg from "/public/images/ad.png";
-import adlandscape from "/public/images/adlandscape.png";
-import Image from "next/image";
+
 import Ad160x600 from "@/components/ADS/Ad160x600";
 import Ad300x250 from "@/components/ADS/Ad300x250";
 import Ad320x50 from "@/components/ADS/Ad320x50";
@@ -17,9 +14,9 @@ export const metadata = {
 };
 
 async function page() {
-  const totalLength = await cdnClient.fetch(
-    groq`count(*[_type == "blogs" && category == 'Games'  && !(_id in path("drafts.**"))])`,
-  );
+  const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/catlength/Games`,{cache:"reload"})
+  const body = await res.json();
+  const totalLength = body.length;
   return (
     <main className="flex w-full flex-col items-center justify-center gap-y-10 pt-20">
       <Wrapper>

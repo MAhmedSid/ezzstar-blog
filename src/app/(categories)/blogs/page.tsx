@@ -19,9 +19,9 @@ export const metadata = {
 };
 
 async function page() {
-  const totalLength = await client.fetch(
-    groq`count(*[_type == "blogs" && category == 'Blog'  && !(_id in path("drafts.**"))])`,
-  );
+  const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/catlength/Blog`,{cache:"reload"})
+  const body = await res.json();
+  const totalLength = body.length;
 
   return (
     <main className="flex w-full flex-col items-center justify-center gap-y-10 pt-20">
