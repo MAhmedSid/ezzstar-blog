@@ -14,7 +14,9 @@ export const metadata = {
 };
 
 async function page() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/catlength/Games`,{cache:"reload"})
+  const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/catlength/Games`,{cache:"reload",headers: {
+    'Content-Type': 'application/json',
+  },method:"GET"})
   const body = await res.json();
   const totalLength = body.length;
   return (
