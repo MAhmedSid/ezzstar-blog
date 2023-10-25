@@ -17,15 +17,9 @@ export const metadata = {
 
 async function page() {
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/catlength/Anime`,{
-    cache:"reload",
-    headers: {
-    'Content-Type': 'application/json',
-    },
-  method:"GET"
-})
-  const body = await res.json();
-  const totalLength = body.length;
+  const totalLength = await client.fetch(
+    groq`count(*[_type == "blogs" && category == 'Animes'   && !(_id in path("drafts.**"))])`,
+  );
 
   return (
     <>

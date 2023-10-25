@@ -6,6 +6,8 @@ import React from "react";
 import Ad160x600 from "@/components/ADS/Ad160x600";
 import Ad300x250 from "@/components/ADS/Ad300x250";
 import Ad320x50 from "@/components/ADS/Ad320x50";
+import { client } from "@/lib/sanityClient";
+import { groq } from "next-sanity";
 
 export const metadata = {
   title: "GAMING - EZZSTAR",
@@ -14,11 +16,9 @@ export const metadata = {
 };
 
 async function page() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/catlength/Games`,{cache:"reload",headers: {
-    'Content-Type': 'application/json',
-  },method:"GET"})
-  const body = await res.json();
-  const totalLength = body.length;
+  const totalLength = await client.fetch(
+    groq`count(*[_type == "blogs" && category == 'Games'   && !(_id in path("drafts.**"))])`,
+  );
   return (
     <main className="flex w-full flex-col items-center justify-center gap-y-10 pt-20">
       <Wrapper>
