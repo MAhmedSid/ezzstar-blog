@@ -1,7 +1,7 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
     siteUrl:  'https://www.ezzstar.com',
-    changefreq:"daily",
+    changefreq:"weekly",
     generateRobotsTxt: true, 
     exclude: ['/account/*','/api/*','/server-sitemap.xml','/post/*','/studio'],
    robotsTxtOptions:{
