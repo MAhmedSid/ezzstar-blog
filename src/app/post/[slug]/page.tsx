@@ -147,7 +147,7 @@ async function page({
 
       normal: ({ children }) => (
         <p
-          className={`${poppins.className} my-2 leading-loose lcd:text-lg lcd:leading-9`}
+          className={`${poppins.className}  my-2 leading-loose  lcd:leading-9`}
         >
           {children}
         </p>
@@ -206,7 +206,7 @@ async function page({
                   <div className="mt-20 flex flex-col">
                     <div className="flex w-full flex-col gap-y-7 ">
                       <h1
-                        className={`${lora.className} text-3xl font-extrabold !leading-[3rem] tracking-wider lmb:text-4xl lmb:!leading-[4rem] lcd:text-5xl  `}
+                        className={`text-3xl font-extrabold !leading-[3rem] tracking-wider lmb:text-4xl lmb:!leading-[4rem] lcd:text-5xl  `}
                       >
                         {blogData && blogData.title}
                       </h1>

@@ -15,7 +15,7 @@ export async function GET(request: Request) {
         loc: `${URL}/post/${blog.slug}`,
         lastmod: blog._updatedAt,
         changefreq: 'weekly',
-        priority: 1,
+        priority: 0.5,
       }))
 
   return getServerSideSitemap(posts)
